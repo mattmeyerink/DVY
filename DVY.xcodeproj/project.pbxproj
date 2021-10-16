@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0615E544271B816B005CC1E9 /* LandingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0615E543271B816B005CC1E9 /* LandingPage.swift */; };
 		068E2111271A61610069C0A1 /* DVYApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068E2110271A61610069C0A1 /* DVYApp.swift */; };
 		068E2113271A61610069C0A1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068E2112271A61610069C0A1 /* ContentView.swift */; };
 		068E2115271A61620069C0A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 068E2114271A61620069C0A1 /* Assets.xcassets */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0615E543271B816B005CC1E9 /* LandingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingPage.swift; sourceTree = "<group>"; };
 		068E210D271A61610069C0A1 /* DVY.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DVY.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		068E2110271A61610069C0A1 /* DVYApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVYApp.swift; sourceTree = "<group>"; };
 		068E2112271A61610069C0A1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				06FD3383271B3809006FC9E0 /* Types.swift */,
 				06FD3385271B46E6006FC9E0 /* ScanConfirmationPage.swift */,
 				06FD3387271B48AA006FC9E0 /* AddFriendsPage.swift */,
+				0615E543271B816B005CC1E9 /* LandingPage.swift */,
 			);
 			path = DVY;
 			sourceTree = "<group>";
@@ -270,6 +273,7 @@
 			files = (
 				06FD3386271B46E6006FC9E0 /* ScanConfirmationPage.swift in Sources */,
 				06FD3388271B48AA006FC9E0 /* AddFriendsPage.swift in Sources */,
+				0615E544271B816B005CC1E9 /* LandingPage.swift in Sources */,
 				068E2113271A61610069C0A1 /* ContentView.swift in Sources */,
 				06FD3384271B3809006FC9E0 /* Types.swift in Sources */,
 				068E2111271A61610069C0A1 /* DVYApp.swift in Sources */,
