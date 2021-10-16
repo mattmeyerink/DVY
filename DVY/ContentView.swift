@@ -35,7 +35,7 @@ struct ContentView: View {
             
             if (self.isScanning) {
                 NavigationView {
-                    ScanConfirmationPage()
+                    ScanConfirmationPage(isScanning: $isScanning)
                 }
             }
         }
