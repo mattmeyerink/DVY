@@ -28,13 +28,37 @@ class Person: Identifiable {
     let firstName: String
     let lastName: String
     let initials: String
+    let color: DVYColor
     
-    init(firstName: String, lastName: String) {
+    
+    init(firstName: String, lastName: String, color: Int) {
         self.firstName = firstName
         self.lastName = lastName
         
         let firstInitial = String(firstName[firstName.startIndex])
         let lastInitial = String(lastName[lastName.startIndex])
         self.initials = firstInitial + lastInitial
+        
+        self.color = DVYColors[color]
     }
 }
+
+class DVYColor {
+    let red: Double
+    let green: Double
+    let blue: Double
+    
+    init(red: Double, green: Double, blue: Double) {
+        self.red = red
+        self.green = green
+        self.blue = blue
+    }
+}
+
+var DVYColors: [DVYColor] = [
+    DVYColor(red: 0.95, green: 0.2, blue: 0.2),
+    DVYColor(red: 0.95, green: 0.5, blue: 0.2),
+    DVYColor(red: 0.95, green: 0.9, blue: 0.2),
+    DVYColor(red: 0.2, green: 0.95, blue: 0.85),
+    DVYColor(red: 0.2, green: 0.6, blue: 0.95)
+]
