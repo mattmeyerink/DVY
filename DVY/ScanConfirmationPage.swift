@@ -32,7 +32,7 @@ struct ScanConfirmationPage: View {
                                 .font(.system(size: 20, weight: .semibold))
                                 .padding(.leading, 5)
                             Spacer()
-                            Text(reciptItem.priceFormatted!)
+                            Text(reciptItem.priceFormatted)
                                 .font(.system(size: 20, weight: .semibold))
                                 .padding(.trailing, 5)
                         }
@@ -57,7 +57,9 @@ struct ScanConfirmationPage: View {
                 .padding(.horizontal)
         }
         .navigationBarItems(
-            trailing: Text("Next").foregroundColor(Color.white)
+            trailing: NavigationLink(destination: AddFriendsPage()) {
+                Text("Next").foregroundColor(Color.white)
+            }
         )
     }
 }
