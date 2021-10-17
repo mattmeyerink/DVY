@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ScanConfirmationPage: View {
-    @Binding var isScanning: Bool
+    @Binding var isConfirmingScan: Bool
     var reciptItems: [ReciptItem] = [
         ReciptItem(name: "Pizza", price: 5.0),
         ReciptItem(name: "Burger", price: 2.0),
@@ -58,7 +58,7 @@ struct ScanConfirmationPage: View {
                 .padding(.horizontal)
         }
         .navigationBarItems(
-            leading: Button(action: {self.isScanning = false}) {
+            leading: Button(action: {self.isConfirmingScan = false}) {
                 Text("< Re-Scan").foregroundColor(Color.white)
             },
             trailing: NavigationLink(destination: AddFriendsPage()) {

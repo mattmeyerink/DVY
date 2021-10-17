@@ -8,24 +8,29 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var isConfirmingScan: Bool = false
     @State var isScanning: Bool = false
+    @State var recognizedText: String = ""
+    
     var body: some View {
         ZStack {
             Color(red: 0.1, green: 0.1, blue: 0.1)
                 .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
             
-            if(!self.isScanning){
-                LandingPage(isScanning: $isScanning)
+            if(!self.isConfirmingScan){
+                LandingPage(isScanning: $isScanning, isConfirmingScan: $isConfirmingScan)
             }
             
-            if (self.isScanning) {
+            if (self.isConfirmingScan) {
                 NavigationView {
-                    ScanConfirmationPage(isScanning: $isScanning)
+                    ScanConfirmationPage(isConfirmingScan: $isConfirmingScan)
                 }
             }
         }
+        .sheet(isPresented: $isScanning) {
+            ScanDocumentView(recognizedText: self.$recognizedText)
+        }
     }
-        
 }
 
 struct ContentView_Previews: PreviewProvider {
