@@ -23,7 +23,7 @@ struct ContentView: View {
             
             if (self.isConfirmingScan) {
                 NavigationView {
-                    ScanConfirmationPage(isConfirmingScan: $isConfirmingScan)
+                    ScanConfirmationPage(isConfirmingScan: $isConfirmingScan, recognizedText: $recognizedText)
                 }
             }
         }

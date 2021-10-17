@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ScanConfirmationPage: View {
     @Binding var isConfirmingScan: Bool
+    @Binding var recognizedText: String
+    
     var reciptItems: [ReciptItem] = [
         ReciptItem(name: "Pizza", price: 5.0),
         ReciptItem(name: "Burger", price: 2.0),
@@ -24,6 +26,9 @@ struct ScanConfirmationPage: View {
                 Text("Does this look right?")
                     .font(.system(size: 30, weight: .semibold))
                     .padding(.vertical, 15)
+                    .foregroundColor(Color.white)
+                
+                Text(self.recognizedText)
                     .foregroundColor(Color.white)
                 
                 ScrollView {
