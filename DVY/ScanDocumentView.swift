@@ -10,11 +10,11 @@ import VisionKit
 import Vision
 
 struct ScanDocumentView: UIViewControllerRepresentable {
-    @Binding var recognizedText: String
+    @Binding var items: [ReciptItem]
     @Environment(\.presentationMode) var presentationMode
     
     func makeCoordinator() -> Coordinator {
-        return Coordinator(recognizedText: $recognizedText, parent: self)
+        return Coordinator(items: $items, parent: self)
     }
     
     func makeUIViewController(context: Context) -> VNDocumentCameraViewController {
@@ -27,18 +27,18 @@ struct ScanDocumentView: UIViewControllerRepresentable {
 }
 
 class Coordinator: NSObject, VNDocumentCameraViewControllerDelegate {
-    var recognizedText: Binding<String>
+    var items: Binding<[ReciptItem]>
     var parent: ScanDocumentView
     
-    init(recognizedText: Binding<String>, parent: ScanDocumentView) {
-        self.recognizedText = recognizedText
+    init(items: Binding<[ReciptItem]>, parent: ScanDocumentView) {
+        self.items = items
         self.parent = parent
     }
     
     func documentCameraViewController(_ controller: VNDocumentCameraViewController, didFinishWith scan: VNDocumentCameraScan) {
         let extractedImages = extractImages(from: scan)
         let processedText = recognizeText(from: extractedImages)
-        recognizedText.wrappedValue = processedText
+        items.wrappedValue = processedText
         parent.presentationMode.wrappedValue.dismiss()
     }
     
@@ -52,8 +52,8 @@ class Coordinator: NSObject, VNDocumentCameraViewControllerDelegate {
         return extractedImages
     }
     
-    func recognizeText(from images: [CGImage]) -> String {
-        var entireRecognizedText = ""
+    func recognizeText(from images: [CGImage]) -> [ReciptItem] {
+        var recognizedItems: [ReciptItem] = []
         let recognizeTextRequest = VNRecognizeTextRequest { (request, error) in
             guard error == nil else { return }
             
@@ -63,7 +63,7 @@ class Coordinator: NSObject, VNDocumentCameraViewControllerDelegate {
             for observation in observations {
                 let candidate = observation.topCandidates(maximumRecognitionCandidates).first
                 if (candidate != nil) {
-                    entireRecognizedText += candidate!.string
+                    recognizedItems.append(ReciptItem(name: candidate!.string, price: 2.5))
                 }
             }
         }
@@ -75,6 +75,6 @@ class Coordinator: NSObject, VNDocumentCameraViewControllerDelegate {
             try? requestHandler.perform([recognizeTextRequest])
         }
         
-        return entireRecognizedText
+        return recognizedItems
     }
 }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ScanConfirmationPage: View {
     @Binding var isConfirmingScan: Bool
-    @Binding var recognizedText: String
+    @Binding var items: [ReciptItem]
     
     var reciptItems: [ReciptItem] = [
         ReciptItem(name: "Pizza", price: 5.0),
@@ -28,8 +28,10 @@ struct ScanConfirmationPage: View {
                     .padding(.vertical, 15)
                     .foregroundColor(Color.white)
                 
-                Text(self.recognizedText)
-                    .foregroundColor(Color.white)
+                ForEach(items) { item in
+                    Text(item.name)
+                        .foregroundColor(Color.white)
+                }
                 
                 ScrollView {
                     ForEach(reciptItems) { reciptItem in

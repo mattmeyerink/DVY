@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @State var isConfirmingScan: Bool = false
     @State var isScanning: Bool = false
-    @State var recognizedText: String = ""
+    @State var items: [ReciptItem] = []
     
     var body: some View {
         ZStack {
@@ -23,12 +23,12 @@ struct ContentView: View {
             
             if (self.isConfirmingScan) {
                 NavigationView {
-                    ScanConfirmationPage(isConfirmingScan: $isConfirmingScan, recognizedText: $recognizedText)
+                    ScanConfirmationPage(isConfirmingScan: $isConfirmingScan, items: $items)
                 }
             }
         }
         .sheet(isPresented: $isScanning) {
-            ScanDocumentView(recognizedText: self.$recognizedText)
+            ScanDocumentView(items: $items)
         }
     }
 }
