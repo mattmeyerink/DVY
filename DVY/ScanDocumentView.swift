@@ -60,10 +60,19 @@ class Coordinator: NSObject, VNDocumentCameraViewControllerDelegate {
             guard let observations = request.results as? [VNRecognizedTextObservation] else { return }
             
             let maximumRecognitionCandidates = 1
+            var currentItemName: String? = nil
+            var currentItemPrice: Double? = nil
             for observation in observations {
                 let candidate = observation.topCandidates(maximumRecognitionCandidates).first
-                if (candidate != nil) {
-                    recognizedItems.append(ReciptItem(name: candidate!.string, price: 2.5))
+                if (candidate != nil && currentItemName != nil) {
+                    currentItemPrice = Double(candidate!.string)
+                    if (currentItemPrice != nil) {
+                        recognizedItems.append(ReciptItem(name: currentItemName!, price: currentItemPrice!))
+                    }
+                    currentItemName = nil
+                    currentItemPrice = nil
+                } else if (candidate != nil) {
+                    currentItemName = candidate!.string
                 }
             }
         }

@@ -28,19 +28,14 @@ struct ScanConfirmationPage: View {
                     .padding(.vertical, 15)
                     .foregroundColor(Color.white)
                 
-                ForEach(items) { item in
-                    Text(item.name)
-                        .foregroundColor(Color.white)
-                }
-                
                 ScrollView {
-                    ForEach(reciptItems) { reciptItem in
+                    ForEach(items) { item in
                         HStack {
-                            Text(reciptItem.name)
+                            Text(item.name)
                                 .font(.system(size: 20, weight: .semibold))
                                 .padding(.leading, 5)
                             Spacer()
-                            Text(reciptItem.priceFormatted)
+                            Text(item.priceFormatted)
                                 .font(.system(size: 20, weight: .semibold))
                                 .padding(.trailing, 5)
                         }
