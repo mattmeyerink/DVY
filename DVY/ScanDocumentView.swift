@@ -11,10 +11,12 @@ import Vision
 
 struct ScanDocumentView: UIViewControllerRepresentable {
     @Binding var items: [ReciptItem]
+    @Binding var tax: CurrencyObject
+    @Binding var total: CurrencyObject
     @Environment(\.presentationMode) var presentationMode
     
     func makeCoordinator() -> Coordinator {
-        return Coordinator(items: $items, parent: self)
+        return Coordinator(items: $items, total: $total, tax: $tax, parent: self)
     }
     
     func makeUIViewController(context: Context) -> VNDocumentCameraViewController {
@@ -28,10 +30,14 @@ struct ScanDocumentView: UIViewControllerRepresentable {
 
 class Coordinator: NSObject, VNDocumentCameraViewControllerDelegate {
     var items: Binding<[ReciptItem]>
+    var total: Binding<CurrencyObject>
+    var tax: Binding<CurrencyObject>
     var parent: ScanDocumentView
     
-    init(items: Binding<[ReciptItem]>, parent: ScanDocumentView) {
+    init(items: Binding<[ReciptItem]>, total: Binding<CurrencyObject>, tax: Binding<CurrencyObject>, parent: ScanDocumentView) {
         self.items = items
+        self.total = total
+        self.tax = tax
         self.parent = parent
     }
     
@@ -64,15 +70,23 @@ class Coordinator: NSObject, VNDocumentCameraViewControllerDelegate {
             var currentItemPrice: Double? = nil
             for observation in observations {
                 let candidate = observation.topCandidates(maximumRecognitionCandidates).first
-                if (candidate != nil && currentItemName != nil) {
-                    currentItemPrice = Double(candidate!.string)
-                    if (currentItemPrice != nil) {
-                        recognizedItems.append(ReciptItem(name: currentItemName!, price: currentItemPrice!))
+                if (candidate != nil) {
+                    if (currentItemName != nil) {
+                        currentItemPrice = Double(candidate!.string)
+                        if (currentItemPrice != nil) {
+                            if (currentItemName!.localizedCaseInsensitiveContains("total")) {
+                                self.total.wrappedValue = CurrencyObject(price: currentItemPrice!)
+                            } else if (currentItemName!.localizedCaseInsensitiveContains("tax")) {
+                                self.tax.wrappedValue = CurrencyObject(price: currentItemPrice!)
+                            } else {
+                                recognizedItems.append(ReciptItem(name: currentItemName!, price: currentItemPrice!))
+                            }
+                        }
+                        currentItemName = nil
+                        currentItemPrice = nil
+                    } else {
+                        currentItemName = candidate!.string
                     }
-                    currentItemName = nil
-                    currentItemPrice = nil
-                } else if (candidate != nil) {
-                    currentItemName = candidate!.string
                 }
             }
         }

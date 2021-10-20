@@ -11,6 +11,8 @@ struct ContentView: View {
     @State var isConfirmingScan: Bool = false
     @State var isScanning: Bool = false
     @State var items: [ReciptItem] = []
+    @State var tax: CurrencyObject = CurrencyObject(price: 0.0)
+    @State var total: CurrencyObject = CurrencyObject(price: 0.0)
     
     var body: some View {
         ZStack {
@@ -23,12 +25,12 @@ struct ContentView: View {
             
             if (self.isConfirmingScan) {
                 NavigationView {
-                    ScanConfirmationPage(isConfirmingScan: $isConfirmingScan, items: $items)
+                    ScanConfirmationPage(isConfirmingScan: $isConfirmingScan, items: $items, tax: $tax, total: $total)
                 }
             }
         }
         .sheet(isPresented: $isScanning) {
-            ScanDocumentView(items: $items)
+            ScanDocumentView(items: $items, tax: $tax, total: $total)
         }
     }
 }

@@ -55,6 +55,18 @@ class DVYColor {
     }
 }
 
+class CurrencyObject {
+    let price: Double
+    let priceFormatted: String
+    
+    init(price: Double) {
+        self.price = price
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        self.priceFormatted = formatter.string(from: NSNumber(value: price)) ?? "$0"
+    }
+}
+
 var DVYColors: [DVYColor] = [
     DVYColor(red: 0.95, green: 0.2, blue: 0.2),
     DVYColor(red: 0.95, green: 0.5, blue: 0.2),

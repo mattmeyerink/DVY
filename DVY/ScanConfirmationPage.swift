@@ -10,13 +10,9 @@ import SwiftUI
 struct ScanConfirmationPage: View {
     @Binding var isConfirmingScan: Bool
     @Binding var items: [ReciptItem]
-    
-    var reciptItems: [ReciptItem] = [
-        ReciptItem(name: "Pizza", price: 5.0),
-        ReciptItem(name: "Burger", price: 2.0),
-        ReciptItem(name: "Oberon", price: 1.5)
-    ]
-    
+    @Binding var tax: CurrencyObject
+    @Binding var total: CurrencyObject
+
     var body: some View {
         ZStack {
             Color(red: 0.1, green: 0.1, blue: 0.1)
@@ -47,10 +43,10 @@ struct ScanConfirmationPage: View {
                 }
                 
                 HStack {
-                    Text("Tax: $1.00")
+                    Text("Tax: " + tax.priceFormatted)
                         .font(.system(size: 25, weight: .semibold))
                     Spacer()
-                    Text("Total: $8.50")
+                    Text("Total: " + total.priceFormatted)
                         .font(.system(size: 25, weight: .semibold))
                 }
                     .foregroundColor(Color.white)
