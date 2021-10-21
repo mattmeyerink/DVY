@@ -12,6 +12,8 @@ struct ScanConfirmationPage: View {
     @Binding var items: [ReciptItem]
     @Binding var tax: CurrencyObject
     @Binding var total: CurrencyObject
+    
+    @State var itemExpanded: Int? = nil
 
     var body: some View {
         ZStack {
@@ -25,20 +27,30 @@ struct ScanConfirmationPage: View {
                     .foregroundColor(Color.white)
                 
                 ScrollView {
-                    ForEach(items) { item in
-                        HStack {
-                            Text(item.name)
-                                .font(.system(size: 20, weight: .semibold))
-                                .padding(.leading, 5)
-                            Spacer()
-                            Text(item.priceFormatted)
-                                .font(.system(size: 20, weight: .semibold))
-                                .padding(.trailing, 5)
+                    ForEach(items.indices, id: \.self) { i in
+                        Button(action: { self.toggleExpandedItem(expandedItemIndex: i) } ) {
+                            VStack {
+                                HStack {
+                                    Text(items[i].name)
+                                        .font(.system(size: 20, weight: .semibold))
+                                        .padding(.leading, 5)
+                                    Spacer()
+                                    Text(items[i].priceFormatted)
+                                        .font(.system(size: 20, weight: .semibold))
+                                        .padding(.trailing, 5)
+                                }
+                                
+                                if (i == self.itemExpanded) {
+                                    HStack {
+                                        Text("HERE I AM")
+                                    }
+                                }
+                            }
+                                .padding()
+                                .background(Color(red: 0.95, green: 0.8, blue: 0.5))
+                                .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
+                                .cornerRadius(10)
                         }
-                            .padding()
-                            .background(Color(red: 0.95, green: 0.8, blue: 0.5))
-                            .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
-                            .cornerRadius(10)
                     }
                 }
                 
@@ -63,5 +75,13 @@ struct ScanConfirmationPage: View {
                 Text("Next >").foregroundColor(Color.white)
             }
         )
+    }
+    
+    func toggleExpandedItem(expandedItemIndex: Int) {
+        if (expandedItemIndex == self.itemExpanded) {
+            self.itemExpanded = nil
+        } else {
+            self.itemExpanded = expandedItemIndex
+        }
     }
 }

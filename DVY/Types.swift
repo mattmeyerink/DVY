@@ -9,9 +9,9 @@ import Foundation
 
 class ReciptItem: Identifiable {
     let id = UUID()
-    let name: String
-    let price: Double
-    let priceFormatted: String
+    var name: String
+    var price: Double
+    var priceFormatted: String
     
     init(name: String, price: Double) {
         self.name = name
