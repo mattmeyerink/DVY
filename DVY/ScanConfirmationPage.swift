@@ -28,29 +28,49 @@ struct ScanConfirmationPage: View {
                 
                 ScrollView {
                     ForEach(items.indices, id: \.self) { i in
-                        Button(action: { self.toggleExpandedItem(expandedItemIndex: i) } ) {
-                            VStack {
+                        VStack {
+                            HStack {
+                                Text(items[i].name)
+                                    .font(.system(size: 20, weight: .semibold))
+                                    .padding(.leading, 5)
+                                Spacer()
+                                Text(items[i].priceFormatted)
+                                    .font(.system(size: 20, weight: .semibold))
+                                    .padding(.trailing, 5)
+                            }
+                            
+                            if (i == self.itemExpanded) {
                                 HStack {
-                                    Text(items[i].name)
-                                        .font(.system(size: 20, weight: .semibold))
-                                        .padding(.leading, 5)
-                                    Spacer()
-                                    Text(items[i].priceFormatted)
-                                        .font(.system(size: 20, weight: .semibold))
-                                        .padding(.trailing, 5)
-                                }
-                                
-                                if (i == self.itemExpanded) {
-                                    HStack {
-                                        Text("HERE I AM")
-                                    }
+                                    Image(systemName: "trash.fill")
+                                        .font(.system(size: 25, weight: .semibold))
+                                        .padding(.top,  10)
+                                        .padding(.horizontal, 10)
+                                        .onTapGesture() {
+                                            self.deleteItem(deleteItemIndex: i)
+                                        }
+                
+                                    Image(systemName: "divide.circle.fill")
+                                        .font(.system(size: 25, weight: .semibold))
+                                        .padding(.top,  10)
+                                        .padding(.horizontal, 10)
+                                        .onTapGesture() {
+                                            self.splitItem(splitItemIndex: i)
+                                        }
+                                    
+                                    Image(systemName: "square.and.pencil")
+                                        .font(.system(size: 25, weight: .semibold))
+                                        .padding(.top,  10)
+                                        .padding(.horizontal, 10)
                                 }
                             }
-                                .padding()
-                                .background(Color(red: 0.95, green: 0.8, blue: 0.5))
-                                .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
-                                .cornerRadius(10)
                         }
+                            .padding()
+                            .background(Color(red: 0.95, green: 0.8, blue: 0.5))
+                            .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
+                            .cornerRadius(10)
+                            .onTapGesture() {
+                                self.toggleExpandedItem(expandedItemIndex: i)
+                            }
                     }
                 }
                 
@@ -83,5 +103,22 @@ struct ScanConfirmationPage: View {
         } else {
             self.itemExpanded = expandedItemIndex
         }
+    }
+    
+    func deleteItem(deleteItemIndex: Int) {
+        self.itemExpanded = nil
+        items.remove(at: deleteItemIndex)
+    }
+    
+    func splitItem(splitItemIndex: Int) {
+        self.itemExpanded = nil
+        items[splitItemIndex].price = items[splitItemIndex].price / 2
+        
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        items[splitItemIndex].priceFormatted = formatter.string(from: NSNumber(value: items[splitItemIndex].price)) ?? "$0"
+        
+        let newItem = ReciptItem(name: items[splitItemIndex].name, price: items[splitItemIndex].price)
+        items.insert(newItem, at: splitItemIndex)
     }
 }
