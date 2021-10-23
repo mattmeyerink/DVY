@@ -39,14 +39,14 @@ struct EditItemModal: View {
                     .foregroundColor(.white)
                 
                 HStack {
-                    Button(action: {self.showPopup = false}) {
+                    Button(action: {closePopup()}) {
                         Text("Cancel")
                     }
                         .buttonStyle(GreenButton())
                     
                     Spacer()
                     
-                    Button(action: {self.showPopup = false}) {
+                    Button(action: {saveItem()}) {
                         Text("Save")
                     }
                         .buttonStyle(GreenButton())
@@ -63,5 +63,14 @@ struct EditItemModal: View {
                     UITableView.appearance().backgroundColor = .systemGroupedBackground
                 }
         }
+    }
+    
+    func saveItem() {
+        items[editedItemIndex!] = ReciptItem(name: itemName, price: itemPrice)
+        closePopup()
+    }
+    
+    func closePopup() {
+        showPopup = false
     }
 }
