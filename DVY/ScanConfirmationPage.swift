@@ -30,6 +30,12 @@ struct ScanConfirmationPage: View {
                     .padding(.vertical, 15)
                     .foregroundColor(Color.white)
                 
+                Button(action: {addItem()}) {
+                    Text("Add Item")
+                }
+                    .buttonStyle(GreenButton())
+                    .padding(.bottom, 15)
+                
                 ScrollView {
                     ForEach(items.indices, id: \.self) { i in
                         VStack {
@@ -97,6 +103,7 @@ struct ScanConfirmationPage: View {
             if (isEditModalOpen) {
                 EditItemModal(
                     items: $items,
+                    total: $total,
                     showPopup: $isEditModalOpen,
                     editedItemIndex: editedItemIndex,
                     itemName: editedItemName,
@@ -145,6 +152,13 @@ struct ScanConfirmationPage: View {
         self.editedItemIndex = editItemIndex
         self.editedItemName = items[editItemIndex].name
         self.editedItemPrice = items[editItemIndex].price
+        self.isEditModalOpen = true
+    }
+    
+    func addItem() {
+        self.editedItemIndex = nil
+        self.editedItemName = ""
+        self.editedItemPrice = 0.0
         self.isEditModalOpen = true
     }
 }
