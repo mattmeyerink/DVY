@@ -40,7 +40,7 @@ struct GreenButton: ButtonStyle {
             .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
             .background(Color(red: 0.2, green: 0.9, blue: 0.25))
             .clipShape(Capsule())
-            .scaleEffect(configuration.isPressed ? 1.2 : 1)
+            .scaleEffect(configuration.isPressed ? 0.9 : 1)
             .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
     }
 }

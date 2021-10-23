@@ -14,6 +14,10 @@ struct ScanConfirmationPage: View {
     @Binding var total: CurrencyObject
     
     @State var itemExpanded: Int? = nil
+    @State var isEditModalOpen: Bool = false
+    @State var editedItemIndex: Int? = nil
+    @State var editedItemName: String = ""
+    @State var editedItemPrice: Double = 0.0
 
     var body: some View {
         ZStack {
@@ -61,6 +65,9 @@ struct ScanConfirmationPage: View {
                                         .font(.system(size: 25, weight: .semibold))
                                         .padding(.top,  10)
                                         .padding(.horizontal, 10)
+                                        .onTapGesture() {
+                                            self.editItem(editItemIndex: i)
+                                        }
                                 }
                             }
                         }
@@ -86,6 +93,17 @@ struct ScanConfirmationPage: View {
                 .padding(.horizontal)
             }
                 .padding(.horizontal)
+            
+            if (isEditModalOpen) {
+                EditItemModal(
+                    items: $items,
+                    showPopup: $isEditModalOpen,
+                    editedItemIndex: editedItemIndex,
+                    itemName: editedItemName,
+                    itemPrice: editedItemPrice
+                )
+            }
+            
         }
         .navigationBarItems(
             leading: Button(action: {self.isConfirmingScan = false}) {
@@ -120,5 +138,13 @@ struct ScanConfirmationPage: View {
         
         let newItem = ReciptItem(name: items[splitItemIndex].name, price: items[splitItemIndex].price)
         items.insert(newItem, at: splitItemIndex)
+    }
+    
+    func editItem(editItemIndex: Int) {
+        self.itemExpanded = nil
+        self.editedItemIndex = editItemIndex
+        self.editedItemName = items[editItemIndex].name
+        self.editedItemPrice = items[editItemIndex].price
+        self.isEditModalOpen = true
     }
 }

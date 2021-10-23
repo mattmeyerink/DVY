@@ -15,6 +15,7 @@
 		068E2118271A61620069C0A1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 068E2117271A61620069C0A1 /* Preview Assets.xcassets */; };
 		068E2123271A61620069C0A1 /* DVYTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068E2122271A61620069C0A1 /* DVYTests.swift */; };
 		068E212E271A61620069C0A1 /* DVYUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068E212D271A61620069C0A1 /* DVYUITests.swift */; };
+		06F65C792723AAFE001BBD84 /* EditItemModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F65C782723AAFE001BBD84 /* EditItemModal.swift */; };
 		06FD3384271B3809006FC9E0 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FD3383271B3809006FC9E0 /* Types.swift */; };
 		06FD3386271B46E6006FC9E0 /* ScanConfirmationPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FD3385271B46E6006FC9E0 /* ScanConfirmationPage.swift */; };
 		06FD3388271B48AA006FC9E0 /* AddFriendsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FD3387271B48AA006FC9E0 /* AddFriendsPage.swift */; };
@@ -52,6 +53,7 @@
 		068E2129271A61620069C0A1 /* DVYUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DVYUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		068E212D271A61620069C0A1 /* DVYUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVYUITests.swift; sourceTree = "<group>"; };
 		068E212F271A61620069C0A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		06F65C782723AAFE001BBD84 /* EditItemModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditItemModal.swift; sourceTree = "<group>"; };
 		06FD3383271B3809006FC9E0 /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		06FD3385271B46E6006FC9E0 /* ScanConfirmationPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanConfirmationPage.swift; sourceTree = "<group>"; };
 		06FD3387271B48AA006FC9E0 /* AddFriendsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendsPage.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				06FD3387271B48AA006FC9E0 /* AddFriendsPage.swift */,
 				0615E543271B816B005CC1E9 /* LandingPage.swift */,
 				060C833E271BB23B005142BB /* ScanDocumentView.swift */,
+				06F65C782723AAFE001BBD84 /* EditItemModal.swift */,
 			);
 			path = DVY;
 			sourceTree = "<group>";
@@ -274,6 +277,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				06F65C792723AAFE001BBD84 /* EditItemModal.swift in Sources */,
 				06FD3386271B46E6006FC9E0 /* ScanConfirmationPage.swift in Sources */,
 				060C833F271BB23B005142BB /* ScanDocumentView.swift in Sources */,
 				06FD3388271B48AA006FC9E0 /* AddFriendsPage.swift in Sources */,
