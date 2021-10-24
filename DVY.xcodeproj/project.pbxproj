@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		060C833F271BB23B005142BB /* ScanDocumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 060C833E271BB23B005142BB /* ScanDocumentView.swift */; };
 		0615E544271B816B005CC1E9 /* LandingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0615E543271B816B005CC1E9 /* LandingPage.swift */; };
-		066B3EF02724DBA700FE4141 /* EditFriendModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066B3EEF2724DBA700FE4141 /* EditFriendModal.swift */; };
+		065BF1A72725F0B000C17A91 /* EditFriendModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065BF1A62725F0B000C17A91 /* EditFriendModal.swift */; };
 		066B3EF22724E5A700FE4141 /* FriendActionModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066B3EF12724E5A700FE4141 /* FriendActionModal.swift */; };
 		068E2111271A61610069C0A1 /* DVYApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068E2110271A61610069C0A1 /* DVYApp.swift */; };
 		068E2113271A61610069C0A1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068E2112271A61610069C0A1 /* ContentView.swift */; };
@@ -43,7 +43,7 @@
 /* Begin PBXFileReference section */
 		060C833E271BB23B005142BB /* ScanDocumentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanDocumentView.swift; sourceTree = "<group>"; };
 		0615E543271B816B005CC1E9 /* LandingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingPage.swift; sourceTree = "<group>"; };
-		066B3EEF2724DBA700FE4141 /* EditFriendModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFriendModal.swift; sourceTree = "<group>"; };
+		065BF1A62725F0B000C17A91 /* EditFriendModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFriendModal.swift; sourceTree = "<group>"; };
 		066B3EF12724E5A700FE4141 /* FriendActionModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendActionModal.swift; sourceTree = "<group>"; };
 		068E210D271A61610069C0A1 /* DVY.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DVY.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		068E2110271A61610069C0A1 /* DVYApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVYApp.swift; sourceTree = "<group>"; };
@@ -122,8 +122,8 @@
 				0615E543271B816B005CC1E9 /* LandingPage.swift */,
 				060C833E271BB23B005142BB /* ScanDocumentView.swift */,
 				06F65C782723AAFE001BBD84 /* EditItemModal.swift */,
-				066B3EEF2724DBA700FE4141 /* EditFriendModal.swift */,
 				066B3EF12724E5A700FE4141 /* FriendActionModal.swift */,
+				065BF1A62725F0B000C17A91 /* EditFriendModal.swift */,
 			);
 			path = DVY;
 			sourceTree = "<group>";
@@ -289,10 +289,10 @@
 				06FD3388271B48AA006FC9E0 /* AddFriendsPage.swift in Sources */,
 				0615E544271B816B005CC1E9 /* LandingPage.swift in Sources */,
 				066B3EF22724E5A700FE4141 /* FriendActionModal.swift in Sources */,
-				066B3EF02724DBA700FE4141 /* EditFriendModal.swift in Sources */,
 				068E2113271A61610069C0A1 /* ContentView.swift in Sources */,
 				06FD3384271B3809006FC9E0 /* Types.swift in Sources */,
 				068E2111271A61610069C0A1 /* DVYApp.swift in Sources */,
+				065BF1A72725F0B000C17A91 /* EditFriendModal.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
