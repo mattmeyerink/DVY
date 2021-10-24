@@ -8,15 +8,13 @@
 import SwiftUI
 
 struct AddFriendsPage: View {
-    var friends: [Person] = [
-        Person(firstName: "Matthew", lastName: "Meyerink", color: 0),
-        Person(firstName: "Erika", lastName: "Yasuda", color: 1),
-        Person(firstName: "Madison", lastName: "Hegedus", color: 2),
-        Person(firstName: "Jason", lastName: "Ting", color: 3),
-        Person(firstName: "Kyle", lastName: "Patmore", color: 4)
-    ]
-    var gridItemLayout = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
+    @State var friends: [Person] = []
+    
     @State var isAddFriendOpen: Bool = false
+    @State var editFriendFirstName: String = ""
+    @State var editFriendLastName: String = ""
+    
+    var gridItemLayout = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
     
     var body: some View {
         ZStack {
@@ -47,10 +45,10 @@ struct AddFriendsPage: View {
                         }
                         
                         VStack {
-                            Button(action: {self.isAddFriendOpen = true}) {
+                            Button(action: {addFriend()}) {
                                 Image(systemName: "plus")
                             }
-                            .buttonStyle(AddFriendButton())
+                                .buttonStyle(AddFriendButton())
                             
                             Text("New Friend")
                                 .foregroundColor(Color.white)
@@ -59,13 +57,22 @@ struct AddFriendsPage: View {
                 }
             }
                 .padding(.horizontal)
+            
+            if (isAddFriendOpen) {
+                EditFriendModal(
+                    friends: $friends,
+                    isEditFriendOpen: $isAddFriendOpen,
+                    firstName: editFriendFirstName,
+                    lastName: editFriendLastName
+                )
+            }
         }
     }
-}
-
-struct AddFriends_Previews: PreviewProvider {
-    static var previews: some View {
-        AddFriendsPage()
+    
+    func addFriend() {
+        self.editFriendFirstName = ""
+        self.editFriendLastName = ""
+        self.isAddFriendOpen = true
     }
 }
 
@@ -77,7 +84,7 @@ struct AddFriendButton: ButtonStyle {
             .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
             .background(Color(red: 0.2, green: 0.9, blue: 0.25))
             .clipShape(Circle())
-            .scaleEffect(configuration.isPressed ? 1.2 : 1)
+            .scaleEffect(configuration.isPressed ? 0.85 : 1)
             .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
     }
 }
