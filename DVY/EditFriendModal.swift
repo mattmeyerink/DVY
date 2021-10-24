@@ -20,13 +20,13 @@ struct EditFriendModal: View {
             
             Form {
                 Section(header: Text("First Name").font(.system(size: 20, weight: .semibold))) {
-                    TextField("FirstName", text: $firstName)
+                    TextField("First Name", text: $firstName)
                         .foregroundColor(.black)
                 }
                     .foregroundColor(.white)
                 
                 Section(header: Text("Last Name").font(.system(size: 20, weight: .semibold))) {
-                    TextField("LastName", text: $lastName)
+                    TextField("Last Name", text: $lastName)
                         .foregroundColor(.black)
                 }
                     .foregroundColor(.white)

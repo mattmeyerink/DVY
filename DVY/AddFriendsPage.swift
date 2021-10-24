@@ -14,6 +14,8 @@ struct AddFriendsPage: View {
     @State var editFriendFirstName: String = ""
     @State var editFriendLastName: String = ""
     
+    @State var isActionPopupOpen: Bool = false
+    
     var gridItemLayout = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
     
     var body: some View {
@@ -37,6 +39,9 @@ struct AddFriendsPage: View {
                                     .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
                                     .background(Color(red: friend.color.red, green: friend.color.green, blue: friend.color.blue))
                                     .clipShape(Circle())
+                                    .onTapGesture() {
+                                        openActionPopup()
+                                    }
                                 
                                 Text(friend.firstName)
                                     .foregroundColor(Color.white)
@@ -58,6 +63,10 @@ struct AddFriendsPage: View {
             }
                 .padding(.horizontal)
             
+            if (isActionPopupOpen) {
+                FriendActionModal(isFriendActionOpen: $isActionPopupOpen)
+            }
+            
             if (isAddFriendOpen) {
                 EditFriendModal(
                     friends: $friends,
@@ -73,6 +82,10 @@ struct AddFriendsPage: View {
         self.editFriendFirstName = ""
         self.editFriendLastName = ""
         self.isAddFriendOpen = true
+    }
+    
+    func openActionPopup() {
+        self.isActionPopupOpen = true
     }
 }
 
