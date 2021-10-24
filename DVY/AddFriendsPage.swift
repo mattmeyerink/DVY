@@ -15,6 +15,7 @@ struct AddFriendsPage: View {
     @State var editFriendLastName: String = ""
     
     @State var isActionPopupOpen: Bool = false
+    @State var actionFriendIndex: Int?
     
     var gridItemLayout = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
     
@@ -31,19 +32,19 @@ struct AddFriendsPage: View {
                 
                 ScrollView {
                     LazyVGrid(columns: gridItemLayout, spacing: 20) {
-                        ForEach(friends) { friend in
+                        ForEach(friends.indices, id: \.self) { i in
                             VStack{
-                                Text(friend.initials)
+                                Text(friends[i].initials)
                                     .font(.system(size: 40, weight: .semibold))
                                     .padding(20)
                                     .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
-                                    .background(Color(red: friend.color.red, green: friend.color.green, blue: friend.color.blue))
+                                    .background(Color(red: friends[i].color.red, green: friends[i].color.green, blue: friends[i].color.blue))
                                     .clipShape(Circle())
                                     .onTapGesture() {
-                                        openActionPopup()
+                                        openActionPopup(actionFriendIndex: i)
                                     }
                                 
-                                Text(friend.firstName)
+                                Text(friends[i].firstName)
                                     .foregroundColor(Color.white)
                             }
                             
@@ -64,7 +65,7 @@ struct AddFriendsPage: View {
                 .padding(.horizontal)
             
             if (isActionPopupOpen) {
-                FriendActionModal(isFriendActionOpen: $isActionPopupOpen)
+                FriendActionModal(isFriendActionOpen: $isActionPopupOpen, friends: $friends, actionFriendIndex: actionFriendIndex)
             }
             
             if (isAddFriendOpen) {
@@ -84,7 +85,8 @@ struct AddFriendsPage: View {
         self.isAddFriendOpen = true
     }
     
-    func openActionPopup() {
+    func openActionPopup(actionFriendIndex: Int) {
+        self.actionFriendIndex = actionFriendIndex
         self.isActionPopupOpen = true
     }
 }

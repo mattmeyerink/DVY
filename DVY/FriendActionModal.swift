@@ -9,6 +9,9 @@ import SwiftUI
 
 struct FriendActionModal: View {
     @Binding var isFriendActionOpen: Bool
+    @Binding var friends: [Person]
+    
+    @State var actionFriendIndex: Int?
     
     var body: some View {
         ZStack {
@@ -29,6 +32,9 @@ struct FriendActionModal: View {
                     .font(.system(size: 40, weight: .semibold))
                     .padding(.horizontal, 10)
                     .padding(.bottom, 15)
+                    .onTapGesture() {
+                        deleteFriend()
+                    }
                 
                 Image(systemName: "square.and.pencil")
                     .foregroundColor(.white)
@@ -50,5 +56,10 @@ struct FriendActionModal: View {
     
     func closePopup() {
         isFriendActionOpen = false
+    }
+    
+    func deleteFriend() {
+        friends.remove(at: actionFriendIndex!)
+        self.isFriendActionOpen = false
     }
 }
