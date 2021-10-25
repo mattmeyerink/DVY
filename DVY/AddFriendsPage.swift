@@ -65,7 +65,15 @@ struct AddFriendsPage: View {
                 .padding(.horizontal)
             
             if (isActionPopupOpen) {
-                FriendActionModal(isFriendActionOpen: $isActionPopupOpen, friends: $friends, actionFriendIndex: actionFriendIndex)
+                FriendActionModal(
+                    isFriendActionOpen: $isActionPopupOpen,
+                    friends: $friends,
+                    isEditFriendOpen: $isAddFriendOpen,
+                    editFriendFirstName: $editFriendFirstName,
+                    editFriendLastName: $editFriendLastName,
+                    actionFriendIndex: $actionFriendIndex
+                    
+                )
             }
             
             if (isAddFriendOpen) {
@@ -73,7 +81,8 @@ struct AddFriendsPage: View {
                     friends: $friends,
                     isEditFriendOpen: $isAddFriendOpen,
                     firstName: editFriendFirstName,
-                    lastName: editFriendLastName
+                    lastName: editFriendLastName,
+                    editFriendIndex: actionFriendIndex
                 )
             }
         }
@@ -82,6 +91,7 @@ struct AddFriendsPage: View {
     func addFriend() {
         self.editFriendFirstName = ""
         self.editFriendLastName = ""
+        self.actionFriendIndex = nil
         self.isAddFriendOpen = true
     }
     

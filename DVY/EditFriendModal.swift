@@ -13,6 +13,8 @@ struct EditFriendModal: View {
     @State var firstName: String
     @State var lastName: String
     
+    @State var editFriendIndex: Int?
+    
     var body: some View {
         ZStack {
             Color.gray.opacity(0.4).edgesIgnoringSafeArea(.all)
@@ -62,7 +64,14 @@ struct EditFriendModal: View {
             return
         }
         
-        friends.append(Person(firstName: firstName, lastName: lastName, color: friends.count % DVYColors.count))
+        if (editFriendIndex != nil) {
+            let originalColor = friends[editFriendIndex!].color
+            friends[editFriendIndex!] = Person(firstName: firstName, lastName: lastName, color: 0)
+            friends[editFriendIndex!].color = originalColor
+        } else {
+            friends.append(Person(firstName: firstName, lastName: lastName, color: friends.count % DVYColors.count))
+        }
+        
         closePopup()
     }
     

@@ -28,7 +28,7 @@ class Person: Identifiable {
     let firstName: String
     let lastName: String
     let initials: String
-    let color: DVYColor
+    var color: DVYColor
     
     
     init(firstName: String, lastName: String, color: Int) {
