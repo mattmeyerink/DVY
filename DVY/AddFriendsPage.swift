@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AddFriendsPage: View {
-    @State var friends: [Person] = []
+    @Binding var friends: [Person]
     
     @State var isAddFriendOpen: Bool = false
     @State var editFriendFirstName: String = ""

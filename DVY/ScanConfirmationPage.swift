@@ -18,6 +18,8 @@ struct ScanConfirmationPage: View {
     @State var editedItemIndex: Int? = nil
     @State var editedItemName: String = ""
     @State var editedItemPrice: Double = 0.0
+    
+    @State var friends: [Person] = []
 
     var body: some View {
         ZStack {
@@ -116,7 +118,7 @@ struct ScanConfirmationPage: View {
             leading: Button(action: {self.isConfirmingScan = false}) {
                 Text("< Re-Scan").foregroundColor(Color.white)
             },
-            trailing: NavigationLink(destination: AddFriendsPage()) {
+            trailing: NavigationLink(destination: AddFriendsPage(friends: $friends)) {
                 Text("Next >").foregroundColor(Color.white)
             }
         )
