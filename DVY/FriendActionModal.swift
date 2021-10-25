@@ -56,7 +56,9 @@ struct FriendActionModal: View {
                     UITableView.appearance().backgroundColor = .clear
                 }
                 .onDisappear {
-                    UITableView.appearance().backgroundColor = .systemGroupedBackground
+                    if (!isEditFriendOpen) {
+                        UITableView.appearance().backgroundColor = .systemGroupedBackground
+                    }
                 }
         }
     }
