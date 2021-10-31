@@ -118,7 +118,7 @@ struct ScanConfirmationPage: View {
             leading: Button(action: {self.isConfirmingScan = false}) {
                 Text("< Re-Scan").foregroundColor(Color.white)
             },
-            trailing: NavigationLink(destination: AddFriendsPage(friends: $friends)) {
+            trailing: NavigationLink(destination: AddFriendsPage(friends: $friends, items: $items)) {
                 Text("Next >").foregroundColor(Color.white)
             }
         )

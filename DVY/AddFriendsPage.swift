@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AddFriendsPage: View {
     @Binding var friends: [Person]
+    @Binding var items: [ReciptItem]
     
     @State var isAddFriendOpen: Bool = false
     @State var editFriendFirstName: String = ""
@@ -86,6 +87,11 @@ struct AddFriendsPage: View {
                 )
             }
         }
+        .navigationBarItems(
+            trailing: NavigationLink(destination: AssignItemsPage(friends: $friends, items: $items)) {
+                Text("Next >").foregroundColor(Color.white)
+            }
+        )
     }
     
     func addFriend() {

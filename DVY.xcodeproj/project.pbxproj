@@ -17,6 +17,7 @@
 		068E2118271A61620069C0A1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 068E2117271A61620069C0A1 /* Preview Assets.xcassets */; };
 		068E2123271A61620069C0A1 /* DVYTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068E2122271A61620069C0A1 /* DVYTests.swift */; };
 		068E212E271A61620069C0A1 /* DVYUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068E212D271A61620069C0A1 /* DVYUITests.swift */; };
+		06E54946272F239A004D9F06 /* AssignItemsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E54945272F239A004D9F06 /* AssignItemsPage.swift */; };
 		06F65C792723AAFE001BBD84 /* EditItemModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F65C782723AAFE001BBD84 /* EditItemModal.swift */; };
 		06FD3384271B3809006FC9E0 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FD3383271B3809006FC9E0 /* Types.swift */; };
 		06FD3386271B46E6006FC9E0 /* ScanConfirmationPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FD3385271B46E6006FC9E0 /* ScanConfirmationPage.swift */; };
@@ -57,6 +58,7 @@
 		068E2129271A61620069C0A1 /* DVYUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DVYUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		068E212D271A61620069C0A1 /* DVYUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVYUITests.swift; sourceTree = "<group>"; };
 		068E212F271A61620069C0A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		06E54945272F239A004D9F06 /* AssignItemsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignItemsPage.swift; sourceTree = "<group>"; };
 		06F65C782723AAFE001BBD84 /* EditItemModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditItemModal.swift; sourceTree = "<group>"; };
 		06FD3383271B3809006FC9E0 /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		06FD3385271B46E6006FC9E0 /* ScanConfirmationPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanConfirmationPage.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 				06F65C782723AAFE001BBD84 /* EditItemModal.swift */,
 				066B3EF12724E5A700FE4141 /* FriendActionModal.swift */,
 				065BF1A62725F0B000C17A91 /* EditFriendModal.swift */,
+				06E54945272F239A004D9F06 /* AssignItemsPage.swift */,
 			);
 			path = DVY;
 			sourceTree = "<group>";
@@ -290,6 +293,7 @@
 				0615E544271B816B005CC1E9 /* LandingPage.swift in Sources */,
 				066B3EF22724E5A700FE4141 /* FriendActionModal.swift in Sources */,
 				068E2113271A61610069C0A1 /* ContentView.swift in Sources */,
+				06E54946272F239A004D9F06 /* AssignItemsPage.swift in Sources */,
 				06FD3384271B3809006FC9E0 /* Types.swift in Sources */,
 				068E2111271A61610069C0A1 /* DVYApp.swift in Sources */,
 				065BF1A72725F0B000C17A91 /* EditFriendModal.swift in Sources */,
