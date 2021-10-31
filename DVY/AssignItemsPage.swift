@@ -35,9 +35,12 @@ struct AssignItemsPage: View {
                                 Text(friends[i].firstName)
                                     .foregroundColor(Color.white)
                             }
+                            .padding(.horizontal)
                         }
                     }
                 }
+                    .padding(.horizontal)
+                    .padding(.bottom)
                 
                 ScrollView {
                     ForEach(items.indices, id: \.self) { i in
@@ -58,6 +61,7 @@ struct AssignItemsPage: View {
                             .cornerRadius(10)
                     }
                 }
+                    .padding(.horizontal)
             }
         }
         

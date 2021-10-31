@@ -28,6 +28,7 @@ struct AddFriendsPage: View {
             VStack {
                 Text("Add Friends")
                     .font(.system(size: 30, weight: .semibold))
+            
                     .padding(.vertical, 15)
                     .foregroundColor(Color.white)
                 
