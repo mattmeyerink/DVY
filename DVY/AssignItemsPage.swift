@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AssignItemsPage: View {
+    @Binding var currentPage: String
     @Binding var friends: [Person]
     @Binding var items: [ReciptItem]
     
@@ -64,6 +65,5 @@ struct AssignItemsPage: View {
                     .padding(.horizontal)
             }
         }
-        
     }
 }

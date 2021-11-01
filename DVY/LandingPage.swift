@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct LandingPage: View {
+    @Binding var currentPage: String
     @Binding var isScanning: Bool
-    @Binding var isConfirmingScan: Bool
     
     var body: some View {
         VStack {
@@ -23,7 +23,7 @@ struct LandingPage: View {
                 .foregroundColor(Color.white)
                 .padding(.bottom, 10)
             
-            Button(action: {self.isScanning = true; self.isConfirmingScan = true}) {
+            Button(action: {self.currentPage = "scanConfirmationPage"; self.isScanning = true;}) {
                 Text("Scan")
             }
                 .buttonStyle(GreenButton())

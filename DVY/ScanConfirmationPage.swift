@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ScanConfirmationPage: View {
-    @Binding var isConfirmingScan: Bool
+    @Binding var currentPage: String
     @Binding var items: [ReciptItem]
     @Binding var tax: CurrencyObject
     @Binding var total: CurrencyObject
@@ -18,8 +18,6 @@ struct ScanConfirmationPage: View {
     @State var editedItemIndex: Int? = nil
     @State var editedItemName: String = ""
     @State var editedItemPrice: Double = 0.0
-    
-    @State var friends: [Person] = []
 
     var body: some View {
         ZStack {
@@ -115,10 +113,10 @@ struct ScanConfirmationPage: View {
             
         }
         .navigationBarItems(
-            leading: Button(action: {self.isConfirmingScan = false}) {
+            leading: Button(action: {self.currentPage = "landingPage"}) {
                 Text("< Re-Scan").foregroundColor(Color.white)
             },
-            trailing: NavigationLink(destination: AddFriendsPage(friends: $friends, items: $items)) {
+            trailing: Button(action: {self.currentPage = "addFriendsPage"}) {
                 Text("Next >").foregroundColor(Color.white)
             }
         )

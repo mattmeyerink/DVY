@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct AddFriendsPage: View {
+    @Binding var currentPage: String
     @Binding var friends: [Person]
-    @Binding var items: [ReciptItem]
     
     @State var isAddFriendOpen: Bool = false
     @State var editFriendFirstName: String = ""
@@ -89,7 +89,10 @@ struct AddFriendsPage: View {
             }
         }
         .navigationBarItems(
-            trailing: NavigationLink(destination: AssignItemsPage(friends: $friends, items: $items)) {
+            leading: Button(action: {self.currentPage = "scanConfirmationPage"}) {
+                Text("< Back").foregroundColor(Color.white)
+            },
+            trailing: Button(action: {self.currentPage = "assignItemsPage"}) {
                 Text("Next >").foregroundColor(Color.white)
             }
         )

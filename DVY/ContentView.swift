@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var isConfirmingScan: Bool = false
+    @State var currentPage: String = "landingPage"
     @State var isScanning: Bool = false
     @State var items: [ReciptItem] = []
+    @State var friends: [Person] = []
     @State var tax: CurrencyObject = CurrencyObject(price: 0.0)
     @State var total: CurrencyObject = CurrencyObject(price: 0.0)
     
@@ -19,13 +20,25 @@ struct ContentView: View {
             Color(red: 0.1, green: 0.1, blue: 0.1)
                 .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
             
-            if(!self.isConfirmingScan){
-                LandingPage(isScanning: $isScanning, isConfirmingScan: $isConfirmingScan)
+            if (self.currentPage == "landingPage"){
+                LandingPage(currentPage: $currentPage, isScanning: $isScanning)
             }
             
-            if (self.isConfirmingScan) {
+            if (self.currentPage == "scanConfirmationPage") {
                 NavigationView {
-                    ScanConfirmationPage(isConfirmingScan: $isConfirmingScan, items: $items, tax: $tax, total: $total)
+                    ScanConfirmationPage(currentPage: $currentPage, items: $items, tax: $tax, total: $total)
+                }
+            }
+            
+            if (self.currentPage == "addFriendsPage") {
+                NavigationView {
+                    AddFriendsPage(currentPage: $currentPage, friends: $friends)
+                }
+            }
+            
+            if (self.currentPage == "assignItemsPage") {
+                NavigationView {
+                    AssignItemsPage(currentPage: $currentPage, friends: $friends, items: $items)
                 }
             }
         }
