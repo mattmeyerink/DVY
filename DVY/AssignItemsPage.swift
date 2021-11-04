@@ -65,5 +65,10 @@ struct AssignItemsPage: View {
                     .padding(.horizontal)
             }
         }
+        .navigationBarItems(
+            leading: Button(action: {self.currentPage = "addFriendsPage"}) {
+                Text("< Back").foregroundColor(Color.white)
+            }
+        )
     }
 }
