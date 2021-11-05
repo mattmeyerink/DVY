@@ -45,21 +45,7 @@ struct AssignItemsPage: View {
                 
                 ScrollView {
                     ForEach(items.indices, id: \.self) { i in
-                        VStack {
-                            HStack {
-                                Text(items[i].name)
-                                    .font(.system(size: 20, weight: .semibold))
-                                    .padding(.leading, 5)
-                                Spacer()
-                                Text(items[i].priceFormatted)
-                                    .font(.system(size: 20, weight: .semibold))
-                                    .padding(.trailing, 5)
-                            }
-                        }
-                            .padding()
-                            .background(Color(red: 0.95, green: 0.8, blue: 0.5))
-                            .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
-                            .cornerRadius(10)
+                        DragableRecieptItem(item: items[i])
                     }
                 }
                     .padding(.horizontal)
