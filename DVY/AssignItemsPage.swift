@@ -49,6 +49,8 @@ struct AssignItemsPage: View {
                     }
                 }
                     .padding(.horizontal)
+                
+                ScrollView {}
             }
         }
         .navigationBarItems(
