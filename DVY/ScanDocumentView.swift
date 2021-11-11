@@ -72,7 +72,7 @@ class Coordinator: NSObject, VNDocumentCameraViewControllerDelegate {
                 let candidate = observation.topCandidates(maximumRecognitionCandidates).first
                 if (candidate != nil) {
                     if (currentItemName != nil) {
-                        currentItemPrice = Double(candidate!.string)
+                        currentItemPrice = Double(candidate!.string.replacingOccurrences(of: "$", with: ""))
                         if (currentItemPrice != nil) {
                             if (currentItemName!.localizedCaseInsensitiveContains("total")) {
                                 self.total.wrappedValue = CurrencyObject(price: currentItemPrice!)
