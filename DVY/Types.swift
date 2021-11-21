@@ -25,10 +25,14 @@ class ReciptItem: Identifiable {
 
 class Person: Identifiable {
     let id = UUID()
+    
     let firstName: String
     let lastName: String
     let initials: String
+    
     var color: DVYColor
+    
+    var items: [ReciptItem]
     
     
     init(firstName: String, lastName: String, color: Int) {
@@ -40,6 +44,8 @@ class Person: Identifiable {
         self.initials = firstInitial + lastInitial
         
         self.color = DVYColors[color]
+        
+        self.items = []
     }
 }
 
