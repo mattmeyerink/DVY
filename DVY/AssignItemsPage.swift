@@ -43,9 +43,9 @@ struct AssignItemsPage: View {
                     .padding(.horizontal)
                     .padding(.bottom)
                 
-                VStack {
+                ScrollView {
                     ForEach(items.indices, id: \.self) { i in
-                        DragableRecieptItem(item: items[i])
+                        RecieptItem(item: items[i])
                     }
                 }
                     .padding(.horizontal)
