@@ -55,7 +55,7 @@ struct EditItemModal: View {
                     .listRowBackground(Color(red: 0.1, green: 0.1, blue: 0.1))
             }
                 .frame(width: 350, height: 300, alignment: .center)
-                .padding(.top, 15)
+                .padding(.bottom, 30)
                 .background(Color(red: 0.1, green: 0.1, blue: 0.1)).cornerRadius(15)
                 .onAppear {
                     UITableView.appearance().backgroundColor = .clear
