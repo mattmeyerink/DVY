@@ -13,6 +13,7 @@ struct AssignItemsPage: View {
     @Binding var items: [ReciptItem]
     
     @State var isFriendsListOpen: Bool = false
+    @State var itemBeingAssignedIndex: Int? = nil
     
     var body: some View {
         ZStack {
@@ -28,12 +29,21 @@ struct AssignItemsPage: View {
                     HStack(alignment: .top, spacing: 0) {
                         ForEach(friends.indices, id: \.self) { i in
                             VStack {
-                                Text(friends[i].initials)
-                                    .font(.system(size: 40, weight: .semibold))
-                                    .padding(20)
-                                    .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
-                                    .background(Color(red: friends[i].color.red, green: friends[i].color.green, blue: friends[i].color.blue))
-                                    .clipShape(Circle())
+                                if (friends[i].items.count == 0) {
+                                    Text(friends[i].initials)
+                                        .font(.system(size: 40, weight: .semibold))
+                                        .padding(20)
+                                        .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
+                                        .background(Color(red: friends[i].color.red, green: friends[i].color.green, blue: friends[i].color.blue))
+                                        .clipShape(Circle())
+                                } else {
+                                    Text(String(friends[i].items.count))
+                                        .font(.system(size: 40, weight: .semibold))
+                                        .padding(20)
+                                        .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
+                                        .background(Color(red: friends[i].color.red, green: friends[i].color.green, blue: friends[i].color.blue))
+                                        .clipShape(Circle())
+                                }
                                 
                                 Text(friends[i].firstName)
                                     .foregroundColor(Color.white)
@@ -49,7 +59,8 @@ struct AssignItemsPage: View {
                     ForEach(items.indices, id: \.self) { i in
                         RecieptItem(item: items[i])
                             .onTapGesture {
-                                self.isFriendsListOpen = true
+                                openFriendsList(itemIndex: i)
+                                
                             }
                     }
                 }
@@ -57,7 +68,12 @@ struct AssignItemsPage: View {
             }
             
             if (isFriendsListOpen) {
-                FriendsList(friends: $friends, isFriendsListOpen: $isFriendsListOpen)
+                FriendsList(
+                    friends: $friends,
+                    items: $items,
+                    isFriendsListOpen: $isFriendsListOpen,
+                    itemBeingAssignedIndex: $itemBeingAssignedIndex
+                )
             }
         }
         .navigationBarItems(
@@ -65,5 +81,10 @@ struct AssignItemsPage: View {
                 Text("< Back").foregroundColor(Color.white)
             }
         )
+    }
+    
+    func openFriendsList(itemIndex: Int) {
+        self.itemBeingAssignedIndex = itemIndex
+        self.isFriendsListOpen = true
     }
 }

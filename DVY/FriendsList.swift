@@ -9,7 +9,9 @@ import SwiftUI
 
 struct FriendsList: View {
     @Binding var friends: [Person]
+    @Binding var items: [ReciptItem]
     @Binding var isFriendsListOpen: Bool
+    @Binding var itemBeingAssignedIndex: Int?
     
     var body: some View {
         ZStack {
@@ -49,6 +51,9 @@ struct FriendsList: View {
                             .background(Color(red: friends[i].color.red, green: friends[i].color.green, blue: friends[i].color.blue))
                             .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
                             .cornerRadius(10)
+                            .onTapGesture {
+                                assignItem(friendIndex: i)
+                            }
                     }
                 }
             }
@@ -63,5 +68,12 @@ struct FriendsList: View {
                     UITableView.appearance().backgroundColor = .systemGroupedBackground
                 }
         }
+    }
+    
+    func assignItem(friendIndex: Int) {
+        self.friends[friendIndex].items.append(items[self.itemBeingAssignedIndex!])
+        self.items.remove(at: self.itemBeingAssignedIndex!)
+        self.itemBeingAssignedIndex = nil
+        self.isFriendsListOpen = false
     }
 }
