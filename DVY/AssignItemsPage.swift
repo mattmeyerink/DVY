@@ -12,6 +12,8 @@ struct AssignItemsPage: View {
     @Binding var friends: [Person]
     @Binding var items: [ReciptItem]
     
+    @State var isFriendsListOpen: Bool = false
+    
     var body: some View {
         ZStack {
             Color(red: 0.1, green: 0.1, blue: 0.1)
@@ -46,11 +48,16 @@ struct AssignItemsPage: View {
                 ScrollView {
                     ForEach(items.indices, id: \.self) { i in
                         RecieptItem(item: items[i])
+                            .onTapGesture {
+                                self.isFriendsListOpen = true
+                            }
                     }
                 }
                     .padding(.horizontal)
-                
-                ScrollView {}
+            }
+            
+            if (isFriendsListOpen) {
+                FriendsList(friends: $friends, isFriendsListOpen: $isFriendsListOpen)
             }
         }
         .navigationBarItems(
