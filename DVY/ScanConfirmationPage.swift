@@ -96,7 +96,7 @@ struct ScanConfirmationPage: View {
                 }
                     .foregroundColor(Color.white)
                     .padding(.vertical)
-                .padding(.horizontal)
+                    .padding(.horizontal)
             }
                 .padding(.horizontal)
             

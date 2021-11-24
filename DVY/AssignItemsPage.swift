@@ -42,9 +42,6 @@ struct AssignItemsPage: View {
                                             .font(.system(size: 40, weight: .semibold))
                                             .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
                                     }
-                                    .onTapGesture {
-                                        openFriendItemList(friendIndex: i)
-                                    }
                                 } else {
                                     ZStack {
                                         Circle()
@@ -55,6 +52,9 @@ struct AssignItemsPage: View {
                                             .font(.system(size: 40, weight: .semibold))
                                             .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
                                     }
+                                        .onTapGesture {
+                                            openFriendItemList(friendIndex: i)
+                                        }
                                 }
                                 
                                 Text(friends[i].firstName)
