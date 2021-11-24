@@ -15,6 +15,9 @@ struct AssignItemsPage: View {
     @State var isFriendsListOpen: Bool = false
     @State var itemBeingAssignedIndex: Int? = nil
     
+    @State var isFriendItemListOpen: Bool = false
+    @State var friendListOpenFriend: Person? = nil
+    
     var body: some View {
         ZStack {
             Color(red: 0.1, green: 0.1, blue: 0.1)
@@ -38,6 +41,9 @@ struct AssignItemsPage: View {
                                         Text(friends[i].initials)
                                             .font(.system(size: 40, weight: .semibold))
                                             .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
+                                    }
+                                    .onTapGesture {
+                                        openFriendItemList(friendIndex: i)
                                     }
                                 } else {
                                     ZStack {
@@ -74,11 +80,19 @@ struct AssignItemsPage: View {
             }
             
             if (isFriendsListOpen) {
-                FriendsList(
+                FriendsListModal(
                     friends: $friends,
                     items: $items,
                     isFriendsListOpen: $isFriendsListOpen,
                     itemBeingAssignedIndex: $itemBeingAssignedIndex
+                )
+            }
+            
+            if (isFriendItemListOpen) {
+                FriendItemListModal(
+                    friend: $friendListOpenFriend,
+                    items: $items,
+                    isFriendItemListOpen: $isFriendItemListOpen
                 )
             }
         }
@@ -90,7 +104,18 @@ struct AssignItemsPage: View {
     }
     
     func openFriendsList(itemIndex: Int) {
+        self.isFriendItemListOpen = false
+        self.friendListOpenFriend = nil
+        
         self.itemBeingAssignedIndex = itemIndex
         self.isFriendsListOpen = true
+    }
+    
+    func openFriendItemList(friendIndex: Int) {
+        self.isFriendsListOpen = false
+        self.itemBeingAssignedIndex = nil
+        
+        self.isFriendItemListOpen = true
+        self.friendListOpenFriend = friends[friendIndex]
     }
 }

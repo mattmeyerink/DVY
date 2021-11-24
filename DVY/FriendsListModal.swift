@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct FriendsList: View {
+struct FriendsListModal: View {
     @Binding var friends: [Person]
     @Binding var items: [ReciptItem]
     @Binding var isFriendsListOpen: Bool
