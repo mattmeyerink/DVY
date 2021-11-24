@@ -30,19 +30,25 @@ struct AssignItemsPage: View {
                         ForEach(friends.indices, id: \.self) { i in
                             VStack {
                                 if (friends[i].items.count == 0) {
-                                    Text(friends[i].initials)
-                                        .font(.system(size: 40, weight: .semibold))
-                                        .padding(20)
-                                        .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
-                                        .background(Color(red: friends[i].color.red, green: friends[i].color.green, blue: friends[i].color.blue))
-                                        .clipShape(Circle())
+                                    ZStack {
+                                        Circle()
+                                            .fill(Color(red: friends[i].color.red, green: friends[i].color.green, blue: friends[i].color.blue))
+                                            .frame(width: 85, height: 85)
+                                        
+                                        Text(friends[i].initials)
+                                            .font(.system(size: 40, weight: .semibold))
+                                            .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
+                                    }
                                 } else {
-                                    Text(String(friends[i].items.count))
-                                        .font(.system(size: 40, weight: .semibold))
-                                        .padding(20)
-                                        .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
-                                        .background(Color(red: friends[i].color.red, green: friends[i].color.green, blue: friends[i].color.blue))
-                                        .clipShape(Circle())
+                                    ZStack {
+                                        Circle()
+                                            .fill(Color(red: friends[i].color.red, green: friends[i].color.green, blue: friends[i].color.blue))
+                                            .frame(width: 85, height: 85)
+                                        
+                                        Text(String(friends[i].items.count))
+                                            .font(.system(size: 40, weight: .semibold))
+                                            .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
+                                    }
                                 }
                                 
                                 Text(friends[i].firstName)

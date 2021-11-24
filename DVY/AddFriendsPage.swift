@@ -36,12 +36,15 @@ struct AddFriendsPage: View {
                     LazyVGrid(columns: gridItemLayout, spacing: 20) {
                         ForEach(friends.indices, id: \.self) { i in
                             VStack{
-                                Text(friends[i].initials)
-                                    .font(.system(size: 40, weight: .semibold))
-                                    .padding(20)
-                                    .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
-                                    .background(Color(red: friends[i].color.red, green: friends[i].color.green, blue: friends[i].color.blue))
-                                    .clipShape(Circle())
+                                ZStack {
+                                    Circle()
+                                        .fill(Color(red: friends[i].color.red, green: friends[i].color.green, blue: friends[i].color.blue))
+                                        .frame(width: 85, height: 85)
+                                    
+                                    Text(friends[i].initials)
+                                        .font(.system(size: 40, weight: .semibold))
+                                        .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
+                                }
                                     .onTapGesture() {
                                         openActionPopup(actionFriendIndex: i)
                                     }
@@ -115,10 +118,11 @@ struct AddFriendButton: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .font(.system(size: 40, weight: .semibold))
-            .padding(25)
+            .padding(21.75)
             .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
             .background(Color(red: 0.2, green: 0.9, blue: 0.25))
             .clipShape(Circle())
+            .frame(width: 85, height: 85)
             .scaleEffect(configuration.isPressed ? 0.85 : 1)
             .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
     }
