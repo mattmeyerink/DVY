@@ -41,16 +41,16 @@ struct FriendItemListModal: View {
                 }
                     .padding(.vertical, 20)
             }
+                .padding(.horizontal)
+                .frame(width: 350, height: 350, alignment: .center)
+                .padding(.bottom, 30)
+                .background(Color(red: 0.1, green: 0.1, blue: 0.1)).cornerRadius(15)
+                .onAppear {
+                    UITableView.appearance().backgroundColor = .clear
+                }
+                .onDisappear {
+                    UITableView.appearance().backgroundColor = .systemGroupedBackground
+                }
         }
-            .frame(width: 350, height: 300, alignment: .center)
-            .padding(.bottom, 30)
-            .background(Color(red: 0.1, green: 0.1, blue: 0.1))
-            .cornerRadius(15)
-            .onAppear {
-                UITableView.appearance().backgroundColor = .clear
-            }
-            .onDisappear {
-                UITableView.appearance().backgroundColor = .systemGroupedBackground
-            }
     }
 }
