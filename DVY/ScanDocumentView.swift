@@ -66,22 +66,30 @@ class Coordinator: NSObject, VNDocumentCameraViewControllerDelegate {
             guard let observations = request.results as? [VNRecognizedTextObservation] else { return }
             
             let maximumRecognitionCandidates = 1
+            
             var currentItemName: String? = nil
             var currentItemPrice: Double? = nil
+            let invalidItems = ["tax", "total", "due", "visa"]
+            
             for observation in observations {
                 let candidate = observation.topCandidates(maximumRecognitionCandidates).first
+                
                 if (candidate != nil) {
-                    if (currentItemName != nil) {
-                        currentItemPrice = Double(candidate!.string.replacingOccurrences(of: "$", with: ""))
-                        if (currentItemPrice != nil) {
-                            if (currentItemName!.localizedCaseInsensitiveContains("total")) {
-                                self.total.wrappedValue = CurrencyObject(price: currentItemPrice!)
-                            } else if (currentItemName!.localizedCaseInsensitiveContains("tax")) {
-                                self.tax.wrappedValue = CurrencyObject(price: currentItemPrice!)
-                            } else {
-                                recognizedItems.append(ReciptItem(name: currentItemName!, price: currentItemPrice!))
+                    currentItemPrice = Double(candidate!.string.replacingOccurrences(of: "$", with: ""))
+                    
+                    if (currentItemName != nil && currentItemPrice != nil && candidate!.string.localizedCaseInsensitiveContains(".")) {
+                        var containsInvalidWord = false
+                        for word in invalidItems {
+                            if (currentItemName!.localizedCaseInsensitiveContains(word)) {
+                                containsInvalidWord = true
+                                break
                             }
                         }
+                        
+                        if (!containsInvalidWord) {
+                            recognizedItems.append(ReciptItem(name: currentItemName!, price: currentItemPrice!))
+                        }
+                        
                         currentItemName = nil
                         currentItemPrice = nil
                     } else {
