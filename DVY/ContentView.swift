@@ -41,6 +41,12 @@ struct ContentView: View {
                     AssignItemsPage(currentPage: $currentPage, friends: $friends, items: $items)
                 }
             }
+            
+            if (self.currentPage == "taxTipPage") {
+                NavigationView {
+                    TaxTipPage(currentPage: $currentPage)
+                }
+            }
         }
         .sheet(isPresented: $isScanning) {
             ScanDocumentView(items: $items, tax: $tax, total: $total)
