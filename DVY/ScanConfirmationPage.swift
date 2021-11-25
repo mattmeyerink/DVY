@@ -10,8 +10,6 @@ import SwiftUI
 struct ScanConfirmationPage: View {
     @Binding var currentPage: String
     @Binding var items: [ReciptItem]
-    @Binding var tax: CurrencyObject
-    @Binding var total: CurrencyObject
     
     @State var itemExpanded: Int? = nil
     @State var isEditModalOpen: Bool = false
@@ -88,10 +86,9 @@ struct ScanConfirmationPage: View {
                 }
                 
                 HStack {
-                    Text("Tax: " + tax.priceFormatted)
-                        .font(.system(size: 25, weight: .semibold))
                     Spacer()
-                    Text("Total: " + total.priceFormatted)
+                    
+                    Text("Subtotal: " + calculateSubtotal().priceFormatted)
                         .font(.system(size: 25, weight: .semibold))
                 }
                     .foregroundColor(Color.white)
@@ -103,7 +100,6 @@ struct ScanConfirmationPage: View {
             if (isEditModalOpen) {
                 EditItemModal(
                     items: $items,
-                    total: $total,
                     showPopup: $isEditModalOpen,
                     editedItemIndex: editedItemIndex,
                     itemName: editedItemName,
@@ -160,5 +156,13 @@ struct ScanConfirmationPage: View {
         self.editedItemName = ""
         self.editedItemPrice = 0.0
         self.isEditModalOpen = true
+    }
+    
+    func calculateSubtotal() -> CurrencyObject {
+        var total = 0.0
+        for item in self.items {
+            total += item.price
+        }
+        return CurrencyObject(price: total)
     }
 }

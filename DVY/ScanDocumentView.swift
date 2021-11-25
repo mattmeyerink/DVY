@@ -11,12 +11,10 @@ import Vision
 
 struct ScanDocumentView: UIViewControllerRepresentable {
     @Binding var items: [ReciptItem]
-    @Binding var tax: CurrencyObject
-    @Binding var total: CurrencyObject
     @Environment(\.presentationMode) var presentationMode
     
     func makeCoordinator() -> Coordinator {
-        return Coordinator(items: $items, total: $total, tax: $tax, parent: self)
+        return Coordinator(items: $items, parent: self)
     }
     
     func makeUIViewController(context: Context) -> VNDocumentCameraViewController {
@@ -30,14 +28,10 @@ struct ScanDocumentView: UIViewControllerRepresentable {
 
 class Coordinator: NSObject, VNDocumentCameraViewControllerDelegate {
     var items: Binding<[ReciptItem]>
-    var total: Binding<CurrencyObject>
-    var tax: Binding<CurrencyObject>
     var parent: ScanDocumentView
     
-    init(items: Binding<[ReciptItem]>, total: Binding<CurrencyObject>, tax: Binding<CurrencyObject>, parent: ScanDocumentView) {
+    init(items: Binding<[ReciptItem]>, parent: ScanDocumentView) {
         self.items = items
-        self.total = total
-        self.tax = tax
         self.parent = parent
     }
     

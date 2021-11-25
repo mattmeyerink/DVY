@@ -9,7 +9,6 @@ import SwiftUI
 
 struct EditItemModal: View {
     @Binding var items: [ReciptItem]
-    @Binding var total: CurrencyObject
     @Binding var showPopup: Bool
     @State var editedItemIndex: Int?
     
@@ -72,11 +71,8 @@ struct EditItemModal: View {
         }
         
         if (editedItemIndex != nil) {
-            let totalValue = total.price - items[editedItemIndex!].price
-            total = CurrencyObject(price: totalValue + itemPrice)
             items[editedItemIndex!] = ReciptItem(name: itemName, price: itemPrice)
         } else {
-            total = CurrencyObject(price: total.price + itemPrice)
             items.append(ReciptItem(name: itemName, price: itemPrice))
         }
         

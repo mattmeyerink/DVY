@@ -13,7 +13,7 @@ struct ContentView: View {
     @State var items: [ReciptItem] = []
     @State var friends: [Person] = []
     @State var tax: CurrencyObject = CurrencyObject(price: 0.0)
-    @State var total: CurrencyObject = CurrencyObject(price: 0.0)
+    @State var tip: CurrencyObject = CurrencyObject(price: 0.0)
     
     var body: some View {
         ZStack {
@@ -26,7 +26,7 @@ struct ContentView: View {
             
             if (self.currentPage == "scanConfirmationPage") {
                 NavigationView {
-                    ScanConfirmationPage(currentPage: $currentPage, items: $items, tax: $tax, total: $total)
+                    ScanConfirmationPage(currentPage: $currentPage, items: $items)
                 }
             }
             
@@ -44,13 +44,13 @@ struct ContentView: View {
             
             if (self.currentPage == "taxTipPage") {
                 NavigationView {
-                    TaxTipPage(currentPage: $currentPage)
+                    TaxTipPage(currentPage: $currentPage, tax: $tax, tip: $tip)
                 }
             }
         }
-        .sheet(isPresented: $isScanning) {
-            ScanDocumentView(items: $items, tax: $tax, total: $total)
-        }
+            .sheet(isPresented: $isScanning) {
+                ScanDocumentView(items: $items)
+            }
     }
 }
 

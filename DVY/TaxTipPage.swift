@@ -9,6 +9,8 @@ import SwiftUI
 
 struct TaxTipPage: View {
     @Binding var currentPage: String
+    @Binding var tax: CurrencyObject
+    @Binding var tip: CurrencyObject
     
     var body: some View {
         ZStack {
