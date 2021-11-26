@@ -49,7 +49,7 @@ struct ContentView: View {
             }
         }
             .sheet(isPresented: $isScanning) {
-                ScanDocumentView(items: $items)
+                ScanDocumentView(items: $items, tax: $tax)
             }
     }
 }

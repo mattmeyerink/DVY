@@ -11,10 +11,11 @@ import Vision
 
 struct ScanDocumentView: UIViewControllerRepresentable {
     @Binding var items: [ReciptItem]
+    @Binding var tax: CurrencyObject
     @Environment(\.presentationMode) var presentationMode
     
     func makeCoordinator() -> Coordinator {
-        return Coordinator(items: $items, parent: self)
+        return Coordinator(items: $items, tax: $tax, parent: self)
     }
     
     func makeUIViewController(context: Context) -> VNDocumentCameraViewController {
@@ -28,10 +29,12 @@ struct ScanDocumentView: UIViewControllerRepresentable {
 
 class Coordinator: NSObject, VNDocumentCameraViewControllerDelegate {
     var items: Binding<[ReciptItem]>
+    var tax: Binding<CurrencyObject>
     var parent: ScanDocumentView
     
-    init(items: Binding<[ReciptItem]>, parent: ScanDocumentView) {
+    init(items: Binding<[ReciptItem]>, tax: Binding<CurrencyObject>, parent: ScanDocumentView) {
         self.items = items
+        self.tax = tax
         self.parent = parent
     }
     
@@ -63,7 +66,8 @@ class Coordinator: NSObject, VNDocumentCameraViewControllerDelegate {
             
             var currentItemName: String? = nil
             var currentItemPrice: Double? = nil
-            let invalidItems = ["tax", "total", "due", "visa"]
+            var currentTax: Double = 0.0
+            let invalidItems = ["total", "due", "visa"]
             
             for observation in observations {
                 let candidate = observation.topCandidates(maximumRecognitionCandidates).first
@@ -80,7 +84,12 @@ class Coordinator: NSObject, VNDocumentCameraViewControllerDelegate {
                             }
                         }
                         
-                        if (!containsInvalidWord) {
+                        let containsTax = currentItemName!.localizedCaseInsensitiveContains("tax")
+                        
+                        if (containsTax && currentItemPrice! > currentTax) {
+                            currentTax = currentItemPrice!
+                            self.tax.wrappedValue = CurrencyObject(price: currentTax)
+                        } else if (!containsInvalidWord && !containsTax) {
                             recognizedItems.append(ReciptItem(name: currentItemName!, price: currentItemPrice!))
                         }
                         
