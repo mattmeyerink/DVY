@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct EditItemModal: View {
     @Binding var items: [ReciptItem]
@@ -13,7 +14,7 @@ struct EditItemModal: View {
     @State var editedItemIndex: Int?
     
     @State var itemName: String
-    @State var itemPrice: Double
+    @State var itemPrice: String
     
     let formatter: NumberFormatter = {
         let formatter = NumberFormatter()
@@ -27,14 +28,20 @@ struct EditItemModal: View {
             
             Form {
                 Section(header: Text("Name").font(.system(size: 20, weight: .semibold))) {
-                    TextField("Name", text: $itemName)
-                        .foregroundColor(.black)
+                    TextField("Name", text: $itemName)                        .foregroundColor(.black)
                 }
                     .foregroundColor(.white)
                 
                 Section(header: Text("Price").font(.system(size: 20, weight: .semibold))) {
-                    TextField("Price", value: $itemPrice, formatter: formatter)
+                    TextField("Price", text: $itemPrice)
                         .foregroundColor(.black)
+                        .keyboardType(.decimalPad)
+                        .onReceive(Just(itemPrice)) { newValue in
+                            let filtered = newValue.filter { "0123456789.".contains($0) }
+                            if filtered != newValue {
+                                self.itemPrice = "$" + filtered
+                            }
+                        }
                 }
                     .foregroundColor(.white)
                 
@@ -70,10 +77,12 @@ struct EditItemModal: View {
             return
         }
         
+        let cleanPriceString = itemPrice.replacingOccurrences(of: "$", with: "")
+        
         if (editedItemIndex != nil) {
-            items[editedItemIndex!] = ReciptItem(name: itemName, price: itemPrice)
+            items[editedItemIndex!] = ReciptItem(name: itemName, price: Double(cleanPriceString)!)
         } else {
-            items.append(ReciptItem(name: itemName, price: itemPrice))
+            items.append(ReciptItem(name: itemName, price: Double(cleanPriceString)!))
         }
         
         closePopup()

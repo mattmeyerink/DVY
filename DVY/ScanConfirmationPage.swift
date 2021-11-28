@@ -15,7 +15,7 @@ struct ScanConfirmationPage: View {
     @State var isEditModalOpen: Bool = false
     @State var editedItemIndex: Int? = nil
     @State var editedItemName: String = ""
-    @State var editedItemPrice: Double = 0.0
+    @State var editedItemPrice: String = ""
 
     var body: some View {
         ZStack {
@@ -147,14 +147,14 @@ struct ScanConfirmationPage: View {
         self.itemExpanded = nil
         self.editedItemIndex = editItemIndex
         self.editedItemName = items[editItemIndex].name
-        self.editedItemPrice = items[editItemIndex].price
+        self.editedItemPrice = items[editItemIndex].priceFormatted
         self.isEditModalOpen = true
     }
     
     func addItem() {
         self.editedItemIndex = nil
         self.editedItemName = ""
-        self.editedItemPrice = 0.0
+        self.editedItemPrice = ""
         self.isEditModalOpen = true
     }
     
