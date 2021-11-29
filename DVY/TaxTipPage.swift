@@ -15,6 +15,7 @@ struct TaxTipPage: View {
     
     @State var taxString: String
     @State var isEditingTax = false
+
     
     var body: some View {
         ZStack {
@@ -31,12 +32,19 @@ struct TaxTipPage: View {
                     HStack {
                         Text("Tax: ")
                             .font(.system(size: 30, weight: .semibold))
-                            .padding(.vertical, 15)
                             .foregroundColor(Color.white)
+                            .padding(.vertical, 15)
                         
                         TextField("Tax", text: $taxString)
+                            .fixedSize()
                             .foregroundColor(.white)
                             .font(.system(size: 30, weight: .semibold))
+                            .padding(.vertical, 5)
+                            .padding(.horizontal, 10)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.white, lineWidth: 2)
+                            )
                             .keyboardType(.decimalPad)
                             .onReceive(Just(taxString)) { newValue in
                                 let filtered = newValue.filter { "0123456789.".contains($0) }
@@ -49,26 +57,28 @@ struct TaxTipPage: View {
                             Text("Save")
                         }
                             .buttonStyle(GreenButton())
+                            .padding(.leading, 10)
                     }
                         .foregroundColor(.white)
                 } else {
                     HStack {
                         Text("Tax: " + tax.priceFormatted)
                             .font(.system(size: 30, weight: .semibold))
-                            .padding(.vertical, 15)
                             .foregroundColor(Color.white)
+                            .padding(.trailing, 10)
+                            .padding(.vertical, 15)
                         
                         Image(systemName: "square.and.pencil")
                             .foregroundColor(.white)
+                            .padding(.vertical, 15)
                             .font(.system(size: 30, weight: .semibold))
-                            .padding(.horizontal, 10)
-                            .padding(.bottom, 15)
                             .onTapGesture {
                                 self.isEditingTax = true
                             }
                     }
                 }
                 
+                ScrollView {}
             }
         }
         .navigationBarItems(
