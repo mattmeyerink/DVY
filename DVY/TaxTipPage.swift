@@ -115,6 +115,12 @@ struct TaxTipPage: View {
                     .foregroundColor(Color.white)
                     .padding(.top, 25)
                 
+                Text("TOTAL: " + calculateCurrentTotal().priceFormatted)
+                    .font(.system(size: 30, weight: .semibold))
+                    .foregroundColor(Color.white)
+                    .padding(.top, 100)
+                
+                
                 ScrollView {}
             }
                 .padding(.horizontal)
@@ -131,7 +137,7 @@ struct TaxTipPage: View {
         self.isEditingTax = false
     }
     
-    func calculateCurrentTip() -> CurrencyObject {
+    func getCurrentTipDecimal() -> Double {
         var tipDecimal = 0.0
         if (selectedTipOption == 0) {
             tipDecimal = 0.15
@@ -140,7 +146,14 @@ struct TaxTipPage: View {
         } else if (selectedTipOption == 2) {
             tipDecimal = 0.20
         }
-        
-        return CurrencyObject(price: (subtotal + tax.price) * tipDecimal)
+        return tipDecimal
+    }
+    
+    func calculateCurrentTip() -> CurrencyObject {
+        return CurrencyObject(price: (subtotal + tax.price) * getCurrentTipDecimal())
+    }
+    
+    func calculateCurrentTotal() -> CurrencyObject {
+        return CurrencyObject(price: (subtotal + tax.price) * (1 + getCurrentTipDecimal()))
     }
 }
