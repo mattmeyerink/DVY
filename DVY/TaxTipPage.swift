@@ -12,25 +12,35 @@ struct TaxTipPage: View {
     @Binding var currentPage: String
     @Binding var tax: CurrencyObject
     @Binding var tip: CurrencyObject
+    @Binding var items: [ReciptItem]
     
     @State var taxString: String
     @State var isEditingTax = false
     
     @State var selectedTipOption = 1
+    
+    var subtotal: Double
 
-    init(currentPage: Binding<String>, tax: Binding<CurrencyObject>, tip: Binding<CurrencyObject>, taxString: String) {
+    init(currentPage: Binding<String>, tax: Binding<CurrencyObject>, tip: Binding<CurrencyObject>, items: Binding<[ReciptItem]>, taxString: String) {
         self._currentPage = currentPage
         self._tax = tax
         self._tip = tip
+        self._items = items
         self.taxString = taxString
         self.isEditingTax = false
         self.selectedTipOption = 1
         
-        let font = UIFont.systemFont(ofSize: 20)
+        self.subtotal = 0.0
+        for item in self.items {
+            self.subtotal += item.price
+        }
         
+        let font = UIFont.systemFont(ofSize: 20)
         UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(red: 0.2, green: 0.9, blue: 0.25, alpha: 1)
         UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white, NSAttributedString.Key.font: font], for: .normal)
         UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.black, NSAttributedString.Key.font: font], for: .selected)
+        
+        
     }
     
     var body: some View {
@@ -100,7 +110,7 @@ struct TaxTipPage: View {
                 }
                     .pickerStyle(.segmented)
                 
-                Text("Actual Tip Amount")
+                Text(calculateCurrentTip().priceFormatted)
                     .font(.system(size: 30, weight: .semibold))
                     .foregroundColor(Color.white)
                     .padding(.top, 25)
@@ -119,5 +129,18 @@ struct TaxTipPage: View {
     func saveTax() {
         self.tax = CurrencyObject(price: Double(taxString)!)
         self.isEditingTax = false
+    }
+    
+    func calculateCurrentTip() -> CurrencyObject {
+        var tipDecimal = 0.0
+        if (selectedTipOption == 0) {
+            tipDecimal = 0.15
+        } else if (selectedTipOption == 1) {
+            tipDecimal = 0.18
+        } else if (selectedTipOption == 2) {
+            tipDecimal = 0.20
+        }
+        
+        return CurrencyObject(price: (subtotal + tax.price) * tipDecimal)
     }
 }
