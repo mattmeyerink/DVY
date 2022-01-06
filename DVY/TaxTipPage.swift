@@ -15,7 +15,21 @@ struct TaxTipPage: View {
     
     @State var taxString: String
     @State var isEditingTax = false
+    
+    @State var selectedTipOption = 1
 
+    init(currentPage: Binding<String>, tax: Binding<CurrencyObject>, tip: Binding<CurrencyObject>, taxString: String) {
+        self._currentPage = currentPage
+        self._tax = tax
+        self._tip = tip
+        self.taxString = taxString
+        self.isEditingTax = false
+        self.selectedTipOption = 1
+        
+        UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(red: 0.2, green: 0.9, blue: 0.25, alpha: 1)
+        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .normal)
+        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.black], for: .selected)
+    }
     
     var body: some View {
         ZStack {
@@ -78,8 +92,17 @@ struct TaxTipPage: View {
                     }
                 }
                 
+                Picker("What tip would you like to leave", selection: $selectedTipOption) {
+                    Text("15%").tag(0)
+                    Text("18%").tag(1)
+                    Text("20%").tag(2)
+                    Text("Custom").tag(3)
+                }
+                    .pickerStyle(.segmented)
+                
                 ScrollView {}
             }
+                .padding(.horizontal)
         }
         .navigationBarItems(
             leading: Button(action: { self.currentPage = "assignItemsPage" }) {
