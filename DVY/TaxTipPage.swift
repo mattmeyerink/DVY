@@ -26,9 +26,11 @@ struct TaxTipPage: View {
         self.isEditingTax = false
         self.selectedTipOption = 1
         
+        let font = UIFont.systemFont(ofSize: 20)
+        
         UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(red: 0.2, green: 0.9, blue: 0.25, alpha: 1)
-        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .normal)
-        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.black], for: .selected)
+        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white, NSAttributedString.Key.font: font], for: .normal)
+        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.black, NSAttributedString.Key.font: font], for: .selected)
     }
     
     var body: some View {
@@ -37,18 +39,13 @@ struct TaxTipPage: View {
                 .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
             
             VStack {
-                Text("Calculate Tax and Tip")
+                Text("TAX")
                     .font(.system(size: 30, weight: .semibold))
-                    .padding(.vertical, 15)
                     .foregroundColor(Color.white)
+                    .padding(.vertical, 15)
                 
                 if (isEditingTax) {
                     HStack {
-                        Text("Tax: ")
-                            .font(.system(size: 30, weight: .semibold))
-                            .foregroundColor(Color.white)
-                            .padding(.vertical, 15)
-                        
                         TextField("Tax", text: $taxString)
                             .fixedSize()
                             .foregroundColor(.white)
@@ -76,21 +73,24 @@ struct TaxTipPage: View {
                         .foregroundColor(.white)
                 } else {
                     HStack {
-                        Text("Tax: " + tax.priceFormatted)
+                        Text(tax.priceFormatted)
                             .font(.system(size: 30, weight: .semibold))
                             .foregroundColor(Color.white)
                             .padding(.trailing, 10)
                             .padding(.vertical, 15)
                         
-                        Image(systemName: "square.and.pencil")
-                            .foregroundColor(.white)
-                            .padding(.vertical, 15)
-                            .font(.system(size: 30, weight: .semibold))
-                            .onTapGesture {
-                                self.isEditingTax = true
-                            }
+                        Button(action: { self.isEditingTax = true }) {
+                            Text("Edit")
+                        }
+                            .buttonStyle(GreenButton())
+                            .padding(.leading, 10)
                     }
                 }
+                
+                Text("TIP")
+                    .font(.system(size: 30, weight: .semibold))
+                    .foregroundColor(Color.white)
+                    .padding(.top, 100)
                 
                 Picker("What tip would you like to leave", selection: $selectedTipOption) {
                     Text("15%").tag(0)
@@ -99,6 +99,11 @@ struct TaxTipPage: View {
                     Text("Custom").tag(3)
                 }
                     .pickerStyle(.segmented)
+                
+                Text("Actual Tip Amount")
+                    .font(.system(size: 30, weight: .semibold))
+                    .foregroundColor(Color.white)
+                    .padding(.top, 25)
                 
                 ScrollView {}
             }
