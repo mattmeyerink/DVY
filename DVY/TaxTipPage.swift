@@ -18,6 +18,9 @@ struct TaxTipPage: View {
     @State var isEditingTax = false
     
     @State var selectedTipOption = 1
+    @State var isEditingCustomTip = false
+    @State var customTipString: String = "0.00"
+    @State var customTip: CurrencyObject = CurrencyObject(price: 0.0)
     
     var subtotal: Double
 
@@ -39,8 +42,6 @@ struct TaxTipPage: View {
         UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(red: 0.2, green: 0.9, blue: 0.25, alpha: 1)
         UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white, NSAttributedString.Key.font: font], for: .normal)
         UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.black, NSAttributedString.Key.font: font], for: .selected)
-        
-        
     }
     
     var body: some View {
@@ -110,10 +111,56 @@ struct TaxTipPage: View {
                 }
                     .pickerStyle(.segmented)
                 
-                Text(calculateCurrentTip().priceFormatted)
-                    .font(.system(size: 30, weight: .semibold))
-                    .foregroundColor(Color.white)
-                    .padding(.top, 25)
+                if (selectedTipOption == 3) {
+                    if (isEditingCustomTip) {
+                        HStack {
+                            TextField("Tip", text: $customTipString)
+                                .fixedSize()
+                                .foregroundColor(.white)
+                                .font(.system(size: 30, weight: .semibold))
+                                .padding(.vertical, 5)
+                                .padding(.horizontal, 10)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(Color.white, lineWidth: 2)
+                                )
+                                .keyboardType(.decimalPad)
+                                .onReceive(Just(customTipString)) { newValue in
+                                    let filtered = newValue.filter { "0123456789.".contains($0) }
+                                    if filtered != newValue {
+                                        self.customTipString = filtered
+                                    }
+                                }
+                            
+                            Button(action: { saveCustomTip() }) {
+                                Text("Save")
+                            }
+                                .buttonStyle(GreenButton())
+                                .padding(.leading, 10)
+                        }
+                            .foregroundColor(.white)
+                    } else {
+                        HStack {
+                            Text(customTip.priceFormatted)
+                                .font(.system(size: 30, weight: .semibold))
+                                .foregroundColor(Color.white)
+                                .padding(.trailing, 10)
+                                .padding(.vertical, 15)
+                            
+                            Button(action: { self.isEditingCustomTip = true }) {
+                                Text("Edit")
+                            }
+                                .buttonStyle(GreenButton())
+                                .padding(.leading, 10)
+                        }
+                    }
+                } else {
+                    Text(calculateCurrentTip().priceFormatted)
+                        .font(.system(size: 30, weight: .semibold))
+                        .foregroundColor(Color.white)
+                        .padding(.top, 25)
+                }
+                
                 
                 Text("TOTAL: " + calculateCurrentTotal().priceFormatted)
                     .font(.system(size: 30, weight: .semibold))
@@ -154,6 +201,15 @@ struct TaxTipPage: View {
     }
     
     func calculateCurrentTotal() -> CurrencyObject {
+        if (selectedTipOption == 3) {
+            return CurrencyObject(price: (subtotal + tax.price + customTip.price))
+        }
+        
         return CurrencyObject(price: (subtotal + tax.price) * (1 + getCurrentTipDecimal()))
+    }
+    
+    func saveCustomTip() {
+        self.customTip = CurrencyObject(price: Double(customTipString)!)
+        self.isEditingCustomTip = false
     }
 }
