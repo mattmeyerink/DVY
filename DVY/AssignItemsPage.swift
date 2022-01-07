@@ -72,7 +72,6 @@ struct AssignItemsPage: View {
                         RecieptItem(item: items[i])
                             .onTapGesture {
                                 openFriendsList(itemIndex: i)
-                                
                             }
                     }
                 }

@@ -11,7 +11,7 @@ import Combine
 struct TaxTipPage: View {
     @Binding var currentPage: String
     @Binding var tax: CurrencyObject
-    @Binding var tip: CurrencyObject
+    @Binding var total: CurrencyObject
     @Binding var items: [ReciptItem]
     
     @State var taxString: String
@@ -24,10 +24,10 @@ struct TaxTipPage: View {
     
     var subtotal: Double
 
-    init(currentPage: Binding<String>, tax: Binding<CurrencyObject>, tip: Binding<CurrencyObject>, items: Binding<[ReciptItem]>, taxString: String) {
+    init(currentPage: Binding<String>, tax: Binding<CurrencyObject>, total: Binding<CurrencyObject>, items: Binding<[ReciptItem]>, taxString: String) {
         self._currentPage = currentPage
         self._tax = tax
-        self._tip = tip
+        self._total = total
         self._items = items
         self.taxString = taxString
         self.isEditingTax = false
@@ -175,6 +175,9 @@ struct TaxTipPage: View {
         .navigationBarItems(
             leading: Button(action: { self.currentPage = "assignItemsPage" }) {
                 Text("< Back").foregroundColor(Color.white)
+            },
+            trailing: Button(action: { nextToFinalPage() }) {
+                Text("Next >").foregroundColor(Color.white)
             }
         )
     }
@@ -211,5 +214,10 @@ struct TaxTipPage: View {
     func saveCustomTip() {
         self.customTip = CurrencyObject(price: Double(customTipString)!)
         self.isEditingCustomTip = false
+    }
+    
+    func nextToFinalPage() {
+        self.total = calculateCurrentTotal()
+        self.currentPage = "summaryPage"
     }
 }

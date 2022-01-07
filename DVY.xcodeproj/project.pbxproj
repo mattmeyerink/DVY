@@ -26,6 +26,7 @@
 		D3359FF9274FCB87001CE10A /* TaxTipPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3359FF8274FCB87001CE10A /* TaxTipPage.swift */; };
 		D33DAA86274DDAF400A28298 /* FriendItemListModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33DAA85274DDAF400A28298 /* FriendItemListModal.swift */; };
 		D3959D66274AE71D000F6B06 /* FriendsListModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3959D65274AE71D000F6B06 /* FriendsListModal.swift */; };
+		D3B011DA2787D5EB00EE5C36 /* SummaryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B011D92787D5EB00EE5C36 /* SummaryPage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		D3359FF8274FCB87001CE10A /* TaxTipPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxTipPage.swift; sourceTree = "<group>"; };
 		D33DAA85274DDAF400A28298 /* FriendItemListModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendItemListModal.swift; sourceTree = "<group>"; };
 		D3959D65274AE71D000F6B06 /* FriendsListModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListModal.swift; sourceTree = "<group>"; };
+		D3B011D92787D5EB00EE5C36 /* SummaryPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryPage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +141,7 @@
 				D3959D65274AE71D000F6B06 /* FriendsListModal.swift */,
 				D33DAA85274DDAF400A28298 /* FriendItemListModal.swift */,
 				D3359FF8274FCB87001CE10A /* TaxTipPage.swift */,
+				D3B011D92787D5EB00EE5C36 /* SummaryPage.swift */,
 			);
 			path = DVY;
 			sourceTree = "<group>";
@@ -305,6 +308,7 @@
 				0615E544271B816B005CC1E9 /* LandingPage.swift in Sources */,
 				061BE95D2734D2B200C14E28 /* RecieptItem.swift in Sources */,
 				D33DAA86274DDAF400A28298 /* FriendItemListModal.swift in Sources */,
+				D3B011DA2787D5EB00EE5C36 /* SummaryPage.swift in Sources */,
 				066B3EF22724E5A700FE4141 /* FriendActionModal.swift in Sources */,
 				068E2113271A61610069C0A1 /* ContentView.swift in Sources */,
 				06E54946272F239A004D9F06 /* AssignItemsPage.swift in Sources */,
