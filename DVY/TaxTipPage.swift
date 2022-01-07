@@ -13,6 +13,7 @@ struct TaxTipPage: View {
     @Binding var tax: CurrencyObject
     @Binding var total: CurrencyObject
     @Binding var items: [ReciptItem]
+    @Binding var friends: [Person]
     
     @State var taxString: String
     @State var isEditingTax = false
@@ -24,11 +25,12 @@ struct TaxTipPage: View {
     
     var subtotal: Double
 
-    init(currentPage: Binding<String>, tax: Binding<CurrencyObject>, total: Binding<CurrencyObject>, items: Binding<[ReciptItem]>, taxString: String) {
+    init(currentPage: Binding<String>, tax: Binding<CurrencyObject>, total: Binding<CurrencyObject>, items: Binding<[ReciptItem]>, friends: Binding<[Person]>, taxString: String) {
         self._currentPage = currentPage
         self._tax = tax
         self._total = total
         self._items = items
+        self._friends = friends
         self.taxString = taxString
         self.isEditingTax = false
         self.selectedTipOption = 1
@@ -36,6 +38,11 @@ struct TaxTipPage: View {
         self.subtotal = 0.0
         for item in self.items {
             self.subtotal += item.price
+        }
+        for friend in self.friends {
+            for item in friend.items {
+                self.subtotal += item.price
+            }
         }
         
         let font = UIFont.systemFont(ofSize: 20)

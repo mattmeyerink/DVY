@@ -38,7 +38,7 @@ struct ContentView: View {
             
             if (self.currentPage == "taxTipPage") {
                 NavigationView {
-                    TaxTipPage(currentPage: $currentPage, tax: $tax, total: $total, items: $items, taxString: tax.priceFormatted)
+                    TaxTipPage(currentPage: $currentPage, tax: $tax, total: $total, items: $items, friends: $friends, taxString: tax.priceFormatted)
                 }
             }
             
