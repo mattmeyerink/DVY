@@ -173,7 +173,7 @@ struct TaxTipPage: View {
                 .padding(.horizontal)
         }
         .navigationBarItems(
-            leading: Button(action: { self.currentPage = "assignItemsPage" }) {
+            leading: Button(action: { self.currentPage = "addFriendsPage" }) {
                 Text("< Back").foregroundColor(Color.white)
             },
             trailing: Button(action: { nextToFinalPage() }) {
@@ -218,6 +218,6 @@ struct TaxTipPage: View {
     
     func nextToFinalPage() {
         self.total = calculateCurrentTotal()
-        self.currentPage = "summaryPage"
+        self.currentPage = "assignItemsPage"
     }
 }

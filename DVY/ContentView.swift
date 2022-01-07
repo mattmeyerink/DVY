@@ -36,15 +36,15 @@ struct ContentView: View {
                 }
             }
             
-            if (self.currentPage == "assignItemsPage") {
-                NavigationView {
-                    AssignItemsPage(currentPage: $currentPage, friends: $friends, items: $items)
-                }
-            }
-            
             if (self.currentPage == "taxTipPage") {
                 NavigationView {
                     TaxTipPage(currentPage: $currentPage, tax: $tax, total: $total, items: $items, taxString: tax.priceFormatted)
+                }
+            }
+            
+            if (self.currentPage == "assignItemsPage") {
+                NavigationView {
+                    AssignItemsPage(currentPage: $currentPage, friends: $friends, items: $items)
                 }
             }
             

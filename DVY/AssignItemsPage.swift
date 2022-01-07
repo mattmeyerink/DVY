@@ -96,10 +96,10 @@ struct AssignItemsPage: View {
             }
         }
         .navigationBarItems(
-            leading: Button(action: { self.currentPage = "addFriendsPage" }) {
+            leading: Button(action: { self.currentPage = "taxTipPage" }) {
                 Text("< Back").foregroundColor(Color.white)
             },
-            trailing: Button(action: { self.currentPage = "taxTipPage"}) {
+            trailing: Button(action: { self.currentPage = "summaryPage"}) {
                 Text("Next >").foregroundColor(Color.white)
             }
         )

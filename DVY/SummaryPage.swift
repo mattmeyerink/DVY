@@ -23,7 +23,7 @@ struct SummaryPage: View {
             }
         }
         .navigationBarItems(
-            leading: Button(action: { self.currentPage = "taxTipPage" }) {
+            leading: Button(action: { self.currentPage = "assignItemsPage" }) {
                 Text("< Back").foregroundColor(Color.white)
             }
         )

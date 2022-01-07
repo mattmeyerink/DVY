@@ -95,7 +95,7 @@ struct AddFriendsPage: View {
             leading: Button(action: {self.currentPage = "scanConfirmationPage"}) {
                 Text("< Back").foregroundColor(Color.white)
             },
-            trailing: Button(action: {self.currentPage = "assignItemsPage"}) {
+            trailing: Button(action: {self.currentPage = "taxTipPage"}) {
                 Text("Next >").foregroundColor(Color.white)
             }
         )
