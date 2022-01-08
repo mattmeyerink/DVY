@@ -11,29 +11,30 @@ import Combine
 struct TaxTipPage: View {
     @Binding var currentPage: String
     @Binding var tax: CurrencyObject
-    @Binding var total: CurrencyObject
+    @Binding var tip: CurrencyObject
     @Binding var items: [ReciptItem]
     @Binding var friends: [Person]
+    @Binding var selectedTipOption: Int
+    @Binding var customTip: CurrencyObject
     
     @State var taxString: String
     @State var isEditingTax = false
-    
-    @State var selectedTipOption = 1
     @State var isEditingCustomTip = false
     @State var customTipString: String = "0.00"
-    @State var customTip: CurrencyObject = CurrencyObject(price: 0.0)
+    
     
     var subtotal: Double
 
-    init(currentPage: Binding<String>, tax: Binding<CurrencyObject>, total: Binding<CurrencyObject>, items: Binding<[ReciptItem]>, friends: Binding<[Person]>, taxString: String) {
+    init(currentPage: Binding<String>, tax: Binding<CurrencyObject>, tip: Binding<CurrencyObject>, items: Binding<[ReciptItem]>, friends: Binding<[Person]>, taxString: String, tipSelectionOption: Binding<Int>, customTip: Binding<CurrencyObject>) {
         self._currentPage = currentPage
         self._tax = tax
-        self._total = total
+        self._tip = tip
         self._items = items
         self._friends = friends
+        self._selectedTipOption = tipSelectionOption
+        self._customTip = customTip
         self.taxString = taxString
         self.isEditingTax = false
-        self.selectedTipOption = 1
         
         self.subtotal = 0.0
         for item in self.items {
@@ -224,7 +225,11 @@ struct TaxTipPage: View {
     }
     
     func nextToFinalPage() {
-        self.total = calculateCurrentTotal()
+        if (selectedTipOption == 3) {
+            self.tip = customTip
+        } else {
+            self.tip = calculateCurrentTip()
+        }
         self.currentPage = "assignItemsPage"
     }
 }

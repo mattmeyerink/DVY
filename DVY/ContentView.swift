@@ -13,7 +13,9 @@ struct ContentView: View {
     @State var items: [ReciptItem] = []
     @State var friends: [Person] = []
     @State var tax: CurrencyObject = CurrencyObject(price: 0.0)
-    @State var total: CurrencyObject = CurrencyObject(price: 0.0)
+    @State var tip: CurrencyObject = CurrencyObject(price: 0.0)
+    @State var tipSelectionOption: Int = 1
+    @State var customTip: CurrencyObject = CurrencyObject(price: 0.0)
     
     var body: some View {
         ZStack {
@@ -38,7 +40,7 @@ struct ContentView: View {
             
             if (self.currentPage == "taxTipPage") {
                 NavigationView {
-                    TaxTipPage(currentPage: $currentPage, tax: $tax, total: $total, items: $items, friends: $friends, taxString: tax.priceFormatted)
+                    TaxTipPage(currentPage: $currentPage, tax: $tax, tip: $tip, items: $items, friends: $friends, taxString: tax.priceFormatted, tipSelectionOption: $tipSelectionOption, customTip: $customTip)
                 }
             }
             
@@ -50,7 +52,7 @@ struct ContentView: View {
             
             if (self.currentPage == "summaryPage") {
                 NavigationView {
-                    SummaryPage(currentPage: $currentPage)
+                    SummaryPage(currentPage: $currentPage, friends: $friends, tax: $tax, tip: $tip)
                 }
             }
         }
