@@ -32,15 +32,15 @@ struct ContentView: View {
                 }
             }
             
-            if (self.currentPage == "addFriendsPage") {
-                NavigationView {
-                    AddFriendsPage(currentPage: $currentPage, friends: $friends)
-                }
-            }
-            
             if (self.currentPage == "taxTipPage") {
                 NavigationView {
                     TaxTipPage(currentPage: $currentPage, tax: $tax, tip: $tip, items: $items, friends: $friends, taxString: tax.priceFormatted, tipSelectionOption: $tipSelectionOption, customTip: $customTip)
+                }
+            }
+            
+            if (self.currentPage == "addFriendsPage") {
+                NavigationView {
+                    AddFriendsPage(currentPage: $currentPage, friends: $friends)
                 }
             }
             

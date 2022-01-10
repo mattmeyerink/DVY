@@ -112,7 +112,7 @@ struct ScanConfirmationPage: View {
             leading: Button(action: {self.currentPage = "landingPage"}) {
                 Text("< Re-Scan").foregroundColor(Color.white)
             },
-            trailing: Button(action: {self.currentPage = "addFriendsPage"}) {
+            trailing: Button(action: {self.currentPage = "taxTipPage"}) {
                 Text("Next >").foregroundColor(Color.white)
             }
         )

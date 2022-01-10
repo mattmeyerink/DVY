@@ -181,7 +181,7 @@ struct TaxTipPage: View {
                 .padding(.horizontal)
         }
         .navigationBarItems(
-            leading: Button(action: { self.currentPage = "addFriendsPage" }) {
+            leading: Button(action: { self.currentPage = "scanConfirmationPage" }) {
                 Text("< Back").foregroundColor(Color.white)
             },
             trailing: Button(action: { nextToFinalPage() }) {
@@ -230,6 +230,6 @@ struct TaxTipPage: View {
         } else {
             self.tip = calculateCurrentTip()
         }
-        self.currentPage = "assignItemsPage"
+        self.currentPage = "addFriendsPage"
     }
 }
