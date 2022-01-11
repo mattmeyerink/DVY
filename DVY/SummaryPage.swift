@@ -13,6 +13,8 @@ struct SummaryPage: View {
     @Binding var tax: CurrencyObject
     @Binding var tip: CurrencyObject
     
+    @State var friendExpanded: Int? = nil
+    
     var subtotal: Double
     
     init(currentPage: Binding<String>, friends: Binding<[Person]>, tax: Binding<CurrencyObject>, tip: Binding<CurrencyObject>) {
@@ -54,11 +56,56 @@ struct SummaryPage: View {
                                     .font(.system(size: 20, weight: .semibold))
                                     .padding(.trailing, 5)
                             }
+                                .padding(.bottom, 5)
+                            
+                            if (i == self.friendExpanded) {
+                                ForEach(friends[i].items.indices, id: \.self) { j in
+                                    HStack {
+                                        Text(friends[i].items[j].name)
+                                        
+                                        Spacer()
+                                        
+                                        Text(friends[i].items[j].priceFormatted)
+                                    }
+                                        .padding(.horizontal, 5)
+                                }
+                                
+                                HStack {
+                                    Text("Tax Contribution")
+                                    
+                                    Spacer()
+                                    
+                                    Text(calculateFriendTaxContribution(friend: friends[i]).priceFormatted)
+                                }
+                                    .padding(.horizontal, 5)
+                                    .padding(.top, 5)
+                                
+                                HStack {
+                                    Text("Tip Contribution")
+                                    
+                                    Spacer()
+                                    
+                                    Text(calculateFriendTipContribution(friend: friends[i]).priceFormatted)
+                                }
+                                    .padding(.horizontal, 5)
+                                
+                                HStack {
+                                    Text("Subtotal")
+                                    
+                                    Spacer()
+                                    
+                                    Text(calculateFriendSubtotal(friend: friends[i]).priceFormatted)
+                                }
+                                    .padding(.horizontal, 5)
+                            }
                         }
                             .padding()
                             .background(Color(red: friends[i].color.red, green: friends[i].color.green, blue: friends[i].color.blue))
                             .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
                             .cornerRadius(10)
+                            .onTapGesture {
+                                self.toggleExpandedFriend(index: i)
+                            }
                     }
                 }
             }
@@ -71,15 +118,38 @@ struct SummaryPage: View {
         )
     }
     
-    func calculateFriendTotal(friend: Person) -> CurrencyObject {
-        var friendTotal = 0.0
+    func calculateFriendSubtotal(friend: Person) -> CurrencyObject {
+        var friendSubtotal = 0.0
         for item in friend.items {
-            friendTotal += item.price
+            friendSubtotal += item.price
         }
         
-        let taxContribution = (friendTotal / subtotal) * tax.price
-        let  tipContribution = (friendTotal / subtotal) * tip.price
+        return CurrencyObject(price: friendSubtotal)
+    }
+    
+    func calculateFriendTaxContribution(friend: Person) -> CurrencyObject {
+        let friendSubtotal = calculateFriendSubtotal(friend: friend).price
+        return CurrencyObject(price: (friendSubtotal / subtotal) * tax.price)
+    }
+    
+    func calculateFriendTipContribution(friend: Person) -> CurrencyObject {
+        let friendSubtotal = calculateFriendSubtotal(friend: friend).price
+        return CurrencyObject(price: (friendSubtotal / subtotal) * tip.price)
+    }
+    
+    func calculateFriendTotal(friend: Person) -> CurrencyObject {
+        let friendSubtotal = calculateFriendSubtotal(friend: friend).price
+        let taxContribution = calculateFriendTaxContribution(friend: friend).price
+        let tipContribution = calculateFriendTipContribution(friend: friend).price
         
-        return CurrencyObject(price: (friendTotal + taxContribution + tipContribution))
+        return CurrencyObject(price: (friendSubtotal + taxContribution + tipContribution))
+    }
+    
+    func toggleExpandedFriend(index: Int) {
+        if (self.friendExpanded == index) {
+            self.friendExpanded = nil
+        } else {
+            self.friendExpanded = index
+        }
     }
 }
