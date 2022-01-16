@@ -16,6 +16,8 @@ struct ScanConfirmationPage: View {
     @State var editedItemIndex: Int? = nil
     @State var editedItemName: String = ""
     @State var editedItemPrice: String = ""
+    
+    @State var isRescanModalOpen: Bool = false
 
     var body: some View {
         ZStack {
@@ -117,9 +119,12 @@ struct ScanConfirmationPage: View {
                 )
             }
             
+            if (isRescanModalOpen) {
+                RescanConfirmationModal(currentPage: $currentPage, isRescanModalOpen: $isRescanModalOpen)
+            }
         }
         .navigationBarItems(
-            leading: Button(action: {self.currentPage = "landingPage"}) {
+            leading: Button(action: { openRescanModal() }) {
                 Text("< Re-Scan").foregroundColor(Color.white)
             },
             trailing: Button(action: {self.currentPage = "taxTipPage"}) {
@@ -174,5 +179,9 @@ struct ScanConfirmationPage: View {
             total += item.price
         }
         return CurrencyObject(price: total)
+    }
+    
+    func openRescanModal() {
+        isRescanModalOpen = true
     }
 }
