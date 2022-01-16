@@ -99,8 +99,12 @@ struct AssignItemsPage: View {
             leading: Button(action: { self.currentPage = "addFriendsPage" }) {
                 Text("< Back").foregroundColor(Color.white)
             },
-            trailing: Button(action: { self.currentPage = "summaryPage"}) {
-                Text("Next >").foregroundColor(Color.white)
+            trailing: Button(action: { self.navigateToSummaryPage() }) {
+                if (self.items.count == 0) {
+                    Text("Next >").foregroundColor(Color.white)
+                } else {
+                    Text("Assign All Items to Continue").foregroundColor(Color.white)
+                }
             }
         )
     }
@@ -119,5 +123,11 @@ struct AssignItemsPage: View {
         
         self.isFriendItemListOpen = true
         self.friendListOpenFriend = friends[friendIndex]
+    }
+    
+    func navigateToSummaryPage() {
+        if (self.items.count == 0) {
+            self.currentPage = "summaryPage"
+        }
     }
 }
