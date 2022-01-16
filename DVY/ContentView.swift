@@ -23,7 +23,7 @@ struct ContentView: View {
                 .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
             
             if (self.currentPage == "landingPage"){
-                LandingPage(currentPage: $currentPage, isScanning: $isScanning)
+                LandingPage(currentPage: $currentPage, isScanning: $isScanning, items: $items, friends: $friends, tax: $tax)
             }
             
             if (self.currentPage == "scanConfirmationPage") {

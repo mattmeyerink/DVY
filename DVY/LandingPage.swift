@@ -10,6 +10,9 @@ import SwiftUI
 struct LandingPage: View {
     @Binding var currentPage: String
     @Binding var isScanning: Bool
+    @Binding var items: [ReciptItem]
+    @Binding var friends: [Person]
+    @Binding var tax: CurrencyObject
     
     var body: some View {
         VStack {
@@ -23,11 +26,21 @@ struct LandingPage: View {
                 .foregroundColor(Color.white)
                 .padding(.bottom, 10)
             
-            Button(action: {self.currentPage = "scanConfirmationPage"; self.isScanning = true;}) {
+            Button(action: { startScan() }) {
                 Text("Scan")
             }
                 .buttonStyle(GreenButton())
         }
+    }
+    
+    func startScan() {
+        for friend in self.friends {
+            friend.items = []
+        }
+        self.items = []
+        self.tax = CurrencyObject(price: 0.0)
+        self.currentPage = "scanConfirmationPage"
+        self.isScanning = true
     }
 }
 
