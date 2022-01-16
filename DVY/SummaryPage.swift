@@ -114,6 +114,9 @@ struct SummaryPage: View {
         .navigationBarItems(
             leading: Button(action: { self.currentPage = "assignItemsPage" }) {
                 Text("< Back").foregroundColor(Color.white)
+            },
+            trailing: Button(action: { startNewScan() }) {
+                Text(" Start a New Scan").foregroundColor(Color.white)
             }
         )
     }
@@ -151,5 +154,11 @@ struct SummaryPage: View {
         } else {
             self.friendExpanded = index
         }
+    }
+    
+    func startNewScan() {
+        self.friends = []
+        self.tax = CurrencyObject(price: 0.0)
+        self.currentPage = "landingPage"
     }
 }
