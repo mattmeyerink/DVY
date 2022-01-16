@@ -38,10 +38,20 @@ struct ScanConfirmationPage: View {
                     ForEach(items.indices, id: \.self) { i in
                         VStack {
                             HStack {
+                                if (i == self.itemExpanded) {
+                                    Image(systemName: "arrowtriangle.down.square.fill")
+                                        .font(.system(size: 25, weight: .semibold))
+                                } else {
+                                    Image(systemName: "arrowtriangle.right.square.fill")
+                                        .font(.system(size: 25, weight: .semibold))
+                                }
+                                
                                 Text(items[i].name)
                                     .font(.system(size: 20, weight: .semibold))
                                     .padding(.leading, 5)
+                                
                                 Spacer()
+                                
                                 Text(items[i].priceFormatted)
                                     .font(.system(size: 20, weight: .semibold))
                                     .padding(.trailing, 5)

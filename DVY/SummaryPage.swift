@@ -46,6 +46,14 @@ struct SummaryPage: View {
                     ForEach(friends.indices, id: \.self) { i in
                         VStack {
                             HStack {
+                                if (i == self.friendExpanded) {
+                                    Image(systemName: "arrowtriangle.down.square.fill")
+                                        .font(.system(size: 25, weight: .semibold))
+                                } else {
+                                    Image(systemName: "arrowtriangle.right.square.fill")
+                                        .font(.system(size: 25, weight: .semibold))
+                                }
+                                
                                 Text(friends[i].firstName + " " + friends[i].lastName)
                                     .font(.system(size: 20, weight: .semibold))
                                     .padding(.leading, 5)
