@@ -15,6 +15,8 @@ struct SummaryPage: View {
     
     @State var friendExpanded: Int? = nil
     
+    @State var isNewScanModalOpen: Bool = false
+    
     var subtotal: Double
     
     init(currentPage: Binding<String>, friends: Binding<[Person]>, tax: Binding<CurrencyObject>, tip: Binding<CurrencyObject>) {
@@ -22,7 +24,7 @@ struct SummaryPage: View {
         self._friends = friends
         self._tax = tax
         self._tip = tip
-        
+    
         subtotal = 0.0
         for friend in self.friends {
             for item in friend.items {
@@ -118,12 +120,21 @@ struct SummaryPage: View {
                 }
             }
                 .padding(.horizontal)
+            
+            if (isNewScanModalOpen) {
+                NewScanConfirmationModal(
+                    currentPage: $currentPage,
+                    isNewScanModalOpen: $isNewScanModalOpen,
+                    friends: $friends,
+                    tax: $tax
+                )
+            }
         }
         .navigationBarItems(
             leading: Button(action: { self.currentPage = "assignItemsPage" }) {
                 Text("< Back").foregroundColor(Color.white)
             },
-            trailing: Button(action: { startNewScan() }) {
+            trailing: Button(action: { openNewScanModal() }) {
                 Text(" Start a New Scan").foregroundColor(Color.white)
             }
         )
@@ -164,9 +175,7 @@ struct SummaryPage: View {
         }
     }
     
-    func startNewScan() {
-        self.friends = []
-        self.tax = CurrencyObject(price: 0.0)
-        self.currentPage = "landingPage"
+    func openNewScanModal() {
+        isNewScanModalOpen = true
     }
 }
