@@ -30,11 +30,21 @@ struct ScanConfirmationPage: View {
                     .padding(.vertical, 15)
                     .foregroundColor(Color.white)
                 
-                Button(action: {addItem()}) {
-                    Text("Add Item")
+                HStack {
+                    Button(action: {addItem()}) {
+                        Text("Add Item")
+                    }
+                        .buttonStyle(GreenButton())
+                        .padding(.trailing)
+                    
+                    Image(systemName: "questionmark.circle.fill")
+                        .foregroundColor(Color(red: 0.2, green: 0.9, blue: 0.25))
+                        .font(.system(size: 40, weight: .semibold))
+                        .padding(.leading)
+                        .onTapGesture() {}
                 }
-                    .buttonStyle(GreenButton())
-                    .padding(.bottom, 15)
+                    .padding(.bottom)
+                
                 
                 ScrollView {
                     ForEach(items.indices, id: \.self) { i in
