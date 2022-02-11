@@ -24,17 +24,22 @@ struct RescanConfirmationModal: View {
                 Spacer()
                 
                 VStack {
-                    Text("1. Scan the receipt on a dark colored surface.")
+                    Text("1. Make sure all 4 corners of the receipt are visible in the scan.")
                         .font(.system(size: 20, weight: .regular))
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .foregroundColor(.white)
                         .padding(.bottom, 5)
-                    Text("2. Crop the scan to only include the items and thier prices.")
+                    Text("2. Crop the scan to only include the items and their prices.")
                         .font(.system(size: 20, weight: .regular))
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .foregroundColor(.white)
                         .padding(.bottom, 5)
-                    Text("3. Make sure the recipt isn't scanned multiple times.")
+                    Text("2. Scan the receipt on a dark colored surface.")
+                        .font(.system(size: 20, weight: .regular))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .foregroundColor(.white)
+                        .padding(.bottom, 5)
+                    Text("4. Make sure the receipt isn't scanned multiple times.")
                         .font(.system(size: 20, weight: .regular))
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .foregroundColor(.white)
@@ -61,7 +66,7 @@ struct RescanConfirmationModal: View {
                     .padding(.horizontal, 15)
                     .padding(.bottom, 15)
             }
-                .frame(width: 350, height: 350, alignment: .center)
+                .frame(width: 350, height: 400, alignment: .center)
                 .background(Color(red: 0.1, green: 0.1, blue: 0.1)).cornerRadius(15)
                 .onAppear {
                     UITableView.appearance().backgroundColor = .clear
