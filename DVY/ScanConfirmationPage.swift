@@ -18,6 +18,7 @@ struct ScanConfirmationPage: View {
     @State var editedItemPrice: String = ""
     
     @State var isRescanModalOpen: Bool = false
+    @State var isScanConfirmationHelpOpen: Bool = false
 
     var body: some View {
         ZStack {
@@ -41,7 +42,9 @@ struct ScanConfirmationPage: View {
                         .foregroundColor(Color(red: 0.2, green: 0.9, blue: 0.25))
                         .font(.system(size: 40, weight: .semibold))
                         .padding(.leading)
-                        .onTapGesture() {}
+                        .onTapGesture() {
+                            openScanConfirmationHelpModal()
+                        }
                 }
                     .padding(.bottom)
                 
@@ -132,6 +135,10 @@ struct ScanConfirmationPage: View {
             if (isRescanModalOpen) {
                 RescanConfirmationModal(currentPage: $currentPage, isRescanModalOpen: $isRescanModalOpen)
             }
+            
+            if (isScanConfirmationHelpOpen) {
+                ScanConfirmationHelpModal(isScanConfirmationHelpOpen: $isScanConfirmationHelpOpen)
+            }
         }
         .navigationBarItems(
             leading: Button(action: { openRescanModal() }) {
@@ -193,5 +200,9 @@ struct ScanConfirmationPage: View {
     
     func openRescanModal() {
         isRescanModalOpen = true
+    }
+    
+    func openScanConfirmationHelpModal() {
+        isScanConfirmationHelpOpen = true
     }
 }
