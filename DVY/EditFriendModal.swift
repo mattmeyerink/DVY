@@ -60,7 +60,7 @@ struct EditFriendModal: View {
     }
     
     func saveFriend() {
-        if (firstName == "" || lastName == "") {
+        if (firstName == "") {
             return
         }
         
