@@ -14,6 +14,8 @@ struct LandingPage: View {
     @Binding var friends: [Person]
     @Binding var tax: CurrencyObject
     
+    var IS_SIMULATION: Bool = false
+    
     var body: some View {
         VStack {
             Text("Welcome to DVY")
@@ -37,9 +39,23 @@ struct LandingPage: View {
         for friend in self.friends {
             friend.items = []
         }
-        self.items = []
+        
         self.tax = CurrencyObject(price: 0.0)
         self.currentPage = "scanConfirmationPage"
+        
+        if (IS_SIMULATION) {
+            simulateScan()
+        } else {
+            performScan()
+        }
+    }
+    
+    func simulateScan() {
+        self.items = testItems
+    }
+    
+    func performScan() {
+        self.items = []
         self.isScanning = true
     }
 }
@@ -57,3 +73,16 @@ struct GreenButton: ButtonStyle {
             .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
     }
 }
+
+var testItems: [ReciptItem] = [
+    ReciptItem(name: "Rustic Burger", price: 15.08),
+    ReciptItem(name: "Oberon", price: 7.00),
+    ReciptItem(name: "Two Hearted", price: 8.00),
+    ReciptItem(name: "Chicken Tenders", price: 10.01),
+    ReciptItem(name: "Moscow Mule", price: 9.50),
+    ReciptItem(name: "Chicken Tacos", price: 13.00),
+    ReciptItem(name: "Sweet Tea", price: 3.50),
+    ReciptItem(name: "Onion Rings", price: 8.25),
+    ReciptItem(name: "Grilled Chicken Sandwitch", price: 12.13),
+    ReciptItem(name: "All Day IPA", price: 7.00),
+]
