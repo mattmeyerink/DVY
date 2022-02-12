@@ -16,8 +16,8 @@ struct ScanConfirmationHelpModal: View {
             
             VStack {
                 HStack {
-                    Text("Scan Confirmation Page")
-                        .font(.system(size: 40, weight: .semibold))
+                    Text("What Do I Do?")
+                        .font(.system(size: 35, weight: .semibold))
                         .foregroundColor(.white)
                         .padding(.top, 15)
                     
@@ -26,10 +26,12 @@ struct ScanConfirmationHelpModal: View {
                     Image(systemName: "xmark")
                         .foregroundColor(.white)
                         .font(.system(size: 35, weight: .semibold))
+                        .padding(.top, 15)
                         .onTapGesture() {
                             closeScanConfirmationHelpModal()
                         }
                 }
+                    .padding(.horizontal)
                 
                 
                 Spacer()
@@ -56,9 +58,10 @@ struct ScanConfirmationHelpModal: View {
                         .foregroundColor(.white)
                         .padding(.bottom, 5)
                 }
-                    .padding(.horizontal, 15)
+                    .padding(.horizontal)
+                    .padding(.bottom)
             }
-                .frame(width: 350, height: 400, alignment: .center)
+                .frame(width: 350, height: 410, alignment: .center)
                 .background(Color(red: 0.1, green: 0.1, blue: 0.1)).cornerRadius(15)
                 .onAppear {
                     UITableView.appearance().backgroundColor = .clear
