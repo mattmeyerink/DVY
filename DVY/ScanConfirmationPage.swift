@@ -18,6 +18,7 @@ struct ScanConfirmationPage: View {
     @State var editedItemPrice: String = ""
     
     @State var isRescanModalOpen: Bool = false
+    @State var isScanConfirmationHelpOpen: Bool = false
 
     var body: some View {
         ZStack {
@@ -30,11 +31,23 @@ struct ScanConfirmationPage: View {
                     .padding(.vertical, 15)
                     .foregroundColor(Color.white)
                 
-                Button(action: {addItem()}) {
-                    Text("Add Item")
+                HStack {
+                    Button(action: {addItem()}) {
+                        Text("Add Item")
+                    }
+                        .buttonStyle(GreenButton())
+                        .padding(.trailing)
+                    
+                    Image(systemName: "questionmark.circle.fill")
+                        .foregroundColor(Color(red: 0.2, green: 0.9, blue: 0.25))
+                        .font(.system(size: 40, weight: .semibold))
+                        .padding(.leading)
+                        .onTapGesture() {
+                            openScanConfirmationHelpModal()
+                        }
                 }
-                    .buttonStyle(GreenButton())
-                    .padding(.bottom, 15)
+                    .padding(.bottom)
+                
                 
                 ScrollView {
                     ForEach(items.indices, id: \.self) { i in
@@ -122,6 +135,10 @@ struct ScanConfirmationPage: View {
             if (isRescanModalOpen) {
                 RescanConfirmationModal(currentPage: $currentPage, isRescanModalOpen: $isRescanModalOpen)
             }
+            
+            if (isScanConfirmationHelpOpen) {
+                ScanConfirmationHelpModal(isScanConfirmationHelpOpen: $isScanConfirmationHelpOpen)
+            }
         }
         .navigationBarItems(
             leading: Button(action: { openRescanModal() }) {
@@ -183,5 +200,9 @@ struct ScanConfirmationPage: View {
     
     func openRescanModal() {
         isRescanModalOpen = true
+    }
+    
+    func openScanConfirmationHelpModal() {
+        isScanConfirmationHelpOpen = true
     }
 }
