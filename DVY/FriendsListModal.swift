@@ -56,9 +56,29 @@ struct FriendsListModal: View {
                             }
                     }
                 }
+                
+                HStack {
+                    Image(systemName: "trash.fill")
+                        .font(.system(size: 25, weight: .semibold))
+                        .foregroundColor(.white)
+                        .padding(.top,  10)
+                        .padding(.horizontal, 10)
+                        .onTapGesture() {
+                            deleteItem()
+                        }
+
+                    Image(systemName: "divide.circle.fill")
+                        .font(.system(size: 25, weight: .semibold))
+                        .foregroundColor(.white)
+                        .padding(.top,  10)
+                        .padding(.horizontal, 10)
+                        .onTapGesture() {
+                            splitItem()
+                        }
+                }
             }
                 .padding(.horizontal)
-                .frame(width: 350, height: 350, alignment: .center)
+                .frame(width: 350, height: 375, alignment: .center)
                 .padding(.bottom, 30)
                 .background(Color(red: 0.1, green: 0.1, blue: 0.1)).cornerRadius(15)
                 .onAppear {
@@ -75,5 +95,22 @@ struct FriendsListModal: View {
         self.items.remove(at: self.itemBeingAssignedIndex!)
         self.itemBeingAssignedIndex = nil
         self.isFriendsListOpen = false
+    }
+    
+    func deleteItem() {
+        self.isFriendsListOpen = false
+        items.remove(at: itemBeingAssignedIndex!)
+    }
+    
+    func splitItem() {
+        self.isFriendsListOpen = false
+        items[itemBeingAssignedIndex!].price = items[itemBeingAssignedIndex!].price / 2
+        
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        items[itemBeingAssignedIndex!].priceFormatted = formatter.string(from: NSNumber(value: items[itemBeingAssignedIndex!].price)) ?? "$0"
+        
+        let newItem = ReciptItem(name: items[itemBeingAssignedIndex!].name, price: items[itemBeingAssignedIndex!].price)
+        items.insert(newItem, at: itemBeingAssignedIndex!)
     }
 }
