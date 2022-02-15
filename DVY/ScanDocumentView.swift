@@ -73,9 +73,12 @@ class Coordinator: NSObject, VNDocumentCameraViewControllerDelegate {
                 let candidate = observation.topCandidates(maximumRecognitionCandidates).first
                 
                 if (candidate != nil) {
-                    currentItemPrice = Double(candidate!.string.replacingOccurrences(of: "$", with: ""))
+                    var updatedString = candidate!.string.replacingOccurrences(of: "$", with: "")
+                    updatedString = updatedString.replacingOccurrences(of: ",", with: ".")
                     
-                    if (currentItemName != nil && currentItemPrice != nil && candidate!.string.localizedCaseInsensitiveContains(".")) {
+                    currentItemPrice = Double(updatedString)
+                    
+                    if (currentItemName != nil && currentItemPrice != nil && candidate!.string.contains(".")) {
                         var containsInvalidWord = false
                         for word in invalidItems {
                             if (currentItemName!.localizedCaseInsensitiveContains(word)) {
