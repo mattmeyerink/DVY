@@ -78,7 +78,7 @@ class Coordinator: NSObject, VNDocumentCameraViewControllerDelegate {
                     
                     currentItemPrice = Double(updatedString)
                     
-                    if (currentItemName != nil && currentItemPrice != nil && candidate!.string.contains(".")) {
+                    if (currentItemName != nil && currentItemPrice != nil && candidate!.string.contains(".") && currentItemPrice != 0) {
                         var containsInvalidWord = false
                         for word in invalidItems {
                             if (currentItemName!.localizedCaseInsensitiveContains(word)) {
