@@ -63,14 +63,18 @@ struct FriendsListModal: View {
                         .foregroundColor(.white)
                         .padding(.top,  10)
                         .padding(.horizontal, 10)
-                        .onTapGesture() {}
+                        .onTapGesture() {
+                            deleteItem()
+                        }
 
                     Image(systemName: "divide.circle.fill")
                         .font(.system(size: 25, weight: .semibold))
                         .foregroundColor(.white)
                         .padding(.top,  10)
                         .padding(.horizontal, 10)
-                        .onTapGesture() {}
+                        .onTapGesture() {
+                            splitItem()
+                        }
                 }
             }
                 .padding(.horizontal)
@@ -91,5 +95,22 @@ struct FriendsListModal: View {
         self.items.remove(at: self.itemBeingAssignedIndex!)
         self.itemBeingAssignedIndex = nil
         self.isFriendsListOpen = false
+    }
+    
+    func deleteItem() {
+        self.isFriendsListOpen = false
+        items.remove(at: itemBeingAssignedIndex!)
+    }
+    
+    func splitItem() {
+        self.isFriendsListOpen = false
+        items[itemBeingAssignedIndex!].price = items[itemBeingAssignedIndex!].price / 2
+        
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        items[itemBeingAssignedIndex!].priceFormatted = formatter.string(from: NSNumber(value: items[itemBeingAssignedIndex!].price)) ?? "$0"
+        
+        let newItem = ReciptItem(name: items[itemBeingAssignedIndex!].name, price: items[itemBeingAssignedIndex!].price)
+        items.insert(newItem, at: itemBeingAssignedIndex!)
     }
 }
