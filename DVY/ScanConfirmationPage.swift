@@ -19,6 +19,7 @@ struct ScanConfirmationPage: View {
     
     @State var isRescanModalOpen: Bool = false
     @State var isScanConfirmationHelpOpen: Bool = false
+    @State var isSplitItemModalOpen: Bool = false
 
     var body: some View {
         ZStack {
@@ -87,7 +88,7 @@ struct ScanConfirmationPage: View {
                                         .padding(.top,  10)
                                         .padding(.horizontal, 10)
                                         .onTapGesture() {
-                                            self.splitItem(splitItemIndex: i)
+                                            self.openSplitItemModal()
                                         }
                                     
                                     Image(systemName: "square.and.pencil")
@@ -138,6 +139,10 @@ struct ScanConfirmationPage: View {
             
             if (isScanConfirmationHelpOpen) {
                 ScanConfirmationHelpModal(isScanConfirmationHelpOpen: $isScanConfirmationHelpOpen)
+            }
+            
+            if (isSplitItemModalOpen) {
+                SplitItemModal(isSplitItemModalOpen: $isSplitItemModalOpen)
             }
         }
         .navigationBarItems(
@@ -204,5 +209,9 @@ struct ScanConfirmationPage: View {
     
     func openScanConfirmationHelpModal() {
         isScanConfirmationHelpOpen = true
+    }
+    
+    func openSplitItemModal() {
+        isSplitItemModalOpen = true
     }
 }

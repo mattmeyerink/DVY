@@ -30,6 +30,7 @@
 		D3720ABC27B728C70097DA1C /* ScanConfirmationHelpModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3720ABB27B728C70097DA1C /* ScanConfirmationHelpModal.swift */; };
 		D3959D66274AE71D000F6B06 /* FriendsListModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3959D65274AE71D000F6B06 /* FriendsListModal.swift */; };
 		D3B011DA2787D5EB00EE5C36 /* SummaryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B011D92787D5EB00EE5C36 /* SummaryPage.swift */; };
+		D3B96CF727BEF3540001C3DD /* SplitItemModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B96CF627BEF3540001C3DD /* SplitItemModal.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,7 @@
 		D3720ABB27B728C70097DA1C /* ScanConfirmationHelpModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanConfirmationHelpModal.swift; sourceTree = "<group>"; };
 		D3959D65274AE71D000F6B06 /* FriendsListModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListModal.swift; sourceTree = "<group>"; };
 		D3B011D92787D5EB00EE5C36 /* SummaryPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryPage.swift; sourceTree = "<group>"; };
+		D3B96CF627BEF3540001C3DD /* SplitItemModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitItemModal.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +153,7 @@
 				D330AD0E2794C3B400BBF3EE /* RescanConfirmationModal.swift */,
 				D330AD122794D19D00BBF3EE /* NewScanConfirmationModal.swift */,
 				D3720ABB27B728C70097DA1C /* ScanConfirmationHelpModal.swift */,
+				D3B96CF627BEF3540001C3DD /* SplitItemModal.swift */,
 			);
 			path = DVY;
 			sourceTree = "<group>";
@@ -329,6 +332,7 @@
 				D3359FF9274FCB87001CE10A /* TaxTipPage.swift in Sources */,
 				065BF1A72725F0B000C17A91 /* EditFriendModal.swift in Sources */,
 				D3959D66274AE71D000F6B06 /* FriendsListModal.swift in Sources */,
+				D3B96CF727BEF3540001C3DD /* SplitItemModal.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

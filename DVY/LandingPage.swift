@@ -14,7 +14,7 @@ struct LandingPage: View {
     @Binding var friends: [Person]
     @Binding var tax: CurrencyObject
     
-    var IS_SIMULATION: Bool = false
+    var IS_SIMULATION: Bool = true
     
     var body: some View {
         VStack {
