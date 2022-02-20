@@ -9,6 +9,9 @@ import SwiftUI
 
 struct SplitItemModal: View {
     @Binding var isSplitItemModalOpen: Bool
+    @Binding var items: [ReciptItem]
+    @Binding var itemSplitIndex: Int?
+    @Binding var itemExpanded: Int?
     
     @State var numberOfPeople: Int = 2
     
@@ -55,11 +58,25 @@ struct SplitItemModal: View {
                     .font(.system(size: 20, weight: .semibold))
                     .foregroundColor(.white)
                     .padding()
-                    .padding(.bottom, 25)
                 
                 Spacer()
+                
+                HStack {
+                    Button(action: { closeSplitItemModal() }) {
+                        Text("Cancel")
+                    }
+                        .buttonStyle(GreenButton())
+                    
+                    Spacer()
+                    
+                    Button(action: { splitItem() }) {
+                        Text("Split")
+                    }
+                        .buttonStyle(GreenButton())
+                }
+                    .padding()
             }
-                .frame(width: 350, height: 250, alignment: .center)
+                .frame(width: 350, height: 350, alignment: .center)
                 .background(Color(red: 0.1, green: 0.1, blue: 0.1)).cornerRadius(15)
                 .onAppear {
                     UITableView.appearance().backgroundColor = .clear
@@ -71,6 +88,19 @@ struct SplitItemModal: View {
     }
     
     func closeSplitItemModal() {
+        itemExpanded = nil
         isSplitItemModalOpen = false
+    }
+    
+    func splitItem() {
+        closeSplitItemModal()
+        items[itemSplitIndex!].price = items[itemSplitIndex!].price / 2
+        
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        items[itemSplitIndex!].priceFormatted = formatter.string(from: NSNumber(value: items[itemSplitIndex!].price)) ?? "$0"
+        
+        let newItem = ReciptItem(name: items[itemSplitIndex!].name, price: items[itemSplitIndex!].price)
+        items.insert(newItem, at: itemSplitIndex!)
     }
 }
