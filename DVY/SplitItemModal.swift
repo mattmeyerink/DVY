@@ -40,7 +40,7 @@ struct SplitItemModal: View {
                 
                 Spacer()
                 
-                Text("Item Name")
+                Text(items[itemSplitIndex!].name)
                     .font(.system(size: 20, weight: .semibold))
                     .foregroundColor(.white)
                     .padding(.top, 15)
@@ -54,7 +54,7 @@ struct SplitItemModal: View {
                 
                 Spacer()
                 
-                Text("Cost Per Person: $2.00")
+                Text("Cost Per Person: \(calculateCostPerPerson().priceFormatted)")
                     .font(.system(size: 20, weight: .semibold))
                     .foregroundColor(.white)
                     .padding()
@@ -94,13 +94,20 @@ struct SplitItemModal: View {
     
     func splitItem() {
         closeSplitItemModal()
-        items[itemSplitIndex!].price = items[itemSplitIndex!].price / 2
+        items[itemSplitIndex!].price = calculateCostPerPerson().price
         
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         items[itemSplitIndex!].priceFormatted = formatter.string(from: NSNumber(value: items[itemSplitIndex!].price)) ?? "$0"
         
-        let newItem = ReciptItem(name: items[itemSplitIndex!].name, price: items[itemSplitIndex!].price)
-        items.insert(newItem, at: itemSplitIndex!)
+        for _ in 0...(numberOfPeople - 2) {
+            let newItem = ReciptItem(name: items[itemSplitIndex!].name, price: items[itemSplitIndex!].price)
+            items.insert(newItem, at: itemSplitIndex!)
+        }
+    }
+       
+    func calculateCostPerPerson() -> CurrencyObject {
+        let costPerPerson = items[itemSplitIndex!].price / Double(numberOfPeople)
+        return CurrencyObject(price: costPerPerson)
     }
 }
