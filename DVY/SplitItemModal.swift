@@ -47,10 +47,21 @@ struct SplitItemModal: View {
                 
                 Spacer()
                 
-                Stepper("Number of People: \(numberOfPeople)", value: $numberOfPeople, in: 2...100, step: 1)
-                    .font(.system(size: 20, weight: .semibold))
-                    .foregroundColor(.white)
+                HStack {
+                    Text("Number of People: \(numberOfPeople)")
+                        .font(.system(size: 20, weight: .semibold))
+                        .foregroundColor(.white)
+                    
+                    Spacer()
+                    
+                    Stepper("", value: $numberOfPeople, in: 2...100, step: 1)
+                        .frame(width: 100, height: 35)
+                        .offset(x: -4)
+                        .background(Color(red: 0.2, green: 0.9, blue: 0.25))
+                        .cornerRadius(8)
+                }
                     .padding()
+               
                 
                 Spacer()
                 
