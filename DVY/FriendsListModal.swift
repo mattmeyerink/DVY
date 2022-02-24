@@ -12,6 +12,8 @@ struct FriendsListModal: View {
     @Binding var items: [ReciptItem]
     @Binding var isFriendsListOpen: Bool
     @Binding var itemBeingAssignedIndex: Int?
+    @Binding var itemSplitIndex: Int?
+    @Binding var isSplitItemModalOpen: Bool
     
     var body: some View {
         ZStack {
@@ -73,7 +75,7 @@ struct FriendsListModal: View {
                         .padding(.top,  10)
                         .padding(.horizontal, 10)
                         .onTapGesture() {
-                            splitItem()
+                            openSplitItemModal()
                         }
                 }
             }
@@ -102,15 +104,10 @@ struct FriendsListModal: View {
         items.remove(at: itemBeingAssignedIndex!)
     }
     
-    func splitItem() {
-        self.isFriendsListOpen = false
-        items[itemBeingAssignedIndex!].price = items[itemBeingAssignedIndex!].price / 2
-        
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        items[itemBeingAssignedIndex!].priceFormatted = formatter.string(from: NSNumber(value: items[itemBeingAssignedIndex!].price)) ?? "$0"
-        
-        let newItem = ReciptItem(name: items[itemBeingAssignedIndex!].name, price: items[itemBeingAssignedIndex!].price)
-        items.insert(newItem, at: itemBeingAssignedIndex!)
+    func openSplitItemModal() {
+        isFriendsListOpen = false
+        isSplitItemModalOpen = true
+        itemSplitIndex = itemBeingAssignedIndex
+        itemBeingAssignedIndex = nil
     }
 }

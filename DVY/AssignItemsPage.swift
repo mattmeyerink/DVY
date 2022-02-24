@@ -18,6 +18,9 @@ struct AssignItemsPage: View {
     @State var isFriendItemListOpen: Bool = false
     @State var friendListOpenFriend: Person? = nil
     
+    @State var isSplitItemModalOpen: Bool = false
+    @State var itemSplitIndex: Int? = nil
+    
     var body: some View {
         ZStack {
             Color(red: 0.1, green: 0.1, blue: 0.1)
@@ -83,7 +86,9 @@ struct AssignItemsPage: View {
                     friends: $friends,
                     items: $items,
                     isFriendsListOpen: $isFriendsListOpen,
-                    itemBeingAssignedIndex: $itemBeingAssignedIndex
+                    itemBeingAssignedIndex: $itemBeingAssignedIndex,
+                    itemSplitIndex: $itemSplitIndex,
+                    isSplitItemModalOpen: $isSplitItemModalOpen
                 )
             }
             
@@ -92,6 +97,15 @@ struct AssignItemsPage: View {
                     friend: $friendListOpenFriend,
                     items: $items,
                     isFriendItemListOpen: $isFriendItemListOpen
+                )
+            }
+            
+            if (isSplitItemModalOpen) {
+                SplitItemModal(
+                    isSplitItemModalOpen: $isSplitItemModalOpen,
+                    items: $items,
+                    itemSplitIndex: $itemSplitIndex,
+                    itemExpanded: $itemBeingAssignedIndex
                 )
             }
         }

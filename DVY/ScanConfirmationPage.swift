@@ -19,6 +19,9 @@ struct ScanConfirmationPage: View {
     
     @State var isRescanModalOpen: Bool = false
     @State var isScanConfirmationHelpOpen: Bool = false
+    @State var isSplitItemModalOpen: Bool = false
+    
+    @State var itemSplitIndex: Int? = nil
 
     var body: some View {
         ZStack {
@@ -87,7 +90,7 @@ struct ScanConfirmationPage: View {
                                         .padding(.top,  10)
                                         .padding(.horizontal, 10)
                                         .onTapGesture() {
-                                            self.splitItem(splitItemIndex: i)
+                                            self.openSplitItemModal(index: i)
                                         }
                                     
                                     Image(systemName: "square.and.pencil")
@@ -139,6 +142,10 @@ struct ScanConfirmationPage: View {
             if (isScanConfirmationHelpOpen) {
                 ScanConfirmationHelpModal(isScanConfirmationHelpOpen: $isScanConfirmationHelpOpen)
             }
+            
+            if (isSplitItemModalOpen) {
+                SplitItemModal(isSplitItemModalOpen: $isSplitItemModalOpen, items: $items, itemSplitIndex: $itemSplitIndex, itemExpanded: $itemExpanded)
+            }
         }
         .navigationBarItems(
             leading: Button(action: { openRescanModal() }) {
@@ -161,18 +168,6 @@ struct ScanConfirmationPage: View {
     func deleteItem(deleteItemIndex: Int) {
         self.itemExpanded = nil
         items.remove(at: deleteItemIndex)
-    }
-    
-    func splitItem(splitItemIndex: Int) {
-        self.itemExpanded = nil
-        items[splitItemIndex].price = items[splitItemIndex].price / 2
-        
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        items[splitItemIndex].priceFormatted = formatter.string(from: NSNumber(value: items[splitItemIndex].price)) ?? "$0"
-        
-        let newItem = ReciptItem(name: items[splitItemIndex].name, price: items[splitItemIndex].price)
-        items.insert(newItem, at: splitItemIndex)
     }
     
     func editItem(editItemIndex: Int) {
@@ -204,5 +199,10 @@ struct ScanConfirmationPage: View {
     
     func openScanConfirmationHelpModal() {
         isScanConfirmationHelpOpen = true
+    }
+    
+    func openSplitItemModal(index: Int) {
+        itemSplitIndex = index
+        isSplitItemModalOpen = true
     }
 }
