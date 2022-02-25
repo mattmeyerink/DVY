@@ -29,26 +29,27 @@ struct ScanConfirmationPage: View {
                 .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
             
             VStack {
-                Text("Does this look right?")
-                    .font(.system(size: 30, weight: .semibold))
-                    .padding(.vertical, 15)
-                    .foregroundColor(Color.white)
-                
                 HStack {
-                    Button(action: {addItem()}) {
-                        Text("Add Item")
-                    }
-                        .buttonStyle(GreenButton())
-                        .padding(.trailing)
+                    Text("Confirm Items")
+                        .font(.system(size: 30, weight: .semibold))
+                        .padding(.vertical, 15)
+                        .foregroundColor(Color.white)
                     
-                    Image(systemName: "questionmark.circle.fill")
-                        .foregroundColor(Color(red: 0.2, green: 0.9, blue: 0.25))
-                        .font(.system(size: 40, weight: .semibold))
-                        .padding(.leading)
+                    Image(systemName: "info.circle.fill")
+                        .foregroundColor(.white)
+                        .font(.system(size: 23, weight: .semibold))
+                        .padding(.leading, 2)
                         .onTapGesture() {
                             openScanConfirmationHelpModal()
                         }
                 }
+               
+                
+                Button(action: {addItem()}) {
+                    Text("Add Item")
+                }
+                    .buttonStyle(GreenButton())
+                    .padding(.trailing, 5)
                     .padding(.bottom)
                 
                 

@@ -27,7 +27,7 @@ struct AssignItemsPage: View {
                 .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
             
             VStack {
-                Text("Assign Items")
+                Text("Tap to Assign Items")
                     .font(.system(size: 30, weight: .semibold))
                     .foregroundColor(Color.white)
                 
