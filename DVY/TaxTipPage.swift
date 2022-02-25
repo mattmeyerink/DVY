@@ -97,8 +97,9 @@ struct TaxTipPage: View {
                             .foregroundColor(Color.white)
                             .padding(.trailing, 10)
                             .padding(.vertical, 15)
+                            .onTapGesture{ initiateTaxEdit() }
                         
-                        Button(action: { self.isEditingTax = true }) {
+                        Button(action: { initiateTaxEdit() }) {
                             Text("Edit")
                         }
                             .buttonStyle(GreenButton())
@@ -191,8 +192,10 @@ struct TaxTipPage: View {
     }
     
     func saveTax() {
-        self.tax = CurrencyObject(price: Double(taxString)!)
-        self.isEditingTax = false
+        if (taxString != "") {
+            self.tax = CurrencyObject(price: Double(taxString)!)
+            self.isEditingTax = false
+        }
     }
     
     func getCurrentTipDecimal() -> Double {
@@ -231,5 +234,10 @@ struct TaxTipPage: View {
             self.tip = calculateCurrentTip()
         }
         self.currentPage = "addFriendsPage"
+    }
+    
+    func initiateTaxEdit() {
+        self.taxString = ""
+        self.isEditingTax = true
     }
 }
