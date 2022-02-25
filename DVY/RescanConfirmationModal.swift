@@ -59,7 +59,7 @@ struct RescanConfirmationModal: View {
                     Spacer()
                     
                     Button(action: { startRescan() }) {
-                        Text("Rescan")
+                        Text("Re-Scan")
                     }
                         .buttonStyle(GreenButton())
                 }
