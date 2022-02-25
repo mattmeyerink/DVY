@@ -97,8 +97,9 @@ struct TaxTipPage: View {
                             .foregroundColor(Color.white)
                             .padding(.trailing, 10)
                             .padding(.vertical, 15)
+                            .onTapGesture{ initiateTaxEdit() }
                         
-                        Button(action: { self.isEditingTax = true }) {
+                        Button(action: { initiateTaxEdit() }) {
                             Text("Edit")
                         }
                             .buttonStyle(GreenButton())
@@ -154,8 +155,9 @@ struct TaxTipPage: View {
                                 .foregroundColor(Color.white)
                                 .padding(.trailing, 10)
                                 .padding(.vertical, 15)
+                                .onTapGesture{ initiateCustomTipEdit() }
                             
-                            Button(action: { self.isEditingCustomTip = true }) {
+                            Button(action: { initiateCustomTipEdit() }) {
                                 Text("Edit")
                             }
                                 .buttonStyle(GreenButton())
@@ -167,6 +169,7 @@ struct TaxTipPage: View {
                         .font(.system(size: 30, weight: .semibold))
                         .foregroundColor(Color.white)
                         .padding(.top, 25)
+                        .onTapGesture{ initiateCustomTipEdit() }
                 }
                 
                 
@@ -191,8 +194,10 @@ struct TaxTipPage: View {
     }
     
     func saveTax() {
-        self.tax = CurrencyObject(price: Double(taxString)!)
-        self.isEditingTax = false
+        if (taxString != "") {
+            self.tax = CurrencyObject(price: Double(taxString)!)
+            self.isEditingTax = false
+        }
     }
     
     func getCurrentTipDecimal() -> Double {
@@ -220,8 +225,10 @@ struct TaxTipPage: View {
     }
     
     func saveCustomTip() {
-        self.customTip = CurrencyObject(price: Double(customTipString)!)
-        self.isEditingCustomTip = false
+        if (customTipString != "") {
+            self.customTip = CurrencyObject(price: Double(customTipString)!)
+            self.isEditingCustomTip = false
+        }
     }
     
     func nextToFinalPage() {
@@ -231,5 +238,16 @@ struct TaxTipPage: View {
             self.tip = calculateCurrentTip()
         }
         self.currentPage = "addFriendsPage"
+    }
+    
+    func initiateTaxEdit() {
+        self.taxString = ""
+        self.isEditingTax = true
+    }
+    
+    func initiateCustomTipEdit() {
+        self.selectedTipOption = 3
+        self.customTipString = ""
+        self.isEditingCustomTip = true
     }
 }
