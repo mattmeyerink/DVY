@@ -96,7 +96,11 @@ struct AddFriendsPage: View {
                 Text("< Back").foregroundColor(Color.white)
             },
             trailing: Button(action: {self.currentPage = "assignItemsPage"}) {
-                Text("Next >").foregroundColor(Color.white)
+                if (self.friends.count > 0) {
+                    Text("Next >").foregroundColor(Color.white)
+                } else {
+                    Text("Add Friends to Continue").foregroundColor(Color.white)
+                }
             }
         )
     }

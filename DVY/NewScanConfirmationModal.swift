@@ -46,7 +46,7 @@ struct NewScanConfirmationModal: View {
                     Spacer()
                     
                     Button(action: { startNewScan() }) {
-                        Text("Rescan")
+                        Text("Re-Scan")
                     }
                         .buttonStyle(GreenButton())
                 }

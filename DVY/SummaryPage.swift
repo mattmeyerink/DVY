@@ -135,7 +135,7 @@ struct SummaryPage: View {
                 Text("< Back").foregroundColor(Color.white)
             },
             trailing: Button(action: { openNewScanModal() }) {
-                Text(" Start a New Scan").foregroundColor(Color.white)
+                Text(" Start New Scan >").foregroundColor(Color.white)
             }
         )
     }
