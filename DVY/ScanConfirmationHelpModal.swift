@@ -37,22 +37,22 @@ struct ScanConfirmationHelpModal: View {
                 Spacer()
                 
                 VStack {
-                    Text("1. Remove all extra items that you do not want to divide between people.")
+                    Text("1. Tap any extra items you would like to remove.")
                         .font(.system(size: 20, weight: .regular))
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .foregroundColor(.white)
                         .padding(.bottom, 5)
-                    Text("2. Remove any items indicating a tax or a tip. Tax and tip will be calculated next.")
+                    Text("2. Remove any tax or tip entries. They will be calculated on the next page.")
                         .font(.system(size: 20, weight: .regular))
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .foregroundColor(.white)
                         .padding(.bottom, 5)
-                    Text("3. Use the split action divide items that were shared by multiple people.")
+                    Text("3. Tap any items you would like to split between people and use the ÷ feature.")
                         .font(.system(size: 20, weight: .regular))
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .foregroundColor(.white)
-                        .padding(.bottom, 5)
-                    Text("4. If the items in the scan are not correct, hit the re-scan button and follow the instructions on that modal to scan the receipt again.")
+                        .padding(.bottom, 25)
+                    Text("*If the items and prices in the scan are incorrect, hit \"Re-Scan.\"")
                         .font(.system(size: 20, weight: .regular))
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .foregroundColor(.white)
@@ -61,7 +61,7 @@ struct ScanConfirmationHelpModal: View {
                     .padding(.horizontal)
                     .padding(.bottom)
             }
-                .frame(width: 350, height: 410, alignment: .center)
+                .frame(width: 350, height: 400, alignment: .center)
                 .background(Color(red: 0.1, green: 0.1, blue: 0.1)).cornerRadius(15)
                 .onAppear {
                     UITableView.appearance().backgroundColor = .clear
