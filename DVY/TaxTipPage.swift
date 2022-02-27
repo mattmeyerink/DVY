@@ -185,10 +185,14 @@ struct TaxTipPage: View {
         }
         .navigationBarItems(
             leading: Button(action: { self.currentPage = "scanConfirmationPage" }) {
-                Text("< Back").foregroundColor(Color.white)
+                Text("< Back")
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.white)
             },
             trailing: Button(action: { nextToFinalPage() }) {
-                Text("Next >").foregroundColor(Color.white)
+                Text("Next >")
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.white)
             }
         )
     }

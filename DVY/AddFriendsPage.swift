@@ -93,13 +93,19 @@ struct AddFriendsPage: View {
         }
         .navigationBarItems(
             leading: Button(action: {self.currentPage = "taxTipPage"}) {
-                Text("< Back").foregroundColor(Color.white)
+                Text("< Back")
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.white)
             },
             trailing: Button(action: { routeToAssignItemsPage() }) {
                 if (self.friends.count > 0) {
-                    Text("Next >").foregroundColor(Color.white)
+                    Text("Next >")
+                        .fontWeight(.bold)
+                        .foregroundColor(Color.white)
                 } else {
-                    Text("Add Friends to Continue").foregroundColor(Color.white)
+                    Text("Add Friends to Continue")
+                        .fontWeight(.bold)
+                        .foregroundColor(Color.white)
                 }
             }
         )

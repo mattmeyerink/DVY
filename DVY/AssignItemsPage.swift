@@ -111,13 +111,19 @@ struct AssignItemsPage: View {
         }
         .navigationBarItems(
             leading: Button(action: { self.currentPage = "addFriendsPage" }) {
-                Text("< Back").foregroundColor(Color.white)
+                Text("< Back")
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.white)
             },
             trailing: Button(action: { self.navigateToSummaryPage() }) {
                 if (self.items.count == 0) {
-                    Text("Next >").foregroundColor(Color.white)
+                    Text("Next >")
+                        .fontWeight(.bold)
+                        .foregroundColor(Color.white)
                 } else {
-                    Text("Assign All Items to Continue").foregroundColor(Color.white)
+                    Text("Assign All Items to Continue")
+                        .fontWeight(.bold)
+                        .foregroundColor(Color.white)
                 }
             }
         )
