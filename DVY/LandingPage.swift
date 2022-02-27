@@ -23,7 +23,7 @@ struct LandingPage: View {
                 .foregroundColor(Color.white)
                 .padding(.bottom, 10)
             
-            Text("Scan a recipt to start")
+            Text("Scan a receipt to start")
                 .font(.system(size: 30))
                 .foregroundColor(Color.white)
                 .padding(.bottom, 10)

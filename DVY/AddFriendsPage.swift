@@ -93,10 +93,20 @@ struct AddFriendsPage: View {
         }
         .navigationBarItems(
             leading: Button(action: {self.currentPage = "taxTipPage"}) {
-                Text("< Back").foregroundColor(Color.white)
+                Text("< Back")
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.white)
             },
-            trailing: Button(action: {self.currentPage = "assignItemsPage"}) {
-                Text("Next >").foregroundColor(Color.white)
+            trailing: Button(action: { routeToAssignItemsPage() }) {
+                if (self.friends.count > 0) {
+                    Text("Next >")
+                        .fontWeight(.bold)
+                        .foregroundColor(Color.white)
+                } else {
+                    Text("Add Friends to Continue")
+                        .fontWeight(.bold)
+                        .foregroundColor(Color.white)
+                }
             }
         )
     }
@@ -111,6 +121,12 @@ struct AddFriendsPage: View {
     func openActionPopup(actionFriendIndex: Int) {
         self.actionFriendIndex = actionFriendIndex
         self.isActionPopupOpen = true
+    }
+    
+    func routeToAssignItemsPage() {
+        if (self.friends.count > 0) {
+            self.currentPage = "assignItemsPage"
+        }
     }
 }
 

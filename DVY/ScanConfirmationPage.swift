@@ -58,11 +58,11 @@ struct ScanConfirmationPage: View {
                         VStack {
                             HStack {
                                 if (i == self.itemExpanded) {
-                                    Image(systemName: "arrowtriangle.down.square.fill")
-                                        .font(.system(size: 25, weight: .semibold))
+                                    Image(systemName: "chevron.down")
+                                        .font(.system(size: 18, weight: .heavy))
                                 } else {
-                                    Image(systemName: "arrowtriangle.right.square.fill")
-                                        .font(.system(size: 25, weight: .semibold))
+                                    Image(systemName: "chevron.right")
+                                        .font(.system(size: 18, weight: .heavy))
                                 }
                                 
                                 Text(items[i].name)
@@ -150,10 +150,14 @@ struct ScanConfirmationPage: View {
         }
         .navigationBarItems(
             leading: Button(action: { openRescanModal() }) {
-                Text("< Re-Scan").foregroundColor(Color.white)
+                Text("< Re-Scan")
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.white)
             },
             trailing: Button(action: {self.currentPage = "taxTipPage"}) {
-                Text("Next >").foregroundColor(Color.white)
+                Text("Next >")
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.white)
             }
         )
     }
