@@ -95,7 +95,7 @@ struct AddFriendsPage: View {
             leading: Button(action: {self.currentPage = "taxTipPage"}) {
                 Text("< Back").foregroundColor(Color.white)
             },
-            trailing: Button(action: {self.currentPage = "assignItemsPage"}) {
+            trailing: Button(action: { routeToAssignItemsPage() }) {
                 if (self.friends.count > 0) {
                     Text("Next >").foregroundColor(Color.white)
                 } else {
@@ -115,6 +115,12 @@ struct AddFriendsPage: View {
     func openActionPopup(actionFriendIndex: Int) {
         self.actionFriendIndex = actionFriendIndex
         self.isActionPopupOpen = true
+    }
+    
+    func routeToAssignItemsPage() {
+        if (self.friends.count > 0) {
+            self.currentPage = "assignItemsPage"
+        }
     }
 }
 
