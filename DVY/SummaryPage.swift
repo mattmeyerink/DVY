@@ -49,11 +49,11 @@ struct SummaryPage: View {
                         VStack {
                             HStack {
                                 if (i == self.friendExpanded) {
-                                    Image(systemName: "arrowtriangle.down.square.fill")
-                                        .font(.system(size: 25, weight: .semibold))
+                                    Image(systemName: "chevron.down")
+                                        .font(.system(size: 18, weight: .heavy))
                                 } else {
-                                    Image(systemName: "arrowtriangle.right.square.fill")
-                                        .font(.system(size: 25, weight: .semibold))
+                                    Image(systemName: "chevron.right")
+                                        .font(.system(size: 18, weight: .heavy))
                                 }
                                 
                                 Text(friends[i].firstName + " " + friends[i].lastName)
@@ -132,10 +132,14 @@ struct SummaryPage: View {
         }
         .navigationBarItems(
             leading: Button(action: { self.currentPage = "assignItemsPage" }) {
-                Text("< Back").foregroundColor(Color.white)
+                Text("< Back")
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.white)
             },
             trailing: Button(action: { openNewScanModal() }) {
-                Text(" Start a New Scan").foregroundColor(Color.white)
+                Text(" Start New Scan >")
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.white)
             }
         )
     }

@@ -1,70 +1,65 @@
 //
-//  RescanConfirmationModal.swift
+//  ScanConfirmationHelpModal.swift
 //  DVY
 //
-//  Created by Matthew Meyerink on 1/16/22.
+//  Created by Matthew Meyerink on 2/11/22.
 //
 
 import SwiftUI
 
-struct RescanConfirmationModal: View {
-    @Binding var currentPage: String
-    @Binding var isRescanModalOpen: Bool
+struct ScanConfirmationHelpModal: View {
+    @Binding var isScanConfirmationHelpOpen: Bool
     
     var body: some View {
         ZStack {
             Color.gray.opacity(0.4).edgesIgnoringSafeArea(.all)
             
             VStack {
-                Text("Tips for Scanning")
-                    .font(.system(size: 40, weight: .semibold))
-                    .foregroundColor(.white)
-                    .padding(.top, 15)
+                HStack {
+                    Text("What Do I Do?")
+                        .font(.system(size: 35, weight: .semibold))
+                        .foregroundColor(.white)
+                        .padding(.top, 15)
+                    
+                    Spacer()
+                    
+                    Image(systemName: "xmark")
+                        .foregroundColor(.white)
+                        .font(.system(size: 35, weight: .semibold))
+                        .padding(.top, 15)
+                        .onTapGesture() {
+                            closeScanConfirmationHelpModal()
+                        }
+                }
+                    .padding(.horizontal)
+                
                 
                 Spacer()
                 
                 VStack {
-                    Text("1. Make sure all 4 corners of the receipt are visible in the scan.")
+                    Text("1. Tap any extra items you would like to remove.")
                         .font(.system(size: 20, weight: .regular))
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .foregroundColor(.white)
                         .padding(.bottom, 5)
-                    Text("2. Crop the scan to only include the items and their prices.")
+                    Text("2. Remove any tax or tip entries. They will be calculated on the next page.")
                         .font(.system(size: 20, weight: .regular))
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .foregroundColor(.white)
                         .padding(.bottom, 5)
-                    Text("2. Scan the receipt on a dark colored surface.")
+                    Text("3. Tap any items you would like to split between people and use the ÷ feature.")
                         .font(.system(size: 20, weight: .regular))
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .foregroundColor(.white)
-                        .padding(.bottom, 5)
-                    Text("4. Make sure the receipt isn't scanned multiple times.")
+                        .padding(.bottom, 25)
+                    Text("*If the items and prices in the scan are incorrect, hit \"Re-Scan.\"")
                         .font(.system(size: 20, weight: .regular))
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .foregroundColor(.white)
                         .padding(.bottom, 5)
                 }
-                    .padding(.horizontal, 15)
-
-                
-                Spacer()
-                
-                HStack {
-                    Button(action: { closeRescanModal() }) {
-                        Text("Cancel")
-                    }
-                        .buttonStyle(GreenButton())
-                    
-                    Spacer()
-                    
-                    Button(action: { startRescan() }) {
-                        Text("Re-Scan")
-                    }
-                        .buttonStyle(GreenButton())
-                }
-                    .padding(.horizontal, 15)
-                    .padding(.bottom, 15)
+                    .padding(.horizontal)
+                    .padding(.bottom)
             }
                 .frame(width: 350, height: 400, alignment: .center)
                 .background(Color(red: 0.1, green: 0.1, blue: 0.1)).cornerRadius(15)
@@ -77,12 +72,7 @@ struct RescanConfirmationModal: View {
         }
     }
     
-    func closeRescanModal() {
-        isRescanModalOpen = false
-    }
-    
-    func startRescan() {
-        currentPage = "landingPage"
-        closeRescanModal()
+    func closeScanConfirmationHelpModal() {
+        isScanConfirmationHelpOpen = false
     }
 }

@@ -18,6 +18,10 @@ struct ScanConfirmationPage: View {
     @State var editedItemPrice: String = ""
     
     @State var isRescanModalOpen: Bool = false
+    @State var isScanConfirmationHelpOpen: Bool = false
+    @State var isSplitItemModalOpen: Bool = false
+    
+    @State var itemSplitIndex: Int? = nil
 
     var body: some View {
         ZStack {
@@ -25,27 +29,40 @@ struct ScanConfirmationPage: View {
                 .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
             
             VStack {
-                Text("Does this look right?")
-                    .font(.system(size: 30, weight: .semibold))
-                    .padding(.vertical, 15)
-                    .foregroundColor(Color.white)
+                HStack {
+                    Text("Confirm Items")
+                        .font(.system(size: 30, weight: .semibold))
+                        .padding(.vertical, 15)
+                        .foregroundColor(Color.white)
+                    
+                    Image(systemName: "info.circle.fill")
+                        .foregroundColor(.white)
+                        .font(.system(size: 23, weight: .semibold))
+                        .padding(.leading, 2)
+                        .onTapGesture() {
+                            openScanConfirmationHelpModal()
+                        }
+                }
+               
                 
                 Button(action: {addItem()}) {
                     Text("Add Item")
                 }
                     .buttonStyle(GreenButton())
-                    .padding(.bottom, 15)
+                    .padding(.trailing, 5)
+                    .padding(.bottom)
+                
                 
                 ScrollView {
                     ForEach(items.indices, id: \.self) { i in
                         VStack {
                             HStack {
                                 if (i == self.itemExpanded) {
-                                    Image(systemName: "arrowtriangle.down.square.fill")
-                                        .font(.system(size: 25, weight: .semibold))
+                                    Image(systemName: "chevron.down")
+                                        .font(.system(size: 18, weight: .heavy))
                                 } else {
-                                    Image(systemName: "arrowtriangle.right.square.fill")
-                                        .font(.system(size: 25, weight: .semibold))
+                                    Image(systemName: "chevron.right")
+                                        .font(.system(size: 18, weight: .heavy))
                                 }
                                 
                                 Text(items[i].name)
@@ -74,7 +91,7 @@ struct ScanConfirmationPage: View {
                                         .padding(.top,  10)
                                         .padding(.horizontal, 10)
                                         .onTapGesture() {
-                                            self.splitItem(splitItemIndex: i)
+                                            self.openSplitItemModal(index: i)
                                         }
                                     
                                     Image(systemName: "square.and.pencil")
@@ -122,13 +139,25 @@ struct ScanConfirmationPage: View {
             if (isRescanModalOpen) {
                 RescanConfirmationModal(currentPage: $currentPage, isRescanModalOpen: $isRescanModalOpen)
             }
+            
+            if (isScanConfirmationHelpOpen) {
+                ScanConfirmationHelpModal(isScanConfirmationHelpOpen: $isScanConfirmationHelpOpen)
+            }
+            
+            if (isSplitItemModalOpen) {
+                SplitItemModal(isSplitItemModalOpen: $isSplitItemModalOpen, items: $items, itemSplitIndex: $itemSplitIndex, itemExpanded: $itemExpanded)
+            }
         }
         .navigationBarItems(
             leading: Button(action: { openRescanModal() }) {
-                Text("< Re-Scan").foregroundColor(Color.white)
+                Text("< Re-Scan")
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.white)
             },
             trailing: Button(action: {self.currentPage = "taxTipPage"}) {
-                Text("Next >").foregroundColor(Color.white)
+                Text("Next >")
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.white)
             }
         )
     }
@@ -144,18 +173,6 @@ struct ScanConfirmationPage: View {
     func deleteItem(deleteItemIndex: Int) {
         self.itemExpanded = nil
         items.remove(at: deleteItemIndex)
-    }
-    
-    func splitItem(splitItemIndex: Int) {
-        self.itemExpanded = nil
-        items[splitItemIndex].price = items[splitItemIndex].price / 2
-        
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        items[splitItemIndex].priceFormatted = formatter.string(from: NSNumber(value: items[splitItemIndex].price)) ?? "$0"
-        
-        let newItem = ReciptItem(name: items[splitItemIndex].name, price: items[splitItemIndex].price)
-        items.insert(newItem, at: splitItemIndex)
     }
     
     func editItem(editItemIndex: Int) {
@@ -183,5 +200,14 @@ struct ScanConfirmationPage: View {
     
     func openRescanModal() {
         isRescanModalOpen = true
+    }
+    
+    func openScanConfirmationHelpModal() {
+        isScanConfirmationHelpOpen = true
+    }
+    
+    func openSplitItemModal(index: Int) {
+        itemSplitIndex = index
+        isSplitItemModalOpen = true
     }
 }

@@ -18,13 +18,16 @@ struct AssignItemsPage: View {
     @State var isFriendItemListOpen: Bool = false
     @State var friendListOpenFriend: Person? = nil
     
+    @State var isSplitItemModalOpen: Bool = false
+    @State var itemSplitIndex: Int? = nil
+    
     var body: some View {
         ZStack {
             Color(red: 0.1, green: 0.1, blue: 0.1)
                 .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
             
             VStack {
-                Text("Assign Items")
+                Text("Tap to Assign Items")
                     .font(.system(size: 30, weight: .semibold))
                     .foregroundColor(Color.white)
                 
@@ -83,7 +86,9 @@ struct AssignItemsPage: View {
                     friends: $friends,
                     items: $items,
                     isFriendsListOpen: $isFriendsListOpen,
-                    itemBeingAssignedIndex: $itemBeingAssignedIndex
+                    itemBeingAssignedIndex: $itemBeingAssignedIndex,
+                    itemSplitIndex: $itemSplitIndex,
+                    isSplitItemModalOpen: $isSplitItemModalOpen
                 )
             }
             
@@ -94,16 +99,31 @@ struct AssignItemsPage: View {
                     isFriendItemListOpen: $isFriendItemListOpen
                 )
             }
+            
+            if (isSplitItemModalOpen) {
+                SplitItemModal(
+                    isSplitItemModalOpen: $isSplitItemModalOpen,
+                    items: $items,
+                    itemSplitIndex: $itemSplitIndex,
+                    itemExpanded: $itemBeingAssignedIndex
+                )
+            }
         }
         .navigationBarItems(
             leading: Button(action: { self.currentPage = "addFriendsPage" }) {
-                Text("< Back").foregroundColor(Color.white)
+                Text("< Back")
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.white)
             },
             trailing: Button(action: { self.navigateToSummaryPage() }) {
                 if (self.items.count == 0) {
-                    Text("Next >").foregroundColor(Color.white)
+                    Text("Next >")
+                        .fontWeight(.bold)
+                        .foregroundColor(Color.white)
                 } else {
-                    Text("Assign All Items to Continue").foregroundColor(Color.white)
+                    Text("Assign All Items to Continue")
+                        .fontWeight(.bold)
+                        .foregroundColor(Color.white)
                 }
             }
         )

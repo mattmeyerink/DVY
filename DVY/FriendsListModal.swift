@@ -12,6 +12,8 @@ struct FriendsListModal: View {
     @Binding var items: [ReciptItem]
     @Binding var isFriendsListOpen: Bool
     @Binding var itemBeingAssignedIndex: Int?
+    @Binding var itemSplitIndex: Int?
+    @Binding var isSplitItemModalOpen: Bool
     
     var body: some View {
         ZStack {
@@ -56,9 +58,29 @@ struct FriendsListModal: View {
                             }
                     }
                 }
+                
+                HStack {
+                    Image(systemName: "trash.fill")
+                        .font(.system(size: 25, weight: .semibold))
+                        .foregroundColor(.white)
+                        .padding(.top,  10)
+                        .padding(.horizontal, 10)
+                        .onTapGesture() {
+                            deleteItem()
+                        }
+
+                    Image(systemName: "divide.circle.fill")
+                        .font(.system(size: 25, weight: .semibold))
+                        .foregroundColor(.white)
+                        .padding(.top,  10)
+                        .padding(.horizontal, 10)
+                        .onTapGesture() {
+                            openSplitItemModal()
+                        }
+                }
             }
                 .padding(.horizontal)
-                .frame(width: 350, height: 350, alignment: .center)
+                .frame(width: 350, height: 375, alignment: .center)
                 .padding(.bottom, 30)
                 .background(Color(red: 0.1, green: 0.1, blue: 0.1)).cornerRadius(15)
                 .onAppear {
@@ -75,5 +97,17 @@ struct FriendsListModal: View {
         self.items.remove(at: self.itemBeingAssignedIndex!)
         self.itemBeingAssignedIndex = nil
         self.isFriendsListOpen = false
+    }
+    
+    func deleteItem() {
+        self.isFriendsListOpen = false
+        items.remove(at: itemBeingAssignedIndex!)
+    }
+    
+    func openSplitItemModal() {
+        isFriendsListOpen = false
+        isSplitItemModalOpen = true
+        itemSplitIndex = itemBeingAssignedIndex
+        itemBeingAssignedIndex = nil
     }
 }

@@ -40,7 +40,11 @@ class Person: Identifiable {
         self.lastName = lastName
         
         let firstInitial = String(firstName[firstName.startIndex])
-        let lastInitial = String(lastName[lastName.startIndex])
+        var lastInitial = ""
+        if (lastName != "") {
+            lastInitial = String(lastName[lastName.startIndex])
+        }
+        
         self.initials = firstInitial + lastInitial
         
         self.color = DVYColors[color]
