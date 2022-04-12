@@ -217,7 +217,7 @@ struct TaxTipPage: View {
     }
     
     func calculateCurrentTip() -> CurrencyObject {
-        return CurrencyObject(price: (subtotal + tax.price) * getCurrentTipDecimal())
+        return CurrencyObject(price: subtotal * getCurrentTipDecimal())
     }
     
     func calculateCurrentTotal() -> CurrencyObject {
@@ -225,7 +225,7 @@ struct TaxTipPage: View {
             return CurrencyObject(price: (subtotal + tax.price + customTip.price))
         }
         
-        return CurrencyObject(price: (subtotal + tax.price) * (1 + getCurrentTipDecimal()))
+        return CurrencyObject(price: subtotal + tax.price + calculateCurrentTip().price)
     }
     
     func saveCustomTip() {
