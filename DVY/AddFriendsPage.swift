@@ -18,6 +18,8 @@ struct AddFriendsPage: View {
     @State var isActionPopupOpen: Bool = false
     @State var actionFriendIndex: Int?
     
+    @State var store = FriendsStore()
+    
     var gridItemLayout = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
     
     var body: some View {
@@ -88,7 +90,13 @@ struct AddFriendsPage: View {
                     firstName: editFriendFirstName,
                     lastName: editFriendLastName,
                     editFriendIndex: actionFriendIndex
-                )
+                ) {
+                    FriendsStore.save(friends: friends) { result in
+                        if case .failure(let error) = result {
+                            fatalError(error.localizedDescription)
+                        }
+                    }
+                }
             }
         }
         .navigationBarItems(
@@ -109,6 +117,16 @@ struct AddFriendsPage: View {
                 }
             }
         )
+        .onAppear {
+            FriendsStore.load { result in
+                switch result {
+                case .failure(let error):
+                    fatalError(error.localizedDescription)
+                case .success(let friends):
+                    store.previouslyAddedFriends = friends
+                }
+            }
+        }
     }
     
     func addFriend() {

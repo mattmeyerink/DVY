@@ -36,7 +36,7 @@ struct LandingPage: View {
     }
     
     func startScan() {
-        for friend in self.friends {
+        for var friend in self.friends {
             friend.items = []
         }
         

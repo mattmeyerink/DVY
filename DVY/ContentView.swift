@@ -59,6 +59,16 @@ struct ContentView: View {
             .sheet(isPresented: $isScanning) {
                 ScanDocumentView(items: $items, tax: $tax)
             }
+            .onAppear {
+                FriendsStore.load { result in
+                    switch result {
+                    case .failure(let error):
+                        fatalError(error.localizedDescription)
+                    case .success(let friends):
+                        store.previouslyAddedFriends = friends
+                    }
+                }
+            }
     }
 }
 
