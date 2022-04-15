@@ -7,8 +7,8 @@
 
 import Foundation
 
-class ReciptItem: Identifiable {
-    let id = UUID()
+class ReciptItem: Identifiable, Codable {
+    var id = UUID()
     var name: String
     var price: Double
     var priceFormatted: String
@@ -23,16 +23,21 @@ class ReciptItem: Identifiable {
     }
 }
 
-class Person: Identifiable {
-    let id = UUID()
+struct Person: Identifiable, Codable {
+    var id = UUID()
     
     let firstName: String
     let lastName: String
     let initials: String
     
+    let phoneNumber: String
+    
     var color: DVYColor
     
     var items: [ReciptItem]
+    
+    let useCount: Int
+    let lastUseDate: Date
     
     
     init(firstName: String, lastName: String, color: Int) {
@@ -47,13 +52,18 @@ class Person: Identifiable {
         
         self.initials = firstInitial + lastInitial
         
+        self.phoneNumber = ""
+        
         self.color = DVYColors[color]
         
         self.items = []
+        
+        self.useCount = 1
+        self.lastUseDate = Date()
     }
 }
 
-class DVYColor {
+class DVYColor: Codable {
     let red: Double
     let green: Double
     let blue: Double
