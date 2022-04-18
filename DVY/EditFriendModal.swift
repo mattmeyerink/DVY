@@ -15,7 +15,7 @@ struct EditFriendModal: View {
     
     @State var editFriendIndex: Int?
     
-    let saveAction: () -> Void
+    let saveAction: ([Person]) -> Void
     
     var body: some View {
         ZStack {
@@ -74,7 +74,7 @@ struct EditFriendModal: View {
             friends.append(Person(firstName: firstName, lastName: lastName, color: friends.count % DVYColors.count))
         }
         
-        saveAction()
+        saveAction(friends)
         closePopup()
     }
     

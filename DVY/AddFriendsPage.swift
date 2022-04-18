@@ -18,7 +18,8 @@ struct AddFriendsPage: View {
     @State var isActionPopupOpen: Bool = false
     @State var actionFriendIndex: Int?
     
-    @State var store = FriendsStore()
+    @State var previouslyAddedFriends: [Person]
+    @State var saveFriendAction: ([Person]) -> Void
     
     var gridItemLayout = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
     
@@ -68,6 +69,36 @@ struct AddFriendsPage: View {
                         }
                     }
                 }
+                
+                Text("Previous Friends")
+                    .font(.system(size: 30, weight: .semibold))
+            
+                    .padding(.vertical, 15)
+                    .foregroundColor(Color.white)
+                
+                ScrollView {
+                    ForEach(previouslyAddedFriends.indices, id: \.self) { i in
+                        VStack {
+                            HStack {
+                                Text(previouslyAddedFriends[i].firstName + " " + previouslyAddedFriends[i].lastName)
+                                    .font(.system(size: 20, weight: .semibold))
+                                    .padding(.leading, 5)
+                                
+                                Spacer()
+                            }
+                        }
+                            .padding()
+                            .background(
+                                Color(
+                                    red: previouslyAddedFriends[i].color.red,
+                                    green: previouslyAddedFriends[i].color.green,
+                                    blue: previouslyAddedFriends[i].color.blue
+                                )
+                            )
+                            .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
+                            .cornerRadius(10)
+                    }
+                }
             }
                 .padding(.horizontal)
             
@@ -89,14 +120,9 @@ struct AddFriendsPage: View {
                     isEditFriendOpen: $isAddFriendOpen,
                     firstName: editFriendFirstName,
                     lastName: editFriendLastName,
-                    editFriendIndex: actionFriendIndex
-                ) {
-                    FriendsStore.save(friends: friends) { result in
-                        if case .failure(let error) = result {
-                            fatalError(error.localizedDescription)
-                        }
-                    }
-                }
+                    editFriendIndex: actionFriendIndex,
+                    saveAction: saveFriendAction
+                )
             }
         }
         .navigationBarItems(
@@ -117,16 +143,6 @@ struct AddFriendsPage: View {
                 }
             }
         )
-        .onAppear {
-            FriendsStore.load { result in
-                switch result {
-                case .failure(let error):
-                    fatalError(error.localizedDescription)
-                case .success(let friends):
-                    store.previouslyAddedFriends = friends
-                }
-            }
-        }
     }
     
     func addFriend() {
