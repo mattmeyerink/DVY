@@ -18,6 +18,9 @@ struct AddFriendsPage: View {
     @State var isActionPopupOpen: Bool = false
     @State var actionFriendIndex: Int?
     
+    @State var isPreviouslyAddedFriendsOpen: Bool = false
+    @State var currentPreviousFriend: Person?
+    
     @State var previouslyAddedFriends: [Person]
     @State var saveFriendAction: ([Person]) -> Void
     
@@ -97,6 +100,9 @@ struct AddFriendsPage: View {
                             )
                             .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
                             .cornerRadius(10)
+                            .onTapGesture {
+                                openPreviouslySelectedFriendModal(currentFriend: previouslyAddedFriends[i])
+                            }
                     }
                 }
             }
@@ -122,6 +128,13 @@ struct AddFriendsPage: View {
                     lastName: editFriendLastName,
                     editFriendIndex: actionFriendIndex,
                     saveAction: saveFriendAction
+                )
+            }
+            
+            if (isPreviouslyAddedFriendsOpen) {
+                PreviouslyAddedFriendModal(
+                    isPreviouslyAddedFriendsOpen: $isPreviouslyAddedFriendsOpen,
+                    currentFriend: currentPreviousFriend!
                 )
             }
         }
@@ -161,6 +174,11 @@ struct AddFriendsPage: View {
         if (self.friends.count > 0) {
             self.currentPage = "assignItemsPage"
         }
+    }
+    
+    func openPreviouslySelectedFriendModal(currentFriend: Person) {
+        self.currentPreviousFriend = currentFriend
+        self.isPreviouslyAddedFriendsOpen = true
     }
 }
 
