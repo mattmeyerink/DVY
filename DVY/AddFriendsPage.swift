@@ -127,6 +127,7 @@ struct AddFriendsPage: View {
                     firstName: editFriendFirstName,
                     lastName: editFriendLastName,
                     editFriendIndex: actionFriendIndex,
+                    previouslyAddedFriends: previouslyAddedFriends,
                     saveAction: saveFriendAction
                 )
             }

@@ -15,6 +15,8 @@ struct EditFriendModal: View {
     
     @State var editFriendIndex: Int?
     
+    @State var previouslyAddedFriends: [Person]
+    
     let saveAction: ([Person]) -> Void
     
     var body: some View {
@@ -68,13 +70,17 @@ struct EditFriendModal: View {
         
         if (editFriendIndex != nil) {
             let originalColor = friends[editFriendIndex!].color
-            friends[editFriendIndex!] = Person(firstName: firstName, lastName: lastName, color: 0)
-            friends[editFriendIndex!].color = originalColor
+            
+            var editedPerson = Person(firstName: firstName, lastName: lastName, color: 0)
+            editedPerson.color = originalColor
+            
+            friends[editFriendIndex!] = editedPerson
         } else {
-            friends.append(Person(firstName: firstName, lastName: lastName, color: friends.count % DVYColors.count))
+            let newFriend = Person(firstName: firstName, lastName: lastName, color: friends.count % DVYColors.count)
+            friends.append(newFriend)
         }
         
-        saveAction(friends)
+        saveAction(previouslyAddedFriends + friends)
         closePopup()
     }
     
