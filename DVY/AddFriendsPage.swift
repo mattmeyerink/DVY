@@ -115,8 +115,8 @@ struct AddFriendsPage: View {
                     isEditFriendOpen: $isAddFriendOpen,
                     editFriendFirstName: $editFriendFirstName,
                     editFriendLastName: $editFriendLastName,
-                    actionFriendIndex: $actionFriendIndex
-                    
+                    actionFriendIndex: $actionFriendIndex,
+                    deleteFriend: deleteFriend
                 )
             }
             
@@ -135,7 +135,8 @@ struct AddFriendsPage: View {
             if (isPreviouslyAddedFriendsOpen) {
                 PreviouslyAddedFriendModal(
                     isPreviouslyAddedFriendsOpen: $isPreviouslyAddedFriendsOpen,
-                    currentFriend: currentPreviousFriend!
+                    currentFriend: currentPreviousFriend!,
+                    deletePreviouslyAddedFriend: deletePreviouslyAddedFriend
                 )
             }
         }
@@ -180,6 +181,18 @@ struct AddFriendsPage: View {
     func openPreviouslySelectedFriendModal(currentFriend: Person) {
         self.currentPreviousFriend = currentFriend
         self.isPreviouslyAddedFriendsOpen = true
+    }
+    
+    func deletePreviouslyAddedFriend(friend: Person) -> Void {
+        self.previouslyAddedFriends = self.previouslyAddedFriends.filter { $0.id != friend.id }
+        saveFriendAction(self.previouslyAddedFriends + friends)
+        self.isPreviouslyAddedFriendsOpen = false
+    }
+    
+    func deleteFriend() -> Void {
+        self.friends.remove(at: actionFriendIndex!)
+        saveFriendAction(self.previouslyAddedFriends + friends)
+        self.isActionPopupOpen = false
     }
 }
 

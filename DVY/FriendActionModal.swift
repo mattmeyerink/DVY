@@ -17,6 +17,8 @@ struct FriendActionModal: View {
     
     @Binding var actionFriendIndex: Int?
     
+    @State var deleteFriend: () -> Void
+    
     var body: some View {
         ZStack {
             Color.gray.opacity(0.4).edgesIgnoringSafeArea(.all)
@@ -65,11 +67,6 @@ struct FriendActionModal: View {
     
     func closePopup() {
         self.actionFriendIndex = nil
-        self.isFriendActionOpen = false
-    }
-    
-    func deleteFriend() {
-        friends.remove(at: actionFriendIndex!)
         self.isFriendActionOpen = false
     }
     
