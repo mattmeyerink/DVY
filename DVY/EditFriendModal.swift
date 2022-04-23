@@ -80,7 +80,8 @@ struct EditFriendModal: View {
             friends.append(newFriend)
         }
         
-        saveAction(previouslyAddedFriends + friends)
+        let previouslyAddedFriendsIds = Set(previouslyAddedFriends.map { $0.id })
+        saveAction(previouslyAddedFriends + friends.filter { !previouslyAddedFriendsIds.contains($0.id) })
         closePopup()
     }
     

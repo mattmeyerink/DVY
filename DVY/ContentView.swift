@@ -65,8 +65,10 @@ struct ContentView: View {
                 FriendsStore.load { result in
                     switch result {
                     case .failure(let error):
+                        saveFriendAction(friends: [])
                         fatalError(error.localizedDescription)
                     case .success(let friends):
+                        print(String(friends.count))
                         store.previouslyAddedFriends = friends
                     }
                 }

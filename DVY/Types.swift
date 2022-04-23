@@ -36,9 +36,9 @@ struct Person: Identifiable, Codable {
     
     var items: [ReciptItem]
     
-    let useCount: Int
-    let lastUseDate: Date
-    
+    var useCount: Int
+    var lastUseDate: Date
+    var previousLastUsedDate: Date?
     
     init(firstName: String, lastName: String, color: Int) {
         self.firstName = firstName

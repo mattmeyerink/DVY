@@ -11,7 +11,10 @@ struct PreviouslyAddedFriendModal: View {
     @Binding var isPreviouslyAddedFriendsOpen: Bool
     
     @State var currentFriend: Person
+    
     @State var deletePreviouslyAddedFriend: (Person) -> Void
+    @State var addPreviouslyAddedFriend: (Person) -> Void
+    
     
     static let stackDateFormat: DateFormatter = {
         let formatter = DateFormatter()
@@ -85,7 +88,7 @@ struct PreviouslyAddedFriendModal: View {
                     
                     Spacer()
                     
-                    Button(action: {}) {
+                    Button(action: { addPreviouslyAddedFriend(currentFriend) }) {
                         Text("Add Friend")
                     }
                         .buttonStyle(GreenButton())
