@@ -26,9 +26,9 @@ class ReciptItem: Identifiable, Codable {
 struct Person: Identifiable, Codable {
     var id = UUID()
     
-    let firstName: String
-    let lastName: String
-    let initials: String
+    var firstName: String
+    var lastName: String
+    var initials: String
     
     let phoneNumber: String
     
@@ -44,13 +44,7 @@ struct Person: Identifiable, Codable {
         self.firstName = firstName
         self.lastName = lastName
         
-        let firstInitial = String(firstName[firstName.startIndex])
-        var lastInitial = ""
-        if (lastName != "") {
-            lastInitial = String(lastName[lastName.startIndex])
-        }
-        
-        self.initials = firstInitial + lastInitial
+        self.initials = ""
         
         self.phoneNumber = ""
         
@@ -60,6 +54,18 @@ struct Person: Identifiable, Codable {
         
         self.useCount = 1
         self.lastUseDate = Date()
+        
+        setInitials()
+    }
+    
+    mutating func setInitials() {
+        let firstInitial = String(firstName[firstName.startIndex])
+        var lastInitial = ""
+        if (lastName != "") {
+            lastInitial = String(lastName[lastName.startIndex])
+        }
+        
+        self.initials = firstInitial + lastInitial
     }
 }
 

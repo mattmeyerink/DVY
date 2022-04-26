@@ -68,19 +68,25 @@ struct EditFriendModal: View {
             return
         }
         
+        let previouslyAddedFriendsIds = Set(previouslyAddedFriends.map { $0.id })
+        
         if (editFriendIndex != nil) {
-            let originalColor = friends[editFriendIndex!].color
+            friends[editFriendIndex!].firstName = firstName
+            friends[editFriendIndex!].lastName = lastName
+            friends[editFriendIndex!].setInitials()
             
-            var editedPerson = Person(firstName: firstName, lastName: lastName, color: 0)
-            editedPerson.color = originalColor
-            
-            friends[editFriendIndex!] = editedPerson
+            if (previouslyAddedFriendsIds.contains(friends[editFriendIndex!].id)) {
+                let previouslyAddedFriendIndex = previouslyAddedFriends.firstIndex(where: { $0.id == friends[editFriendIndex!].id })
+                previouslyAddedFriends[previouslyAddedFriendIndex!].firstName = firstName
+                previouslyAddedFriends[previouslyAddedFriendIndex!].lastName = lastName
+                previouslyAddedFriends[previouslyAddedFriendIndex!].setInitials()
+            }
         } else {
             let newFriend = Person(firstName: firstName, lastName: lastName, color: friends.count % DVYColors.count)
             friends.append(newFriend)
         }
         
-        let previouslyAddedFriendsIds = Set(previouslyAddedFriends.map { $0.id })
+        
         saveAction(previouslyAddedFriends + friends.filter { !previouslyAddedFriendsIds.contains($0.id) })
         closePopup()
     }
