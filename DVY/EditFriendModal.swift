@@ -15,6 +15,10 @@ struct EditFriendModal: View {
     
     @State var editFriendIndex: Int?
     
+    @State var previouslyAddedFriends: [Person]
+    
+    let saveAction: ([Person]) -> Void
+    
     var body: some View {
         ZStack {
             Color.gray.opacity(0.4).edgesIgnoringSafeArea(.all)
@@ -64,14 +68,26 @@ struct EditFriendModal: View {
             return
         }
         
+        let previouslyAddedFriendsIds = Set(previouslyAddedFriends.map { $0.id })
+        
         if (editFriendIndex != nil) {
-            let originalColor = friends[editFriendIndex!].color
-            friends[editFriendIndex!] = Person(firstName: firstName, lastName: lastName, color: 0)
-            friends[editFriendIndex!].color = originalColor
+            friends[editFriendIndex!].firstName = firstName
+            friends[editFriendIndex!].lastName = lastName
+            friends[editFriendIndex!].setInitials()
+            
+            if (previouslyAddedFriendsIds.contains(friends[editFriendIndex!].id)) {
+                let previouslyAddedFriendIndex = previouslyAddedFriends.firstIndex(where: { $0.id == friends[editFriendIndex!].id })
+                previouslyAddedFriends[previouslyAddedFriendIndex!].firstName = firstName
+                previouslyAddedFriends[previouslyAddedFriendIndex!].lastName = lastName
+                previouslyAddedFriends[previouslyAddedFriendIndex!].setInitials()
+            }
         } else {
-            friends.append(Person(firstName: firstName, lastName: lastName, color: friends.count % DVYColors.count))
+            let newFriend = Person(firstName: firstName, lastName: lastName, color: friends.count % DVYColors.count)
+            friends.append(newFriend)
         }
         
+        
+        saveAction(previouslyAddedFriends + friends.filter { !previouslyAddedFriendsIds.contains($0.id) })
         closePopup()
     }
     

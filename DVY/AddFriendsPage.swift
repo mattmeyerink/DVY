@@ -18,6 +18,12 @@ struct AddFriendsPage: View {
     @State var isActionPopupOpen: Bool = false
     @State var actionFriendIndex: Int?
     
+    @State var isPreviouslyAddedFriendsOpen: Bool = false
+    @State var currentPreviousFriend: Person?
+    
+    @State var previouslyAddedFriends: [Person]
+    @State var saveFriendAction: ([Person]) -> Void
+    
     var gridItemLayout = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
     
     var body: some View {
@@ -66,6 +72,42 @@ struct AddFriendsPage: View {
                         }
                     }
                 }
+                
+                if (getArePreviouslyAddedFriendsVisible()) {
+                    Text("Previous Friends")
+                        .font(.system(size: 30, weight: .semibold))
+                        .padding(.vertical, 15)
+                        .foregroundColor(Color.white)
+                    
+                    ScrollView {
+                        ForEach(previouslyAddedFriends.indices, id: \.self) { i in
+                            if (!Set(friends.map { $0.id }).contains(previouslyAddedFriends[i].id)) {
+                                VStack {
+                                    HStack {
+                                        Text(previouslyAddedFriends[i].firstName + " " + previouslyAddedFriends[i].lastName)
+                                            .font(.system(size: 20, weight: .semibold))
+                                            .padding(.leading, 5)
+                                        
+                                        Spacer()
+                                    }
+                                }
+                                    .padding()
+                                    .background(
+                                        Color(
+                                            red: previouslyAddedFriends[i].color.red,
+                                            green: previouslyAddedFriends[i].color.green,
+                                            blue: previouslyAddedFriends[i].color.blue
+                                        )
+                                    )
+                                    .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
+                                    .cornerRadius(10)
+                                    .onTapGesture {
+                                        openPreviouslySelectedFriendModal(currentFriend: previouslyAddedFriends[i])
+                                    }
+                            }
+                        }
+                    }
+                }
             }
                 .padding(.horizontal)
             
@@ -76,8 +118,8 @@ struct AddFriendsPage: View {
                     isEditFriendOpen: $isAddFriendOpen,
                     editFriendFirstName: $editFriendFirstName,
                     editFriendLastName: $editFriendLastName,
-                    actionFriendIndex: $actionFriendIndex
-                    
+                    actionFriendIndex: $actionFriendIndex,
+                    deleteFriend: deleteFriend
                 )
             }
             
@@ -87,7 +129,18 @@ struct AddFriendsPage: View {
                     isEditFriendOpen: $isAddFriendOpen,
                     firstName: editFriendFirstName,
                     lastName: editFriendLastName,
-                    editFriendIndex: actionFriendIndex
+                    editFriendIndex: actionFriendIndex,
+                    previouslyAddedFriends: previouslyAddedFriends,
+                    saveAction: saveFriendAction
+                )
+            }
+            
+            if (isPreviouslyAddedFriendsOpen) {
+                PreviouslyAddedFriendModal(
+                    isPreviouslyAddedFriendsOpen: $isPreviouslyAddedFriendsOpen,
+                    currentFriend: currentPreviousFriend!,
+                    deletePreviouslyAddedFriend: deletePreviouslyAddedFriend,
+                    addPreviouslyAddedFriend: addPreviouslyAddedFriend
                 )
             }
         }
@@ -120,13 +173,58 @@ struct AddFriendsPage: View {
     
     func openActionPopup(actionFriendIndex: Int) {
         self.actionFriendIndex = actionFriendIndex
-        self.isActionPopupOpen = true
+        isActionPopupOpen = true
     }
     
     func routeToAssignItemsPage() {
-        if (self.friends.count > 0) {
-            self.currentPage = "assignItemsPage"
+        if (friends.count > 0) {
+            currentPage = "assignItemsPage"
         }
+    }
+    
+    func openPreviouslySelectedFriendModal(currentFriend: Person) {
+        currentPreviousFriend = currentFriend
+        isPreviouslyAddedFriendsOpen = true
+    }
+    
+    func deletePreviouslyAddedFriend(friend: Person) -> Void {
+        previouslyAddedFriends = previouslyAddedFriends.filter { $0.id != friend.id }
+        saveFriendAction(previouslyAddedFriends + friends)
+        isPreviouslyAddedFriendsOpen = false
+    }
+    
+    func deleteFriend() -> Void {
+        let previouslyAddedFriendsIds = Set(previouslyAddedFriends.map { $0.id })
+        if (previouslyAddedFriendsIds.contains(friends[actionFriendIndex!].id)) {
+            let prevFriendIndex = previouslyAddedFriends.firstIndex(where: { $0.id == friends[actionFriendIndex!].id })
+            
+            previouslyAddedFriends[prevFriendIndex!].useCount -= 1
+            previouslyAddedFriends[prevFriendIndex!].lastUseDate = previouslyAddedFriends[prevFriendIndex!].previousLastUsedDate!
+        }
+        
+        friends.remove(at: actionFriendIndex!)
+        saveFriendAction(previouslyAddedFriends + friends.filter { !previouslyAddedFriendsIds.contains($0.id) })
+        isActionPopupOpen = false
+    }
+    
+    func addPreviouslyAddedFriend(friend: Person) -> Void {
+        let prevFriendIndex = previouslyAddedFriends.firstIndex(where: { $0.id == friend.id })
+        
+        previouslyAddedFriends[prevFriendIndex!].useCount += 1
+        previouslyAddedFriends[prevFriendIndex!].previousLastUsedDate = previouslyAddedFriends[prevFriendIndex!].lastUseDate
+        previouslyAddedFriends[prevFriendIndex!].lastUseDate = Date()
+        
+        let previouslyAddedFriendsIds = Set(previouslyAddedFriends.map { $0.id })
+        saveFriendAction(previouslyAddedFriends + friends.filter { !previouslyAddedFriendsIds.contains($0.id) })
+        
+        friends.append(previouslyAddedFriends[prevFriendIndex!])
+        
+        isPreviouslyAddedFriendsOpen = false
+    }
+    
+    func getArePreviouslyAddedFriendsVisible() -> Bool {
+        let friendsIds = Set(friends.map { $0.id })
+        return previouslyAddedFriends.filter { !friendsIds.contains($0.id) }.count > 0
     }
 }
 
