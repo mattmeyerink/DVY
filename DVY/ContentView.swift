@@ -69,7 +69,7 @@ struct ContentView: View {
                         fatalError(error.localizedDescription)
                     case .success(let friends):
                         print(String(friends.count))
-                        store.previouslyAddedFriends = friends
+                        store.previouslyAddedFriends = friends.sorted(by: { $0.useCount > $1.useCount })
                     }
                 }
             }
