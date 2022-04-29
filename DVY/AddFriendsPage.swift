@@ -115,12 +115,10 @@ struct AddFriendsPage: View {
             if (isActionPopupOpen) {
                 FriendActionModal(
                     isFriendActionOpen: $isActionPopupOpen,
-                    friends: $friends,
                     isEditFriendOpen: $isAddFriendOpen,
-                    editFriendFirstName: $editFriendFirstName,
-                    editFriendLastName: $editFriendLastName,
                     actionFriendIndex: $actionFriendIndex,
-                    deleteFriend: deleteFriend
+                    deleteFriend: deleteFriend,
+                    editFriend: editFriend
                 )
             }
             
@@ -169,8 +167,21 @@ struct AddFriendsPage: View {
     func addFriend() {
         self.editFriendFirstName = ""
         self.editFriendLastName = ""
+        
+        let color = DVYColors.randomElement()!
+        self.editFriendColor = Color(red: color.red, green: color.green, blue: color.blue)
+        
         self.actionFriendIndex = nil
         self.isAddFriendOpen = true
+    }
+    
+    func editFriend() {
+        let editFriend = friends[actionFriendIndex!]
+        editFriendFirstName = editFriend.firstName
+        editFriendLastName = editFriend.lastName
+        editFriendColor = Color(red: editFriend.color.red, green: editFriend.color.green, blue: editFriend.color.blue)
+        isActionPopupOpen = false
+        isAddFriendOpen = true
     }
     
     func openActionPopup(actionFriendIndex: Int) {

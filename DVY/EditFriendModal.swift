@@ -75,19 +75,24 @@ struct EditFriendModal: View {
         
         let previouslyAddedFriendsIds = Set(previouslyAddedFriends.map { $0.id })
         
+        let colorComponents = UIColor(friendColor).cgColor.components!
+        let formattedColor = DVYColor(red: colorComponents[0], green: colorComponents[1], blue: colorComponents[2])
+        
         if (editFriendIndex != nil) {
             friends[editFriendIndex!].firstName = firstName
             friends[editFriendIndex!].lastName = lastName
             friends[editFriendIndex!].setInitials()
+            friends[editFriendIndex!].color = formattedColor
             
             if (previouslyAddedFriendsIds.contains(friends[editFriendIndex!].id)) {
                 let previouslyAddedFriendIndex = previouslyAddedFriends.firstIndex(where: { $0.id == friends[editFriendIndex!].id })
                 previouslyAddedFriends[previouslyAddedFriendIndex!].firstName = firstName
                 previouslyAddedFriends[previouslyAddedFriendIndex!].lastName = lastName
                 previouslyAddedFriends[previouslyAddedFriendIndex!].setInitials()
+                previouslyAddedFriends[previouslyAddedFriendIndex!].color = formattedColor
             }
         } else {
-            let newFriend = Person(firstName: firstName, lastName: lastName, color: friends.count % DVYColors.count)
+            let newFriend = Person(firstName: firstName, lastName: lastName, color: formattedColor)
             friends.append(newFriend)
         }
         

@@ -40,7 +40,7 @@ struct Person: Identifiable, Codable {
     var lastUseDate: Date
     var previousLastUsedDate: Date?
     
-    init(firstName: String, lastName: String, color: Int) {
+    init(firstName: String, lastName: String, color: DVYColor) {
         self.firstName = firstName
         self.lastName = lastName
         
@@ -48,7 +48,7 @@ struct Person: Identifiable, Codable {
         
         self.phoneNumber = ""
         
-        self.color = DVYColors[color]
+        self.color = color
         
         self.items = []
         
