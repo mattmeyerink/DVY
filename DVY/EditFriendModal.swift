@@ -12,6 +12,7 @@ struct EditFriendModal: View {
     
     @State var firstName: String
     @State var lastName: String
+    @State var friendColor: Color
     
     @State var editFriendIndex: Int?
     
@@ -36,6 +37,10 @@ struct EditFriendModal: View {
                 }
                     .foregroundColor(.white)
                 
+                Section() {
+                    ColorPicker("Friend Color", selection: $friendColor, supportsOpacity: false)
+                }
+                
                 HStack {
                     Button(action: {closePopup()}) {
                         Text("Cancel")
@@ -51,7 +56,7 @@ struct EditFriendModal: View {
                 }
                     .listRowBackground(Color(red: 0.1, green: 0.1, blue: 0.1))
             }
-                .frame(width: 350, height: 300, alignment: .center)
+                .frame(width: 350, height: 380, alignment: .center)
                 .padding(.bottom, 30)
                 .background(Color(red: 0.1, green: 0.1, blue: 0.1)).cornerRadius(15)
                 .onAppear {

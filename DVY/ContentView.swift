@@ -68,7 +68,6 @@ struct ContentView: View {
                         saveFriendAction(friends: [])
                         fatalError(error.localizedDescription)
                     case .success(let friends):
-                        print(String(friends.count))
                         store.previouslyAddedFriends = friends.sorted(by: { $0.useCount > $1.useCount })
                     }
                 }

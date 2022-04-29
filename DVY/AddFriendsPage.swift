@@ -14,6 +14,7 @@ struct AddFriendsPage: View {
     @State var isAddFriendOpen: Bool = false
     @State var editFriendFirstName: String = ""
     @State var editFriendLastName: String = ""
+    @State var editFriendColor: Color = Color.blue
     
     @State var isActionPopupOpen: Bool = false
     @State var actionFriendIndex: Int?
@@ -129,6 +130,7 @@ struct AddFriendsPage: View {
                     isEditFriendOpen: $isAddFriendOpen,
                     firstName: editFriendFirstName,
                     lastName: editFriendLastName,
+                    friendColor: editFriendColor,
                     editFriendIndex: actionFriendIndex,
                     previouslyAddedFriends: previouslyAddedFriends,
                     saveAction: saveFriendAction
