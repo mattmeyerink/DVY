@@ -9,15 +9,11 @@ import SwiftUI
 
 struct FriendActionModal: View {
     @Binding var isFriendActionOpen: Bool
-    @Binding var friends: [Person]
-    
     @Binding var isEditFriendOpen: Bool
-    @Binding var editFriendFirstName: String
-    @Binding var editFriendLastName: String
-    
     @Binding var actionFriendIndex: Int?
     
     @State var deleteFriend: () -> Void
+    @State var editFriend: () -> Void
     
     var body: some View {
         ZStack {
@@ -68,12 +64,5 @@ struct FriendActionModal: View {
     func closePopup() {
         self.actionFriendIndex = nil
         self.isFriendActionOpen = false
-    }
-    
-    func editFriend() {
-        self.editFriendFirstName = friends[actionFriendIndex!].firstName
-        self.editFriendLastName = friends[actionFriendIndex!].lastName
-        self.isFriendActionOpen = false
-        self.isEditFriendOpen = true
     }
 }

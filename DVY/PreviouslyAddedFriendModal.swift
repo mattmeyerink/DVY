@@ -11,10 +11,10 @@ struct PreviouslyAddedFriendModal: View {
     @Binding var isPreviouslyAddedFriendsOpen: Bool
     
     @State var currentFriend: Person
+    @State var friendColor: Color
     
     @State var deletePreviouslyAddedFriend: (Person) -> Void
     @State var addPreviouslyAddedFriend: (Person) -> Void
-    
     
     static let stackDateFormat: DateFormatter = {
         let formatter = DateFormatter()
@@ -79,6 +79,12 @@ struct PreviouslyAddedFriendModal: View {
                     .padding(.top, 5)
                     .padding(.bottom, 20)
                 
+                ColorPicker("Friend Color", selection: $friendColor, supportsOpacity: false)
+                    .padding(.horizontal)
+                    .padding(.vertical, 5)
+                    .background(Color.white)
+                    .cornerRadius(10)
+                
                 
                 HStack {
                     Button(action: { deletePreviouslyAddedFriend(currentFriend) } ) {
@@ -88,14 +94,15 @@ struct PreviouslyAddedFriendModal: View {
                     
                     Spacer()
                     
-                    Button(action: { addPreviouslyAddedFriend(currentFriend) }) {
+                    Button(action: { addPreviousFriendHandler() }) {
                         Text("Add Friend")
                     }
                         .buttonStyle(GreenButton())
                 }
+                    .padding(.top)
             }
                 .padding(.horizontal)
-                .frame(width: 350, height: 325, alignment: .center)
+                .frame(width: 350, height: 375, alignment: .center)
                 .padding(.bottom, 30)
                 .background(Color(red: 0.1, green: 0.1, blue: 0.1)).cornerRadius(15)
                 .onAppear {
@@ -105,6 +112,13 @@ struct PreviouslyAddedFriendModal: View {
                     UITableView.appearance().backgroundColor = .systemGroupedBackground
                 }
         }
+    }
+    
+    func addPreviousFriendHandler() {
+        let colorComponents = UIColor(friendColor).cgColor.components!
+        let formattedColor = DVYColor(red: colorComponents[0], green: colorComponents[1], blue: colorComponents[2])
+        currentFriend.color = formattedColor
+        addPreviouslyAddedFriend(currentFriend)
     }
     
     func getPlural(word: String, amount: Int) -> String {

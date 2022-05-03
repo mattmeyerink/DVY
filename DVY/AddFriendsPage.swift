@@ -14,12 +14,14 @@ struct AddFriendsPage: View {
     @State var isAddFriendOpen: Bool = false
     @State var editFriendFirstName: String = ""
     @State var editFriendLastName: String = ""
+    @State var editFriendColor: Color = Color.blue
     
     @State var isActionPopupOpen: Bool = false
     @State var actionFriendIndex: Int?
     
     @State var isPreviouslyAddedFriendsOpen: Bool = false
     @State var currentPreviousFriend: Person?
+    @State var previouslyAddedFriendColor: Color = Color.blue
     
     @State var previouslyAddedFriends: [Person]
     @State var saveFriendAction: ([Person]) -> Void
@@ -114,12 +116,10 @@ struct AddFriendsPage: View {
             if (isActionPopupOpen) {
                 FriendActionModal(
                     isFriendActionOpen: $isActionPopupOpen,
-                    friends: $friends,
                     isEditFriendOpen: $isAddFriendOpen,
-                    editFriendFirstName: $editFriendFirstName,
-                    editFriendLastName: $editFriendLastName,
                     actionFriendIndex: $actionFriendIndex,
-                    deleteFriend: deleteFriend
+                    deleteFriend: deleteFriend,
+                    editFriend: editFriend
                 )
             }
             
@@ -129,6 +129,7 @@ struct AddFriendsPage: View {
                     isEditFriendOpen: $isAddFriendOpen,
                     firstName: editFriendFirstName,
                     lastName: editFriendLastName,
+                    friendColor: editFriendColor,
                     editFriendIndex: actionFriendIndex,
                     previouslyAddedFriends: previouslyAddedFriends,
                     saveAction: saveFriendAction
@@ -139,6 +140,7 @@ struct AddFriendsPage: View {
                 PreviouslyAddedFriendModal(
                     isPreviouslyAddedFriendsOpen: $isPreviouslyAddedFriendsOpen,
                     currentFriend: currentPreviousFriend!,
+                    friendColor: previouslyAddedFriendColor,
                     deletePreviouslyAddedFriend: deletePreviouslyAddedFriend,
                     addPreviouslyAddedFriend: addPreviouslyAddedFriend
                 )
@@ -167,8 +169,21 @@ struct AddFriendsPage: View {
     func addFriend() {
         self.editFriendFirstName = ""
         self.editFriendLastName = ""
+        
+        let color = DVYColors.randomElement()!
+        self.editFriendColor = Color(red: color.red, green: color.green, blue: color.blue)
+        
         self.actionFriendIndex = nil
         self.isAddFriendOpen = true
+    }
+    
+    func editFriend() {
+        let editFriend = friends[actionFriendIndex!]
+        editFriendFirstName = editFriend.firstName
+        editFriendLastName = editFriend.lastName
+        editFriendColor = Color(red: editFriend.color.red, green: editFriend.color.green, blue: editFriend.color.blue)
+        isActionPopupOpen = false
+        isAddFriendOpen = true
     }
     
     func openActionPopup(actionFriendIndex: Int) {
@@ -184,6 +199,11 @@ struct AddFriendsPage: View {
     
     func openPreviouslySelectedFriendModal(currentFriend: Person) {
         currentPreviousFriend = currentFriend
+        previouslyAddedFriendColor = Color(
+            red: currentFriend.color.red,
+            green: currentFriend.color.green,
+            blue: currentFriend.color.blue
+        )
         isPreviouslyAddedFriendsOpen = true
     }
     
@@ -213,6 +233,7 @@ struct AddFriendsPage: View {
         previouslyAddedFriends[prevFriendIndex!].useCount += 1
         previouslyAddedFriends[prevFriendIndex!].previousLastUsedDate = previouslyAddedFriends[prevFriendIndex!].lastUseDate
         previouslyAddedFriends[prevFriendIndex!].lastUseDate = Date()
+        previouslyAddedFriends[prevFriendIndex!].color = friend.color
         
         let previouslyAddedFriendsIds = Set(previouslyAddedFriends.map { $0.id })
         saveFriendAction(previouslyAddedFriends + friends.filter { !previouslyAddedFriendsIds.contains($0.id) })
