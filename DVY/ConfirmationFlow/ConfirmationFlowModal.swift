@@ -58,7 +58,7 @@ struct ConfirmationFlowModal: View {
                     ConfirmationFlowSummary()
                 }
             }
-                .frame(width: 350, height: 350, alignment: .center)
+                .frame(width: 350, height: 405, alignment: .center)
                 .background(Color(red: 0.1, green: 0.1, blue: 0.1)).cornerRadius(15)
                 .onAppear {
                     UITableView.appearance().backgroundColor = .clear
