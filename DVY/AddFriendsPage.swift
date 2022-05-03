@@ -21,6 +21,7 @@ struct AddFriendsPage: View {
     
     @State var isPreviouslyAddedFriendsOpen: Bool = false
     @State var currentPreviousFriend: Person?
+    @State var previouslyAddedFriendColor: Color = Color.blue
     
     @State var previouslyAddedFriends: [Person]
     @State var saveFriendAction: ([Person]) -> Void
@@ -139,6 +140,7 @@ struct AddFriendsPage: View {
                 PreviouslyAddedFriendModal(
                     isPreviouslyAddedFriendsOpen: $isPreviouslyAddedFriendsOpen,
                     currentFriend: currentPreviousFriend!,
+                    friendColor: previouslyAddedFriendColor,
                     deletePreviouslyAddedFriend: deletePreviouslyAddedFriend,
                     addPreviouslyAddedFriend: addPreviouslyAddedFriend
                 )
@@ -197,6 +199,11 @@ struct AddFriendsPage: View {
     
     func openPreviouslySelectedFriendModal(currentFriend: Person) {
         currentPreviousFriend = currentFriend
+        previouslyAddedFriendColor = Color(
+            red: currentFriend.color.red,
+            green: currentFriend.color.green,
+            blue: currentFriend.color.blue
+        )
         isPreviouslyAddedFriendsOpen = true
     }
     
@@ -226,6 +233,7 @@ struct AddFriendsPage: View {
         previouslyAddedFriends[prevFriendIndex!].useCount += 1
         previouslyAddedFriends[prevFriendIndex!].previousLastUsedDate = previouslyAddedFriends[prevFriendIndex!].lastUseDate
         previouslyAddedFriends[prevFriendIndex!].lastUseDate = Date()
+        previouslyAddedFriends[prevFriendIndex!].color = friend.color
         
         let previouslyAddedFriendsIds = Set(previouslyAddedFriends.map { $0.id })
         saveFriendAction(previouslyAddedFriends + friends.filter { !previouslyAddedFriendsIds.contains($0.id) })
