@@ -20,6 +20,7 @@ struct ScanConfirmationPage: View {
     @State var isRescanModalOpen: Bool = false
     @State var isScanConfirmationHelpOpen: Bool = false
     @State var isSplitItemModalOpen: Bool = false
+    @State var isConfirmationFlowOpen: Bool = false
     
     @State var itemSplitIndex: Int? = nil
 
@@ -44,15 +45,21 @@ struct ScanConfirmationPage: View {
                         }
                 }
                
-                
-                Button(action: {addItem()}) {
-                    Text("Add Item")
+                HStack {
+                    Button(action: { addItem() }) {
+                        Text("Add Item")
+                    }
+                        .buttonStyle(GreenButton())
+                        .padding(.trailing, 5)
+                        .padding(.bottom)
+                    
+                    Button(action: { isConfirmationFlowOpen = true }) {
+                        Text("Enter Flow")
+                    }
+                        .buttonStyle(GreenButton())
+                        .padding(.bottom)
                 }
-                    .buttonStyle(GreenButton())
-                    .padding(.trailing, 5)
-                    .padding(.bottom)
-                
-                
+        
                 ScrollView {
                     ForEach(items.indices, id: \.self) { i in
                         VStack {
@@ -145,8 +152,18 @@ struct ScanConfirmationPage: View {
             }
             
             if (isSplitItemModalOpen) {
-                SplitItemModal(isSplitItemModalOpen: $isSplitItemModalOpen, items: $items, itemSplitIndex: $itemSplitIndex, itemExpanded: $itemExpanded)
+                SplitItemModal(
+                    isSplitItemModalOpen: $isSplitItemModalOpen,
+                    items: $items,
+                    itemSplitIndex: $itemSplitIndex,
+                    itemExpanded: $itemExpanded
+                )
             }
+            
+            if (isConfirmationFlowOpen) {
+                ConfirmationFlowModal(isConfirmationFlowOpen: $isConfirmationFlowOpen)
+            }
+            
         }
         .navigationBarItems(
             leading: Button(action: { openRescanModal() }) {
