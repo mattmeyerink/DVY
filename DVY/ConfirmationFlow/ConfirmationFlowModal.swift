@@ -67,10 +67,14 @@ struct ConfirmationFlowModal: View {
                 }
                 
                 if (currentFlowState == .summary) {
-                    ConfirmationFlowSummary()
+                    ConfirmationFlowSummary(
+                        items: $items,
+                        returnToForm: returnToForm,
+                        confirmItemUpdates: confirmItemUpdates
+                    )
                 }
             }
-                .frame(width: 350, height: 405, alignment: .center)
+                .frame(width: 350, height: getModalHeight(), alignment: .center)
                 .background(Color(red: 0.1, green: 0.1, blue: 0.1)).cornerRadius(15)
                 .onAppear {
                     UITableView.appearance().backgroundColor = .clear
@@ -110,5 +114,23 @@ struct ConfirmationFlowModal: View {
         currentItemIndex = newIndex
         currentItemName = items[currentItemIndex].name
         currentItemPrice = items[currentItemIndex].priceFormatted
+    }
+    
+    func confirmItemUpdates() {
+        isConfirmationFlowOpen = false
+    }
+    
+    func getModalHeight() -> CGFloat {
+        var modalHeight: CGFloat = 0
+        
+        if (currentFlowState == .intro) {
+            modalHeight = 405
+        } else if (currentFlowState == .form) {
+            modalHeight = 500
+        } else if (currentFlowState == .summary) {
+            modalHeight = 215
+        }
+        
+        return modalHeight
     }
 }
