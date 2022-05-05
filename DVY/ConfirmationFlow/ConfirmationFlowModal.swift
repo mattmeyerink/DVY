@@ -17,6 +17,11 @@ struct ConfirmationFlowModal: View {
     @Binding var isConfirmationFlowOpen: Bool
     
     @State var currentFlowState = ConfirmationFlowState.intro
+    @State var items: [ReciptItem]
+    
+    @State var currentItemIndex: Int = 0
+    @State var currentItemName: String = ""
+    @State var currentItemPrice: String = ""
     
     var body: some View {
         ZStack {
@@ -45,13 +50,20 @@ struct ConfirmationFlowModal: View {
                 
                 if (currentFlowState == .intro) {
                     ConfirmationFlowIntro(
-                        currentFlowState: $currentFlowState,
-                        closeConfirmationFlow: closeConfirmationFlow
+                        closeConfirmationFlow: closeConfirmationFlow,
+                        continueToForm: continueToForm
                     )
                 }
                 
                 if (currentFlowState == .form) {
-                    ConfirmationFlowForm()
+                    ConfirmationFlowForm(
+                        items: $items,
+                        currentItemIndex: currentItemIndex,
+                        currentItemName: currentItemName,
+                        currentItemPrice: currentItemPrice,
+                        returnToIntro: returnToIntro,
+                        continueToSummary: continueToSummary
+                    )
                 }
                 
                 if (currentFlowState == .summary) {
@@ -72,5 +84,31 @@ struct ConfirmationFlowModal: View {
     func closeConfirmationFlow() {
         isConfirmationFlowOpen = false
         currentFlowState = .intro
+    }
+    
+    func continueToForm() {
+        resetFormValues(newIndex: 0)
+        currentFlowState = .form
+    }
+    
+    func returnToIntro() {
+        resetFormValues(newIndex: 0)
+        currentFlowState = .intro
+    }
+    
+    func returnToForm() {
+        resetFormValues(newIndex: items.count - 1)
+        currentFlowState = .form
+    }
+    
+    func continueToSummary() {
+        resetFormValues(newIndex: items.count - 1)
+        currentFlowState = .summary
+    }
+    
+    func resetFormValues(newIndex: Int) {
+        currentItemIndex = newIndex
+        currentItemName = items[currentItemIndex].name
+        currentItemPrice = items[currentItemIndex].priceFormatted
     }
 }

@@ -161,7 +161,7 @@ struct ScanConfirmationPage: View {
             }
             
             if (isConfirmationFlowOpen) {
-                ConfirmationFlowModal(isConfirmationFlowOpen: $isConfirmationFlowOpen)
+                ConfirmationFlowModal(isConfirmationFlowOpen: $isConfirmationFlowOpen, items: items)
             }
             
         }

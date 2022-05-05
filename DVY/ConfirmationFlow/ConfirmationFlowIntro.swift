@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct ConfirmationFlowIntro: View {
-    @Binding var currentFlowState: ConfirmationFlowState
-    
     @State var closeConfirmationFlow: () -> Void
+    @State var continueToForm: () -> Void
     
     var body: some View {
         VStack {
@@ -30,7 +29,7 @@ struct ConfirmationFlowIntro: View {
                 
                 Spacer()
                 
-                Button (action: { currentFlowState = .form }) {
+                Button (action: { continueToForm() }) {
                     Text("Continue")
                 }
                     .buttonStyle(GreenButton())
