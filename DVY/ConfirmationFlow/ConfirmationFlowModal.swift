@@ -19,6 +19,8 @@ struct ConfirmationFlowModal: View {
     @State var currentFlowState = ConfirmationFlowState.intro
     @State var items: [ReciptItem]
     
+    @State var saveUpdatedItems: ([ReciptItem]) -> Void
+    
     @State var currentItemIndex: Int = 0
     @State var currentItemName: String = ""
     @State var currentItemPrice: String = ""
@@ -117,7 +119,8 @@ struct ConfirmationFlowModal: View {
     }
     
     func confirmItemUpdates() {
-        isConfirmationFlowOpen = false
+        saveUpdatedItems(items)
+        closeConfirmationFlow()
     }
     
     func getModalHeight() -> CGFloat {

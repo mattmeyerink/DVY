@@ -73,6 +73,12 @@ struct ConfirmationFlowForm: View {
     }
     
     func goToPreviousItem() {
+        if (currentItemName == "" || currentItemPrice == "") {
+            return
+        }
+        
+        items[currentItemIndex] = ReciptItem(name: currentItemName, price: Double(currentItemPrice)!)
+        
         if (currentItemIndex == 0) {
             returnToIntro()
         } else {
@@ -83,6 +89,12 @@ struct ConfirmationFlowForm: View {
     }
     
     func goToNextItem() {
+        if (currentItemName == "" || currentItemPrice == "") {
+            return
+        }
+        
+        items[currentItemIndex] = ReciptItem(name: currentItemName, price: Double(currentItemPrice)!)
+        
         if (currentItemIndex == items.count - 1) {
             continueToSummary()
         } else {

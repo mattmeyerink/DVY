@@ -161,7 +161,11 @@ struct ScanConfirmationPage: View {
             }
             
             if (isConfirmationFlowOpen) {
-                ConfirmationFlowModal(isConfirmationFlowOpen: $isConfirmationFlowOpen, items: items)
+                ConfirmationFlowModal(
+                    isConfirmationFlowOpen: $isConfirmationFlowOpen,
+                    items: items,
+                    saveUpdatedItems: saveUpdatedItems
+                )
             }
             
         }
@@ -226,5 +230,9 @@ struct ScanConfirmationPage: View {
     func openSplitItemModal(index: Int) {
         itemSplitIndex = index
         isSplitItemModalOpen = true
+    }
+    
+    func saveUpdatedItems(updatedItems: [ReciptItem]) {
+        items = updatedItems
     }
 }
