@@ -21,7 +21,7 @@ struct ConfirmationFlowForm: View {
     var body: some View {
         Form {
             HStack {
-                Button(action: { goToPreviousItem() }) {
+                Button(action: { deleteCurrentItem() }) {
                     Text("Delete")
                 }
                     .buttonStyle(RedButton())
@@ -92,13 +92,24 @@ struct ConfirmationFlowForm: View {
         if (currentItemName == "" || currentItemPrice == "") {
             return
         }
-        
+
         items[currentItemIndex] = ReciptItem(name: currentItemName, price: Double(currentItemPrice)!)
         
         if (currentItemIndex == items.count - 1) {
             continueToSummary()
         } else {
             currentItemIndex += 1
+            currentItemName = items[currentItemIndex].name
+            currentItemPrice = items[currentItemIndex].priceFormatted
+        }
+    }
+    
+    func deleteCurrentItem() {
+        items.remove(at: currentItemIndex)
+        
+        if (currentItemIndex == items.count) {
+            continueToSummary()
+        } else {
             currentItemName = items[currentItemIndex].name
             currentItemPrice = items[currentItemIndex].priceFormatted
         }
