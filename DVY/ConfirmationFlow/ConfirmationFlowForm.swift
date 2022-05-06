@@ -28,7 +28,7 @@ struct ConfirmationFlowForm: View {
                 
                 Spacer()
                 
-                Button(action: { goToNextItem() }) {
+                Button(action: { insertNewItem() }) {
                     Text("Insert")
                 }
                     .buttonStyle(GreenButton())
@@ -113,5 +113,13 @@ struct ConfirmationFlowForm: View {
             currentItemName = items[currentItemIndex].name
             currentItemPrice = items[currentItemIndex].priceFormatted
         }
+    }
+    
+    func insertNewItem() {
+        let blankItem = ReciptItem(name: "", price: 0.0)
+        items.insert(blankItem, at: currentItemIndex)
+        
+        currentItemName = items[currentItemIndex].name
+        currentItemPrice = items[currentItemIndex].priceFormatted
     }
 }
