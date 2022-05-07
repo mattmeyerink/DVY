@@ -129,9 +129,9 @@ struct ConfirmationFlowModal: View {
         if (currentFlowState == .intro) {
             modalHeight = 405
         } else if (currentFlowState == .form) {
-            modalHeight = 500
+            modalHeight = 515
         } else if (currentFlowState == .summary) {
-            modalHeight = 215
+            modalHeight = 250
         }
         
         return modalHeight

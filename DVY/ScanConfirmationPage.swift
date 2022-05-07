@@ -54,7 +54,7 @@ struct ScanConfirmationPage: View {
                         .padding(.bottom)
                     
                     Button(action: { isConfirmationFlowOpen = true }) {
-                        Text("Enter Flow")
+                        Text("Check Scan")
                     }
                         .buttonStyle(GreenButton())
                         .padding(.bottom)

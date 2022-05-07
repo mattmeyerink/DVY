@@ -36,7 +36,8 @@ struct ConfirmationFlowForm: View {
                 .listRowBackground(Color(red: 0.1, green: 0.1, blue: 0.1))
             
             Section(header: Text("Name").font(.system(size: 20, weight: .semibold))) {
-                TextField("Name", text: $currentItemName)                        .foregroundColor(.black)
+                TextField("Name", text: $currentItemName)
+                    .foregroundColor(.black)
             }
                 .foregroundColor(.white)
             

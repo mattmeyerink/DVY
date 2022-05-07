@@ -20,6 +20,7 @@ struct ConfirmationFlowSummary: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .foregroundColor(.white)
                 .padding(.horizontal)
+                .padding(.top)
             
             Text("New Subtotal: " + calculateSubtotal().priceFormatted)
                 .font(.system(size: 25, weight: .semibold))
