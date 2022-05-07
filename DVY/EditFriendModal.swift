@@ -12,8 +12,13 @@ struct EditFriendModal: View {
     
     @State var firstName: String
     @State var lastName: String
+    @State var friendColor: Color
     
     @State var editFriendIndex: Int?
+    
+    @State var previouslyAddedFriends: [Person]
+    
+    let saveAction: ([Person]) -> Void
     
     var body: some View {
         ZStack {
@@ -32,6 +37,10 @@ struct EditFriendModal: View {
                 }
                     .foregroundColor(.white)
                 
+                Section() {
+                    ColorPicker("Friend Color", selection: $friendColor, supportsOpacity: false)
+                }
+                
                 HStack {
                     Button(action: {closePopup()}) {
                         Text("Cancel")
@@ -47,7 +56,7 @@ struct EditFriendModal: View {
                 }
                     .listRowBackground(Color(red: 0.1, green: 0.1, blue: 0.1))
             }
-                .frame(width: 350, height: 300, alignment: .center)
+                .frame(width: 350, height: 380, alignment: .center)
                 .padding(.bottom, 30)
                 .background(Color(red: 0.1, green: 0.1, blue: 0.1)).cornerRadius(15)
                 .onAppear {
@@ -64,14 +73,31 @@ struct EditFriendModal: View {
             return
         }
         
+        let previouslyAddedFriendsIds = Set(previouslyAddedFriends.map { $0.id })
+        
+        let colorComponents = UIColor(friendColor).cgColor.components!
+        let formattedColor = DVYColor(red: colorComponents[0], green: colorComponents[1], blue: colorComponents[2])
+        
         if (editFriendIndex != nil) {
-            let originalColor = friends[editFriendIndex!].color
-            friends[editFriendIndex!] = Person(firstName: firstName, lastName: lastName, color: 0)
-            friends[editFriendIndex!].color = originalColor
+            friends[editFriendIndex!].firstName = firstName
+            friends[editFriendIndex!].lastName = lastName
+            friends[editFriendIndex!].setInitials()
+            friends[editFriendIndex!].color = formattedColor
+            
+            if (previouslyAddedFriendsIds.contains(friends[editFriendIndex!].id)) {
+                let previouslyAddedFriendIndex = previouslyAddedFriends.firstIndex(where: { $0.id == friends[editFriendIndex!].id })
+                previouslyAddedFriends[previouslyAddedFriendIndex!].firstName = firstName
+                previouslyAddedFriends[previouslyAddedFriendIndex!].lastName = lastName
+                previouslyAddedFriends[previouslyAddedFriendIndex!].setInitials()
+                previouslyAddedFriends[previouslyAddedFriendIndex!].color = formattedColor
+            }
         } else {
-            friends.append(Person(firstName: firstName, lastName: lastName, color: friends.count % DVYColors.count))
+            let newFriend = Person(firstName: firstName, lastName: lastName, color: formattedColor)
+            friends.append(newFriend)
         }
         
+        
+        saveAction(previouslyAddedFriends + friends.filter { !previouslyAddedFriendsIds.contains($0.id) })
         closePopup()
     }
     

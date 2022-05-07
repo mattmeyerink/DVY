@@ -30,7 +30,14 @@
 		D3720ABC27B728C70097DA1C /* ScanConfirmationHelpModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3720ABB27B728C70097DA1C /* ScanConfirmationHelpModal.swift */; };
 		D3959D66274AE71D000F6B06 /* FriendsListModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3959D65274AE71D000F6B06 /* FriendsListModal.swift */; };
 		D3B011DA2787D5EB00EE5C36 /* SummaryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B011D92787D5EB00EE5C36 /* SummaryPage.swift */; };
+		D3B119532807B87B00B47707 /* FriendsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B119522807B87B00B47707 /* FriendsStore.swift */; };
 		D3B96CF727BEF3540001C3DD /* SplitItemModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B96CF627BEF3540001C3DD /* SplitItemModal.swift */; };
+		D3C518332821D68F00C4C03B /* ConfirmationFlowModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C518322821D68F00C4C03B /* ConfirmationFlowModal.swift */; };
+		D3C518372821D6D600C4C03B /* ConfirmationFlowIntro.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C518362821D6D600C4C03B /* ConfirmationFlowIntro.swift */; };
+		D3C518392821D6E400C4C03B /* ConfirmationFlowSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C518382821D6E400C4C03B /* ConfirmationFlowSummary.swift */; };
+		D3C5183B2821D6FD00C4C03B /* ConfirmationFlowForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C5183A2821D6FD00C4C03B /* ConfirmationFlowForm.swift */; };
+		D3E4D7A4280E2ED100BA294A /* PreviouslyAddedFriendModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E4D7A3280E2ED100BA294A /* PreviouslyAddedFriendModal.swift */; };
+		D3E4D7A6280E313100BA294A /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E4D7A5280E313100BA294A /* ButtonStyles.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,7 +87,14 @@
 		D3720ABB27B728C70097DA1C /* ScanConfirmationHelpModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanConfirmationHelpModal.swift; sourceTree = "<group>"; };
 		D3959D65274AE71D000F6B06 /* FriendsListModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListModal.swift; sourceTree = "<group>"; };
 		D3B011D92787D5EB00EE5C36 /* SummaryPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryPage.swift; sourceTree = "<group>"; };
+		D3B119522807B87B00B47707 /* FriendsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsStore.swift; sourceTree = "<group>"; };
 		D3B96CF627BEF3540001C3DD /* SplitItemModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitItemModal.swift; sourceTree = "<group>"; };
+		D3C518322821D68F00C4C03B /* ConfirmationFlowModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationFlowModal.swift; sourceTree = "<group>"; };
+		D3C518362821D6D600C4C03B /* ConfirmationFlowIntro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationFlowIntro.swift; sourceTree = "<group>"; };
+		D3C518382821D6E400C4C03B /* ConfirmationFlowSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationFlowSummary.swift; sourceTree = "<group>"; };
+		D3C5183A2821D6FD00C4C03B /* ConfirmationFlowForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationFlowForm.swift; sourceTree = "<group>"; };
+		D3E4D7A3280E2ED100BA294A /* PreviouslyAddedFriendModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviouslyAddedFriendModal.swift; sourceTree = "<group>"; };
+		D3E4D7A5280E313100BA294A /* ButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +145,7 @@
 		068E210F271A61610069C0A1 /* DVY */ = {
 			isa = PBXGroup;
 			children = (
+				D3C518312821D66D00C4C03B /* ConfirmationFlow */,
 				068E2110271A61610069C0A1 /* DVYApp.swift */,
 				068E2112271A61610069C0A1 /* ContentView.swift */,
 				068E2114271A61620069C0A1 /* Assets.xcassets */,
@@ -154,6 +169,9 @@
 				D330AD122794D19D00BBF3EE /* NewScanConfirmationModal.swift */,
 				D3720ABB27B728C70097DA1C /* ScanConfirmationHelpModal.swift */,
 				D3B96CF627BEF3540001C3DD /* SplitItemModal.swift */,
+				D3B119522807B87B00B47707 /* FriendsStore.swift */,
+				D3E4D7A3280E2ED100BA294A /* PreviouslyAddedFriendModal.swift */,
+				D3E4D7A5280E313100BA294A /* ButtonStyles.swift */,
 			);
 			path = DVY;
 			sourceTree = "<group>";
@@ -182,6 +200,17 @@
 				068E212F271A61620069C0A1 /* Info.plist */,
 			);
 			path = DVYUITests;
+			sourceTree = "<group>";
+		};
+		D3C518312821D66D00C4C03B /* ConfirmationFlow */ = {
+			isa = PBXGroup;
+			children = (
+				D3C518322821D68F00C4C03B /* ConfirmationFlowModal.swift */,
+				D3C518362821D6D600C4C03B /* ConfirmationFlowIntro.swift */,
+				D3C518382821D6E400C4C03B /* ConfirmationFlowSummary.swift */,
+				D3C5183A2821D6FD00C4C03B /* ConfirmationFlowForm.swift */,
+			);
+			path = ConfirmationFlow;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -316,13 +345,18 @@
 				06F65C792723AAFE001BBD84 /* EditItemModal.swift in Sources */,
 				06FD3386271B46E6006FC9E0 /* ScanConfirmationPage.swift in Sources */,
 				D330AD132794D19D00BBF3EE /* NewScanConfirmationModal.swift in Sources */,
+				D3C5183B2821D6FD00C4C03B /* ConfirmationFlowForm.swift in Sources */,
 				D3720ABC27B728C70097DA1C /* ScanConfirmationHelpModal.swift in Sources */,
 				060C833F271BB23B005142BB /* ScanDocumentView.swift in Sources */,
+				D3B119532807B87B00B47707 /* FriendsStore.swift in Sources */,
+				D3E4D7A6280E313100BA294A /* ButtonStyles.swift in Sources */,
 				06FD3388271B48AA006FC9E0 /* AddFriendsPage.swift in Sources */,
 				0615E544271B816B005CC1E9 /* LandingPage.swift in Sources */,
 				061BE95D2734D2B200C14E28 /* RecieptItem.swift in Sources */,
 				D330AD0F2794C3B400BBF3EE /* RescanConfirmationModal.swift in Sources */,
+				D3E4D7A4280E2ED100BA294A /* PreviouslyAddedFriendModal.swift in Sources */,
 				D33DAA86274DDAF400A28298 /* FriendItemListModal.swift in Sources */,
+				D3C518392821D6E400C4C03B /* ConfirmationFlowSummary.swift in Sources */,
 				D3B011DA2787D5EB00EE5C36 /* SummaryPage.swift in Sources */,
 				066B3EF22724E5A700FE4141 /* FriendActionModal.swift in Sources */,
 				068E2113271A61610069C0A1 /* ContentView.swift in Sources */,
@@ -330,6 +364,8 @@
 				06FD3384271B3809006FC9E0 /* Types.swift in Sources */,
 				068E2111271A61610069C0A1 /* DVYApp.swift in Sources */,
 				D3359FF9274FCB87001CE10A /* TaxTipPage.swift in Sources */,
+				D3C518332821D68F00C4C03B /* ConfirmationFlowModal.swift in Sources */,
+				D3C518372821D6D600C4C03B /* ConfirmationFlowIntro.swift in Sources */,
 				065BF1A72725F0B000C17A91 /* EditFriendModal.swift in Sources */,
 				D3959D66274AE71D000F6B06 /* FriendsListModal.swift in Sources */,
 				D3B96CF727BEF3540001C3DD /* SplitItemModal.swift in Sources */,
