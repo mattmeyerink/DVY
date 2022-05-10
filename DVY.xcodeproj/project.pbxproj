@@ -145,32 +145,22 @@
 		068E210F271A61610069C0A1 /* DVY */ = {
 			isa = PBXGroup;
 			children = (
-				D3C518312821D66D00C4C03B /* ConfirmationFlow */,
-				068E2110271A61610069C0A1 /* DVYApp.swift */,
-				068E2112271A61610069C0A1 /* ContentView.swift */,
+				068E2116271A61620069C0A1 /* Preview Content */,
 				068E2114271A61620069C0A1 /* Assets.xcassets */,
 				068E2119271A61620069C0A1 /* Info.plist */,
-				068E2116271A61620069C0A1 /* Preview Content */,
+				068E2110271A61610069C0A1 /* DVYApp.swift */,
+				068E2112271A61610069C0A1 /* ContentView.swift */,
+				D35A74BB2829E952004A09C8 /* ScanConfirmation */,
+				D35A74BC2829E9B2004A09C8 /* TaxTip */,
+				D35A74BD2829EA03004A09C8 /* Friends */,
+				D35A74BE2829EA45004A09C8 /* AssignItems */,
+				D35A74BF2829EAA0004A09C8 /* Summary */,
 				06FD3383271B3809006FC9E0 /* Types.swift */,
-				06FD3385271B46E6006FC9E0 /* ScanConfirmationPage.swift */,
-				06FD3387271B48AA006FC9E0 /* AddFriendsPage.swift */,
 				0615E543271B816B005CC1E9 /* LandingPage.swift */,
 				060C833E271BB23B005142BB /* ScanDocumentView.swift */,
-				06F65C782723AAFE001BBD84 /* EditItemModal.swift */,
-				066B3EF12724E5A700FE4141 /* FriendActionModal.swift */,
-				065BF1A62725F0B000C17A91 /* EditFriendModal.swift */,
-				06E54945272F239A004D9F06 /* AssignItemsPage.swift */,
 				061BE95C2734D2B200C14E28 /* RecieptItem.swift */,
-				D3959D65274AE71D000F6B06 /* FriendsListModal.swift */,
-				D33DAA85274DDAF400A28298 /* FriendItemListModal.swift */,
-				D3359FF8274FCB87001CE10A /* TaxTipPage.swift */,
-				D3B011D92787D5EB00EE5C36 /* SummaryPage.swift */,
-				D330AD0E2794C3B400BBF3EE /* RescanConfirmationModal.swift */,
-				D330AD122794D19D00BBF3EE /* NewScanConfirmationModal.swift */,
-				D3720ABB27B728C70097DA1C /* ScanConfirmationHelpModal.swift */,
 				D3B96CF627BEF3540001C3DD /* SplitItemModal.swift */,
 				D3B119522807B87B00B47707 /* FriendsStore.swift */,
-				D3E4D7A3280E2ED100BA294A /* PreviouslyAddedFriendModal.swift */,
 				D3E4D7A5280E313100BA294A /* ButtonStyles.swift */,
 			);
 			path = DVY;
@@ -200,6 +190,56 @@
 				068E212F271A61620069C0A1 /* Info.plist */,
 			);
 			path = DVYUITests;
+			sourceTree = "<group>";
+		};
+		D35A74BB2829E952004A09C8 /* ScanConfirmation */ = {
+			isa = PBXGroup;
+			children = (
+				D3C518312821D66D00C4C03B /* ConfirmationFlow */,
+				D3720ABB27B728C70097DA1C /* ScanConfirmationHelpModal.swift */,
+				06F65C782723AAFE001BBD84 /* EditItemModal.swift */,
+				D330AD0E2794C3B400BBF3EE /* RescanConfirmationModal.swift */,
+				06FD3385271B46E6006FC9E0 /* ScanConfirmationPage.swift */,
+			);
+			path = ScanConfirmation;
+			sourceTree = "<group>";
+		};
+		D35A74BC2829E9B2004A09C8 /* TaxTip */ = {
+			isa = PBXGroup;
+			children = (
+				D3359FF8274FCB87001CE10A /* TaxTipPage.swift */,
+			);
+			path = TaxTip;
+			sourceTree = "<group>";
+		};
+		D35A74BD2829EA03004A09C8 /* Friends */ = {
+			isa = PBXGroup;
+			children = (
+				06FD3387271B48AA006FC9E0 /* AddFriendsPage.swift */,
+				066B3EF12724E5A700FE4141 /* FriendActionModal.swift */,
+				065BF1A62725F0B000C17A91 /* EditFriendModal.swift */,
+				D3E4D7A3280E2ED100BA294A /* PreviouslyAddedFriendModal.swift */,
+			);
+			path = Friends;
+			sourceTree = "<group>";
+		};
+		D35A74BE2829EA45004A09C8 /* AssignItems */ = {
+			isa = PBXGroup;
+			children = (
+				06E54945272F239A004D9F06 /* AssignItemsPage.swift */,
+				D3959D65274AE71D000F6B06 /* FriendsListModal.swift */,
+				D33DAA85274DDAF400A28298 /* FriendItemListModal.swift */,
+			);
+			path = AssignItems;
+			sourceTree = "<group>";
+		};
+		D35A74BF2829EAA0004A09C8 /* Summary */ = {
+			isa = PBXGroup;
+			children = (
+				D3B011D92787D5EB00EE5C36 /* SummaryPage.swift */,
+				D330AD122794D19D00BBF3EE /* NewScanConfirmationModal.swift */,
+			);
+			path = Summary;
 			sourceTree = "<group>";
 		};
 		D3C518312821D66D00C4C03B /* ConfirmationFlow */ = {
