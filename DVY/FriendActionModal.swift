@@ -20,34 +20,57 @@ struct FriendActionModal: View {
             Color.gray.opacity(0.4).edgesIgnoringSafeArea(.all)
             
             HStack {
-                Image(systemName: "arrowshape.turn.up.backward.fill")
-                    .foregroundColor(.white)
-                    .font(.system(size: 40, weight: .semibold))
-                    .padding(.horizontal, 10)
-                    .padding(.bottom, 15)
-                    .onTapGesture() {
-                        closePopup()
-                    }
+                VStack {
+                    Image(systemName: "arrowshape.turn.up.backward.fill")
+                        .foregroundColor(.white)
+                        .font(.system(size: 40, weight: .semibold))
+                        .padding(.horizontal, 20)
+                        .padding(.bottom, 15)
+                        .onTapGesture() {
+                            closePopup()
+                        }
+                    
+                    Text("Back")
+                        .foregroundColor(.white)
+                        .font(.system(size: 20, weight: .regular))
+                        .padding(.bottom, 15)
+                        .padding(.top, 5)
+                }
                 
-                Image(systemName: "trash.fill")
-                    .foregroundColor(.white)
-                    .font(.system(size: 40, weight: .semibold))
-                    .padding(.horizontal, 10)
-                    .padding(.bottom, 15)
-                    .onTapGesture() {
-                        deleteFriend()
-                    }
+                VStack {
+                    Image(systemName: "trash.fill")
+                        .foregroundColor(.white)
+                        .font(.system(size: 40, weight: .semibold))
+                        .padding(.horizontal, 20)
+                        .padding(.bottom, 15)
+                        .onTapGesture() {
+                            deleteFriend()
+                        }
+                    
+                    Text("Delete")
+                        .foregroundColor(.white)
+                        .font(.system(size: 20, weight: .regular))
+                        .padding(.bottom, 15)
+                }
                 
-                Image(systemName: "square.and.pencil")
-                    .foregroundColor(.white)
-                    .font(.system(size: 40, weight: .semibold))
-                    .padding(.horizontal, 10)
-                    .padding(.bottom, 15)
-                    .onTapGesture() {
-                        editFriend()
-                    }
+                VStack {
+                    Image(systemName: "square.and.pencil")
+                        .foregroundColor(.white)
+                        .font(.system(size: 40, weight: .semibold))
+                        .padding(.horizontal, 20)
+                        .padding(.bottom, 15)
+                        .onTapGesture() {
+                            editFriend()
+                        }
+                    
+                    Text("Edit")
+                        .foregroundColor(.white)
+                        .font(.system(size: 20, weight: .regular))
+                        .padding(.bottom, 15)
+                        .padding(.top, 5)
+                }
             }
-                .frame(width: 225, height: 75, alignment: .center)
+                .frame(width: 300, height: 125, alignment: .center)
                 .padding(.top, 15)
                 .background(Color(red: 0.1, green: 0.1, blue: 0.1)).cornerRadius(15)
                 .onAppear {
