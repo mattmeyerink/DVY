@@ -23,15 +23,23 @@ struct LandingPage: View {
                 .foregroundColor(Color.white)
                 .padding(.bottom, 10)
             
-            Text("Scan a receipt to start")
+            Text("Input a receipt to start")
                 .font(.system(size: 30))
                 .foregroundColor(Color.white)
                 .padding(.bottom, 10)
             
-            Button(action: { startScan() }) {
-                Text("Scan")
+            HStack {
+                Button(action: { startScan() }) {
+                    Text("Scan")
+                }
+                    .buttonStyle(GreenButton())
+                
+                Button(action: { uploadPhoto() }) {
+                    Text("Upload")
+                }
+                    .buttonStyle(GreenButton())
+                    .padding(.leading)
             }
-                .buttonStyle(GreenButton())
         }
     }
     
@@ -58,6 +66,8 @@ struct LandingPage: View {
         self.items = []
         self.isScanning = true
     }
+    
+    func uploadPhoto() {}
 }
 
 var testItems: [ReciptItem] = [
