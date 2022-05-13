@@ -10,6 +10,7 @@ import SwiftUI
 struct LandingPage: View {
     @Binding var currentPage: Pages
     @Binding var isScanning: Bool
+    @Binding var isUploading: Bool
     @Binding var items: [ReciptItem]
     @Binding var friends: [Person]
     @Binding var tax: CurrencyObject
@@ -67,7 +68,10 @@ struct LandingPage: View {
         self.isScanning = true
     }
     
-    func uploadPhoto() {}
+    func uploadPhoto() {
+        self.isUploading = true
+        self.currentPage = "scanConfirmationPage"
+    }
 }
 
 var testItems: [ReciptItem] = [
