@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LandingPage: View {
-    @Binding var currentPage: String
+    @Binding var currentPage: Pages
     @Binding var isScanning: Bool
     @Binding var items: [ReciptItem]
     @Binding var friends: [Person]
@@ -41,7 +41,7 @@ struct LandingPage: View {
         }
         
         self.tax = CurrencyObject(price: 0.0)
-        self.currentPage = "scanConfirmationPage"
+        self.currentPage = .scanConfirmationPage
         
         if (IS_SIMULATION) {
             simulateScan()

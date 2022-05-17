@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SummaryPage: View {
-    @Binding var currentPage: String
+    @Binding var currentPage: Pages
     @Binding var friends: [Person]
     @Binding var tax: CurrencyObject
     @Binding var tip: CurrencyObject
@@ -19,7 +19,12 @@ struct SummaryPage: View {
     
     var subtotal: Double
     
-    init(currentPage: Binding<String>, friends: Binding<[Person]>, tax: Binding<CurrencyObject>, tip: Binding<CurrencyObject>) {
+    init(
+        currentPage: Binding<Pages>,
+        friends: Binding<[Person]>,
+        tax: Binding<CurrencyObject>,
+        tip: Binding<CurrencyObject>
+    ) {
         self._currentPage = currentPage
         self._friends = friends
         self._tax = tax
@@ -131,7 +136,7 @@ struct SummaryPage: View {
             }
         }
         .navigationBarItems(
-            leading: Button(action: { self.currentPage = "assignItemsPage" }) {
+            leading: Button(action: { self.currentPage = .assignItemsPage }) {
                 Text("< Back")
                     .fontWeight(.bold)
                     .foregroundColor(Color.white)

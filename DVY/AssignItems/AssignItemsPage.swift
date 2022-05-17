@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AssignItemsPage: View {
-    @Binding var currentPage: String
+    @Binding var currentPage: Pages
     @Binding var friends: [Person]
     @Binding var items: [ReciptItem]
     
@@ -110,7 +110,7 @@ struct AssignItemsPage: View {
             }
         }
         .navigationBarItems(
-            leading: Button(action: { self.currentPage = "addFriendsPage" }) {
+            leading: Button(action: { self.currentPage = .addFriendsPage }) {
                 Text("< Back")
                     .fontWeight(.bold)
                     .foregroundColor(Color.white)
@@ -147,7 +147,7 @@ struct AssignItemsPage: View {
     
     func navigateToSummaryPage() {
         if (self.items.count == 0) {
-            self.currentPage = "summaryPage"
+            self.currentPage = .summaryPage
         }
     }
 }

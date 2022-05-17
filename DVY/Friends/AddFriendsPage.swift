@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AddFriendsPage: View {
-    @Binding var currentPage: String
+    @Binding var currentPage: Pages
     @Binding var friends: [Person]
     
     @State var isAddFriendOpen: Bool = false
@@ -147,7 +147,7 @@ struct AddFriendsPage: View {
             }
         }
         .navigationBarItems(
-            leading: Button(action: {self.currentPage = "taxTipPage"}) {
+            leading: Button(action: { self.currentPage = .taxTipPage }) {
                 Text("< Back")
                     .fontWeight(.bold)
                     .foregroundColor(Color.white)
@@ -193,7 +193,7 @@ struct AddFriendsPage: View {
     
     func routeToAssignItemsPage() {
         if (friends.count > 0) {
-            currentPage = "assignItemsPage"
+            currentPage = .assignItemsPage
         }
     }
     

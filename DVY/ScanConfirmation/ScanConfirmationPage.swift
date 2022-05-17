@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ScanConfirmationPage: View {
-    @Binding var currentPage: String
+    @Binding var currentPage: Pages
     @Binding var items: [ReciptItem]
     
     @State var itemExpanded: Int? = nil
@@ -175,7 +175,7 @@ struct ScanConfirmationPage: View {
                     .fontWeight(.bold)
                     .foregroundColor(Color.white)
             },
-            trailing: Button(action: {self.currentPage = "taxTipPage"}) {
+            trailing: Button(action: { self.currentPage = .taxTipPage }) {
                 Text("Next >")
                     .fontWeight(.bold)
                     .foregroundColor(Color.white)

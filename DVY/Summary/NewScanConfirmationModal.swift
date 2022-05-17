@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NewScanConfirmationModal: View {
-    @Binding var currentPage: String
+    @Binding var currentPage: Pages
     @Binding var isNewScanModalOpen: Bool
     @Binding var friends: [Person]
     @Binding var tax: CurrencyObject
@@ -69,7 +69,7 @@ struct NewScanConfirmationModal: View {
     }
     
     func startNewScan() {
-        currentPage = "landingPage"
+        currentPage = .landingPage
         friends = []
         tax = CurrencyObject(price: 0.0)
         closeNewScanModal()

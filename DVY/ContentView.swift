@@ -7,8 +7,17 @@
 
 import SwiftUI
 
+enum Pages {
+    case landingPage
+    case scanConfirmationPage
+    case taxTipPage
+    case addFriendsPage
+    case assignItemsPage
+    case summaryPage
+}
+
 struct ContentView: View {
-    @State var currentPage: String = "landingPage"
+    @State var currentPage: Pages = .landingPage
     @State var isScanning: Bool = false
     @State var items: [ReciptItem] = []
     @State var friends: [Person] = []
@@ -24,35 +33,54 @@ struct ContentView: View {
             Color(red: 0.1, green: 0.1, blue: 0.1)
                 .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
             
-            if (self.currentPage == "landingPage"){
-                LandingPage(currentPage: $currentPage, isScanning: $isScanning, items: $items, friends: $friends, tax: $tax)
+            if (self.currentPage == .landingPage) {
+                LandingPage(
+                    currentPage: $currentPage,
+                    isScanning: $isScanning,
+                    items: $items,
+                    friends: $friends, tax: $tax
+                )
             }
             
-            if (self.currentPage == "scanConfirmationPage") {
+            if (self.currentPage == .scanConfirmationPage) {
                 NavigationView {
                     ScanConfirmationPage(currentPage: $currentPage, items: $items)
                 }
             }
             
-            if (self.currentPage == "taxTipPage") {
+            if (self.currentPage == .taxTipPage) {
                 NavigationView {
-                    TaxTipPage(currentPage: $currentPage, tax: $tax, tip: $tip, items: $items, friends: $friends, taxString: tax.priceFormatted, tipSelectionOption: $tipSelectionOption, customTip: $customTip)
+                    TaxTipPage(
+                        currentPage: $currentPage,
+                        tax: $tax,
+                        tip: $tip,
+                        items: $items,
+                        friends: $friends,
+                        taxString: tax.priceFormatted,
+                        tipSelectionOption: $tipSelectionOption,
+                        customTip: $customTip
+                    )
                 }
             }
             
-            if (self.currentPage == "addFriendsPage") {
+            if (self.currentPage == .addFriendsPage) {
                 NavigationView {
-                    AddFriendsPage(currentPage: $currentPage, friends: $friends, previouslyAddedFriends: store.previouslyAddedFriends, saveFriendAction: saveFriendAction)
+                    AddFriendsPage(
+                        currentPage: $currentPage,
+                        friends: $friends,
+                        previouslyAddedFriends: store.previouslyAddedFriends,
+                        saveFriendAction: saveFriendAction
+                    )
                 }
             }
             
-            if (self.currentPage == "assignItemsPage") {
+            if (self.currentPage == .assignItemsPage) {
                 NavigationView {
                     AssignItemsPage(currentPage: $currentPage, friends: $friends, items: $items)
                 }
             }
             
-            if (self.currentPage == "summaryPage") {
+            if (self.currentPage == .summaryPage) {
                 NavigationView {
                     SummaryPage(currentPage: $currentPage, friends: $friends, tax: $tax, tip: $tip)
                 }

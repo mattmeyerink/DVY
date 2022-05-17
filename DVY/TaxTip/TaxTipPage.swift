@@ -9,7 +9,7 @@ import SwiftUI
 import Combine
 
 struct TaxTipPage: View {
-    @Binding var currentPage: String
+    @Binding var currentPage: Pages
     @Binding var tax: CurrencyObject
     @Binding var tip: CurrencyObject
     @Binding var items: [ReciptItem]
@@ -25,7 +25,16 @@ struct TaxTipPage: View {
     
     var subtotal: Double
 
-    init(currentPage: Binding<String>, tax: Binding<CurrencyObject>, tip: Binding<CurrencyObject>, items: Binding<[ReciptItem]>, friends: Binding<[Person]>, taxString: String, tipSelectionOption: Binding<Int>, customTip: Binding<CurrencyObject>) {
+    init(
+        currentPage: Binding<Pages>,
+        tax: Binding<CurrencyObject>,
+        tip: Binding<CurrencyObject>,
+        items: Binding<[ReciptItem]>,
+        friends: Binding<[Person]>,
+        taxString: String,
+        tipSelectionOption: Binding<Int>,
+        customTip: Binding<CurrencyObject>
+    ) {
         self._currentPage = currentPage
         self._tax = tax
         self._tip = tip
@@ -184,7 +193,7 @@ struct TaxTipPage: View {
                 .padding(.horizontal)
         }
         .navigationBarItems(
-            leading: Button(action: { self.currentPage = "scanConfirmationPage" }) {
+            leading: Button(action: { self.currentPage = .scanConfirmationPage }) {
                 Text("< Back")
                     .fontWeight(.bold)
                     .foregroundColor(Color.white)
@@ -241,7 +250,7 @@ struct TaxTipPage: View {
         } else {
             self.tip = calculateCurrentTip()
         }
-        self.currentPage = "addFriendsPage"
+        self.currentPage = .addFriendsPage
     }
     
     func initiateTaxEdit() {

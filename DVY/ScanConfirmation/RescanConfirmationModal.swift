@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RescanConfirmationModal: View {
-    @Binding var currentPage: String
+    @Binding var currentPage: Pages
     @Binding var isRescanModalOpen: Bool
     
     var body: some View {
@@ -82,7 +82,7 @@ struct RescanConfirmationModal: View {
     }
     
     func startRescan() {
-        currentPage = "landingPage"
+        currentPage = .landingPage
         closeRescanModal()
     }
 }
