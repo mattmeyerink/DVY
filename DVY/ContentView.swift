@@ -93,7 +93,7 @@ struct ContentView: View {
                 ScanDocumentView(items: $items, tax: $tax)
             }
             .sheet(isPresented: $isUploading) {
-                ImagePicker()
+                ImagePicker(items: $items, tax: $tax)
             }
             .onAppear {
                 FriendsStore.load { result in

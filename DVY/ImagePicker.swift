@@ -9,6 +9,8 @@ import UIKit
 import SwiftUI
 
 struct ImagePicker: UIViewControllerRepresentable {
+    @Binding var items: [ReciptItem]
+    @Binding var tax: CurrencyObject
     var sourceType: UIImagePickerController.SourceType = .photoLibrary
     
     @Environment(\.presentationMode) var presentationMode
@@ -27,20 +29,28 @@ struct ImagePicker: UIViewControllerRepresentable {
     }
     
     func makeCoordinator() -> ImagePickerCoordinator {
-        Coordinator(self)
+        Coordinator(items: $items, tax: $tax, parent: self)
     }
 }
 
 final class ImagePickerCoordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    var items: Binding<[ReciptItem]>
+    var tax: Binding<CurrencyObject>
     var parent: ImagePicker
     
-    init(_ parent: ImagePicker) {
+    init(items: Binding<[ReciptItem]>, tax: Binding<CurrencyObject>, parent: ImagePicker) {
+        self.items = items
+        self.tax = tax
         self.parent = parent
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {}
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            let recognitionResponse: TextRecognitionResponse = recognizeText(from: [image.cgImage!])
+            items.wrappedValue = recognitionResponse.items
+            tax.wrappedValue = recognitionResponse.tax
+        }
         
         parent.presentationMode.wrappedValue.dismiss()
     }
