@@ -70,7 +70,7 @@ struct LandingPage: View {
     
     func uploadPhoto() {
         self.isUploading = true
-        self.currentPage = "scanConfirmationPage"
+        self.currentPage = .scanConfirmationPage
     }
 }
 
