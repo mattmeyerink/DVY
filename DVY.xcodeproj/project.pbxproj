@@ -23,6 +23,7 @@
 		06FD3384271B3809006FC9E0 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FD3383271B3809006FC9E0 /* Types.swift */; };
 		06FD3386271B46E6006FC9E0 /* ScanConfirmationPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FD3385271B46E6006FC9E0 /* ScanConfirmationPage.swift */; };
 		06FD3388271B48AA006FC9E0 /* AddFriendsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FD3387271B48AA006FC9E0 /* AddFriendsPage.swift */; };
+		D32EF42028347D000045D6D1 /* TextRecognition.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32EF41F28347D000045D6D1 /* TextRecognition.swift */; };
 		D330AD0F2794C3B400BBF3EE /* RescanConfirmationModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D330AD0E2794C3B400BBF3EE /* RescanConfirmationModal.swift */; };
 		D330AD132794D19D00BBF3EE /* NewScanConfirmationModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D330AD122794D19D00BBF3EE /* NewScanConfirmationModal.swift */; };
 		D3359FF9274FCB87001CE10A /* TaxTipPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3359FF8274FCB87001CE10A /* TaxTipPage.swift */; };
@@ -81,6 +82,7 @@
 		06FD3383271B3809006FC9E0 /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		06FD3385271B46E6006FC9E0 /* ScanConfirmationPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanConfirmationPage.swift; sourceTree = "<group>"; };
 		06FD3387271B48AA006FC9E0 /* AddFriendsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendsPage.swift; sourceTree = "<group>"; };
+		D32EF41F28347D000045D6D1 /* TextRecognition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRecognition.swift; sourceTree = "<group>"; };
 		D330AD0E2794C3B400BBF3EE /* RescanConfirmationModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RescanConfirmationModal.swift; sourceTree = "<group>"; };
 		D330AD122794D19D00BBF3EE /* NewScanConfirmationModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewScanConfirmationModal.swift; sourceTree = "<group>"; };
 		D3359FF8274FCB87001CE10A /* TaxTipPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxTipPage.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 				D3B119522807B87B00B47707 /* FriendsStore.swift */,
 				D3E4D7A5280E313100BA294A /* ButtonStyles.swift */,
 				D3A109E4282C71D700F2CF1A /* ImagePicker.swift */,
+				D32EF41F28347D000045D6D1 /* TextRecognition.swift */,
 			);
 			path = DVY;
 			sourceTree = "<group>";
@@ -387,6 +390,7 @@
 			files = (
 				06F65C792723AAFE001BBD84 /* EditItemModal.swift in Sources */,
 				06FD3386271B46E6006FC9E0 /* ScanConfirmationPage.swift in Sources */,
+				D32EF42028347D000045D6D1 /* TextRecognition.swift in Sources */,
 				D330AD132794D19D00BBF3EE /* NewScanConfirmationModal.swift in Sources */,
 				D3C5183B2821D6FD00C4C03B /* ConfirmationFlowForm.swift in Sources */,
 				D3720ABC27B728C70097DA1C /* ScanConfirmationHelpModal.swift in Sources */,
