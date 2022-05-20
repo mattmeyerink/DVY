@@ -15,6 +15,8 @@ struct LandingPage: View {
     @Binding var friends: [Person]
     @Binding var tax: CurrencyObject
     
+    @State var isCropConfirmationModalOpen = false
+    
     var IS_SIMULATION: Bool = false
     
     var body: some View {
@@ -35,12 +37,16 @@ struct LandingPage: View {
                 }
                     .buttonStyle(GreenButton())
                 
-                Button(action: { uploadPhoto() }) {
+                Button(action: { isCropConfirmationModalOpen = true }) {
                     Text("Upload")
                 }
                     .buttonStyle(GreenButton())
                     .padding(.leading)
             }
+        }
+        
+        if (isCropConfirmationModalOpen) {
+            CropConfirmationModal(isCropConfirmationModalOpen: $isCropConfirmationModalOpen, uploadPhoto: uploadPhoto)
         }
     }
     
