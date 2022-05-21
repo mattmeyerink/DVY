@@ -10,9 +10,12 @@ import SwiftUI
 struct LandingPage: View {
     @Binding var currentPage: Pages
     @Binding var isScanning: Bool
+    @Binding var isUploading: Bool
     @Binding var items: [ReciptItem]
     @Binding var friends: [Person]
     @Binding var tax: CurrencyObject
+    
+    @State var isCropConfirmationModalOpen = false
     
     var IS_SIMULATION: Bool = false
     
@@ -23,15 +26,27 @@ struct LandingPage: View {
                 .foregroundColor(Color.white)
                 .padding(.bottom, 10)
             
-            Text("Scan a receipt to start")
+            Text("Input a receipt to start")
                 .font(.system(size: 30))
                 .foregroundColor(Color.white)
                 .padding(.bottom, 10)
             
-            Button(action: { startScan() }) {
-                Text("Scan")
+            HStack {
+                Button(action: { startScan() }) {
+                    Text("Scan")
+                }
+                    .buttonStyle(GreenButton())
+                
+                Button(action: { isCropConfirmationModalOpen = true }) {
+                    Text("Upload")
+                }
+                    .buttonStyle(GreenButton())
+                    .padding(.leading)
             }
-                .buttonStyle(GreenButton())
+        }
+        
+        if (isCropConfirmationModalOpen) {
+            CropConfirmationModal(isCropConfirmationModalOpen: $isCropConfirmationModalOpen, uploadPhoto: uploadPhoto)
         }
     }
     
@@ -57,6 +72,11 @@ struct LandingPage: View {
     func performScan() {
         self.items = []
         self.isScanning = true
+    }
+    
+    func uploadPhoto() {
+        self.isUploading = true
+        self.currentPage = .scanConfirmationPage
     }
 }
 

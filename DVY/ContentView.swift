@@ -19,6 +19,7 @@ enum Pages {
 struct ContentView: View {
     @State var currentPage: Pages = .landingPage
     @State var isScanning: Bool = false
+    @State var isUploading: Bool = false
     @State var items: [ReciptItem] = []
     @State var friends: [Person] = []
     @State var tax: CurrencyObject = CurrencyObject(price: 0.0)
@@ -37,8 +38,10 @@ struct ContentView: View {
                 LandingPage(
                     currentPage: $currentPage,
                     isScanning: $isScanning,
+                    isUploading: $isUploading,
                     items: $items,
-                    friends: $friends, tax: $tax
+                    friends: $friends,
+                    tax: $tax
                 )
             }
             
@@ -88,6 +91,9 @@ struct ContentView: View {
         }
             .sheet(isPresented: $isScanning) {
                 ScanDocumentView(items: $items, tax: $tax)
+            }
+            .sheet(isPresented: $isUploading) {
+                ImagePicker(items: $items, tax: $tax)
             }
             .onAppear {
                 FriendsStore.load { result in
