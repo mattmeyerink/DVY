@@ -34,7 +34,8 @@ struct ContentView: View {
             Color(red: 0.1, green: 0.1, blue: 0.1)
                 .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
             
-            if (self.currentPage == .landingPage) {
+            switch currentPage {
+            case .landingPage:
                 LandingPage(
                     currentPage: $currentPage,
                     isScanning: $isScanning,
@@ -43,15 +44,14 @@ struct ContentView: View {
                     friends: $friends,
                     tax: $tax
                 )
-            }
-            
-            if (self.currentPage == .scanConfirmationPage) {
+            case .scanConfirmationPage:
                 NavigationView {
-                    ScanConfirmationPage(currentPage: $currentPage, items: $items)
+                    ScanConfirmationPage(
+                        currentPage: $currentPage,
+                        items: $items
+                    )
                 }
-            }
-            
-            if (self.currentPage == .taxTipPage) {
+            case .taxTipPage:
                 NavigationView {
                     TaxTipPage(
                         currentPage: $currentPage,
@@ -64,9 +64,7 @@ struct ContentView: View {
                         customTip: $customTip
                     )
                 }
-            }
-            
-            if (self.currentPage == .addFriendsPage) {
+            case .addFriendsPage:
                 NavigationView {
                     AddFriendsPage(
                         currentPage: $currentPage,
@@ -75,17 +73,22 @@ struct ContentView: View {
                         saveFriendAction: saveFriendAction
                     )
                 }
-            }
-            
-            if (self.currentPage == .assignItemsPage) {
+            case .assignItemsPage:
                 NavigationView {
-                    AssignItemsPage(currentPage: $currentPage, friends: $friends, items: $items)
+                    AssignItemsPage(
+                        currentPage: $currentPage,
+                        friends: $friends,
+                        items: $items
+                    )
                 }
-            }
-            
-            if (self.currentPage == .summaryPage) {
+            case .summaryPage:
                 NavigationView {
-                    SummaryPage(currentPage: $currentPage, friends: $friends, tax: $tax, tip: $tip)
+                    SummaryPage(
+                        currentPage: $currentPage,
+                        friends: $friends,
+                        tax: $tax,
+                        tip: $tip
+                    )
                 }
             }
         }
@@ -96,15 +99,7 @@ struct ContentView: View {
                 ImagePicker(items: $items, tax: $tax)
             }
             .onAppear {
-                FriendsStore.load { result in
-                    switch result {
-                    case .failure(let error):
-                        saveFriendAction(friends: [])
-                        fatalError(error.localizedDescription)
-                    case .success(let friends):
-                        store.previouslyAddedFriends = friends.sorted(by: { $0.useCount > $1.useCount })
-                    }
-                }
+                loadFriendsFromLocalStore()
             }
     }
     
@@ -112,6 +107,18 @@ struct ContentView: View {
         FriendsStore.save(friends: friends) { result in
             if case .failure(let error) = result {
                 fatalError(error.localizedDescription)
+            }
+        }
+    }
+    
+    func loadFriendsFromLocalStore() -> Void {
+        FriendsStore.load { result in
+            switch result {
+            case .failure(let error):
+                saveFriendAction(friends: [])
+                fatalError(error.localizedDescription)
+            case .success(let friends):
+                store.previouslyAddedFriends = friends.sorted(by: { $0.useCount > $1.useCount })
             }
         }
     }
