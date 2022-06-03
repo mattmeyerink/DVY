@@ -14,6 +14,24 @@ struct SplitItemModal: View {
     @Binding var itemExpanded: Int?
     
     @State var numberOfPeople: Int = 2
+    @State var splitAssignmentType: Int = 0
+    
+    init(
+        isSplitItemModalOpen: Binding<Bool>,
+        items: Binding<[ReciptItem]>,
+        itemSplitIndex: Binding<Int?>,
+        itemExpanded: Binding<Int?>
+    ) {
+        self._isSplitItemModalOpen = isSplitItemModalOpen
+        self._items = items
+        self._itemSplitIndex = itemSplitIndex
+        self._itemExpanded = itemExpanded
+        
+        let font = UIFont.systemFont(ofSize: 20)
+        UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(red: 0.2, green: 0.9, blue: 0.25, alpha: 1)
+        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white, NSAttributedString.Key.font: font], for: .normal)
+        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.black, NSAttributedString.Key.font: font], for: .selected)
+    }
     
     var body: some View {
         ZStack {
@@ -38,7 +56,11 @@ struct SplitItemModal: View {
                 }
                     .padding(.horizontal)
                 
-                Spacer()
+                Picker("Manual or Automatic Split Assignment", selection: $splitAssignmentType) {
+                    Text("Manual").tag(0)
+                    Text("Automatic").tag(1)
+                }
+                    .pickerStyle(.segmented)
                 
                 Text(items[itemSplitIndex!].name)
                     .font(.system(size: 20, weight: .semibold))
