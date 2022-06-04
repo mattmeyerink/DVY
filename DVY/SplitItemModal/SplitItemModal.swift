@@ -13,7 +13,6 @@ struct SplitItemModal: View {
     @Binding var itemSplitIndex: Int?
     @Binding var itemExpanded: Int?
     
-    @State var numberOfPeople: Int = 2
     @State var splitAssignmentType: Int = 0
     
     init(
@@ -69,45 +68,11 @@ struct SplitItemModal: View {
                 
                 Spacer()
                 
-                HStack {
-                    Text("Number of People: \(numberOfPeople)")
-                        .font(.system(size: 20, weight: .semibold))
-                        .foregroundColor(.white)
-                    
-                    Spacer()
-                    
-                    Stepper("", value: $numberOfPeople, in: 2...100, step: 1)
-                        .frame(width: 100, height: 35)
-                        .offset(x: -4)
-                        .background(Color(red: 0.2, green: 0.9, blue: 0.25))
-                        .cornerRadius(8)
-                }
-                    .padding()
-               
-                
-                Spacer()
-                
-                Text("Cost Per Person: \(calculateCostPerPerson().priceFormatted)")
-                    .font(.system(size: 20, weight: .semibold))
-                    .foregroundColor(.white)
-                    .padding()
-                
-                Spacer()
-                
-                HStack {
-                    Button(action: { closeSplitItemModal() }) {
-                        Text("Cancel")
-                    }
-                        .buttonStyle(GreenButton())
-                    
-                    Spacer()
-                    
-                    Button(action: { splitItem() }) {
-                        Text("Split")
-                    }
-                        .buttonStyle(GreenButton())
-                }
-                    .padding()
+                ManualSplitForm(
+                    items: $items,
+                    itemSplitIndex: $itemSplitIndex,
+                    closeSplitItemModal: closeSplitItemModal
+                )
             }
                 .frame(width: 350, height: 350, alignment: .center)
                 .background(Color(red: 0.1, green: 0.1, blue: 0.1)).cornerRadius(15)
@@ -123,24 +88,5 @@ struct SplitItemModal: View {
     func closeSplitItemModal() {
         itemExpanded = nil
         isSplitItemModalOpen = false
-    }
-    
-    func splitItem() {
-        closeSplitItemModal()
-        items[itemSplitIndex!].price = calculateCostPerPerson().price
-        
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        items[itemSplitIndex!].priceFormatted = formatter.string(from: NSNumber(value: items[itemSplitIndex!].price)) ?? "$0"
-        
-        for _ in 0...(numberOfPeople - 2) {
-            let newItem = ReciptItem(name: items[itemSplitIndex!].name, price: items[itemSplitIndex!].price)
-            items.insert(newItem, at: itemSplitIndex!)
-        }
-    }
-       
-    func calculateCostPerPerson() -> CurrencyObject {
-        let costPerPerson = items[itemSplitIndex!].price / Double(numberOfPeople)
-        return CurrencyObject(price: costPerPerson)
     }
 }

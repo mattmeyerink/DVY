@@ -17,7 +17,7 @@ struct LandingPage: View {
     
     @State var isCropConfirmationModalOpen = false
     
-    var IS_SIMULATION: Bool = false
+    var IS_SIMULATION: Bool = true
     
     var body: some View {
         VStack {
