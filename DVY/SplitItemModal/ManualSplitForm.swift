@@ -28,17 +28,12 @@ struct ManualSplitForm: View {
                 .background(Color(red: 0.2, green: 0.9, blue: 0.25))
                 .cornerRadius(8)
         }
-            .padding()
+            .padding(.horizontal)
        
-        
-        Spacer()
-        
         Text("Cost Per Person: \(calculateCostPerPerson().priceFormatted)")
             .font(.system(size: 20, weight: .semibold))
             .foregroundColor(.white)
-            .padding()
-        
-        Spacer()
+            .padding(.horizontal)
         
         SplitModalButtons(
             cancelAction: closeSplitItemModal,

@@ -60,13 +60,12 @@ struct SplitItemModal: View {
                     Text("Automatic").tag(1)
                 }
                     .pickerStyle(.segmented)
+                    .padding(.horizontal)
                 
-                Text(items[itemSplitIndex!].name)
+                Text("Item Name: \(items[itemSplitIndex!].name)")
                     .font(.system(size: 20, weight: .semibold))
                     .foregroundColor(.white)
                     .padding(.top, 15)
-                
-                Spacer()
                 
                 ManualSplitForm(
                     items: $items,
