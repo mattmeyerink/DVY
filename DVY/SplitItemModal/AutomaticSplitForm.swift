@@ -8,7 +8,17 @@
 import SwiftUI
 
 struct AutomaticSplitForm: View {
+    var closeSplitItemModal: () -> Void
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text("This will be the automatic split form!")
+            .font(.system(size: 20, weight: .semibold))
+            .foregroundColor(.white)
+            .padding(.top, 15)
+        
+        SplitModalButtons(
+            cancelAction: closeSplitItemModal,
+            splitItemAction: closeSplitItemModal
+        )
     }
 }

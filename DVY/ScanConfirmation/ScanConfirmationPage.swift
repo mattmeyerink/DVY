@@ -153,6 +153,7 @@ struct ScanConfirmationPage: View {
             
             if (isSplitItemModalOpen) {
                 SplitItemModal(
+                    currentPage: $currentPage,
                     isSplitItemModalOpen: $isSplitItemModalOpen,
                     items: $items,
                     itemSplitIndex: $itemSplitIndex,

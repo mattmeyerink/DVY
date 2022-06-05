@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SplitItemModal: View {
+    @Binding var currentPage: Pages
     @Binding var isSplitItemModalOpen: Bool
     @Binding var items: [ReciptItem]
     @Binding var itemSplitIndex: Int?
@@ -16,11 +17,13 @@ struct SplitItemModal: View {
     @State var splitAssignmentType: Int = 0
     
     init(
+        currentPage: Binding<Pages>,
         isSplitItemModalOpen: Binding<Bool>,
         items: Binding<[ReciptItem]>,
         itemSplitIndex: Binding<Int?>,
         itemExpanded: Binding<Int?>
     ) {
+        self._currentPage = currentPage
         self._isSplitItemModalOpen = isSplitItemModalOpen
         self._items = items
         self._itemSplitIndex = itemSplitIndex
@@ -55,23 +58,33 @@ struct SplitItemModal: View {
                 }
                     .padding(.horizontal)
                 
-                Picker("Manual or Automatic Split Assignment", selection: $splitAssignmentType) {
-                    Text("Manual").tag(0)
-                    Text("Automatic").tag(1)
+                if (currentPage == .assignItemsPage) {
+                    Picker("Manual or Automatic Split Assignment", selection: $splitAssignmentType) {
+                        Text("Manual").tag(0)
+                        Text("Automatic").tag(1)
+                    }
+                        .pickerStyle(.segmented)
+                        .padding(.horizontal)
                 }
-                    .pickerStyle(.segmented)
-                    .padding(.horizontal)
                 
                 Text("Item Name: \(items[itemSplitIndex!].name)")
                     .font(.system(size: 20, weight: .semibold))
                     .foregroundColor(.white)
                     .padding(.top, 15)
                 
-                ManualSplitForm(
-                    items: $items,
-                    itemSplitIndex: $itemSplitIndex,
-                    closeSplitItemModal: closeSplitItemModal
-                )
+                
+                if (splitAssignmentType == 0) {
+                    ManualSplitForm(
+                        items: $items,
+                        itemSplitIndex: $itemSplitIndex,
+                        closeSplitItemModal: closeSplitItemModal
+                    )
+                } else {
+                    AutomaticSplitForm(
+                        closeSplitItemModal: closeSplitItemModal
+                    )
+                }
+                
             }
                 .frame(width: 350, height: 350, alignment: .center)
                 .background(Color(red: 0.1, green: 0.1, blue: 0.1)).cornerRadius(15)
