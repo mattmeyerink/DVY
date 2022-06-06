@@ -105,6 +105,7 @@ struct AssignItemsPage: View {
                     currentPage: $currentPage,
                     isSplitItemModalOpen: $isSplitItemModalOpen,
                     items: $items,
+                    friends: $friends,
                     itemSplitIndex: $itemSplitIndex,
                     itemExpanded: $itemBeingAssignedIndex
                 )

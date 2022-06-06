@@ -11,6 +11,7 @@ struct SplitItemModal: View {
     @Binding var currentPage: Pages
     @Binding var isSplitItemModalOpen: Bool
     @Binding var items: [ReciptItem]
+    @Binding var friends: [Person]
     @Binding var itemSplitIndex: Int?
     @Binding var itemExpanded: Int?
     
@@ -20,12 +21,14 @@ struct SplitItemModal: View {
         currentPage: Binding<Pages>,
         isSplitItemModalOpen: Binding<Bool>,
         items: Binding<[ReciptItem]>,
+        friends: Binding<[Person]>,
         itemSplitIndex: Binding<Int?>,
         itemExpanded: Binding<Int?>
     ) {
         self._currentPage = currentPage
         self._isSplitItemModalOpen = isSplitItemModalOpen
         self._items = items
+        self._friends = friends
         self._itemSplitIndex = itemSplitIndex
         self._itemExpanded = itemExpanded
         
@@ -81,6 +84,7 @@ struct SplitItemModal: View {
                     )
                 } else {
                     AutomaticSplitForm(
+                        friends: $friends,
                         closeSplitItemModal: closeSplitItemModal
                     )
                 }
