@@ -7,6 +7,9 @@
 
 import SwiftUI
 
+let manualModalHeight = 350.0
+let automaticModalHeight = 500.0
+
 struct SplitItemModal: View {
     @Binding var currentPage: Pages
     @Binding var isSplitItemModalOpen: Bool
@@ -16,6 +19,7 @@ struct SplitItemModal: View {
     @Binding var itemExpanded: Int?
     
     @State var splitAssignmentType: Int = 0
+    @State var modalHeight: Double = manualModalHeight
     
     init(
         currentPage: Binding<Pages>,
@@ -68,6 +72,9 @@ struct SplitItemModal: View {
                     }
                         .pickerStyle(.segmented)
                         .padding(.horizontal)
+                        .onChange(of: splitAssignmentType) { _ in
+                            updateModalHeight()
+                        }
                 }
                 
                 Text("Item Name: \(items[itemSplitIndex!].name)")
@@ -90,7 +97,7 @@ struct SplitItemModal: View {
                 }
                 
             }
-                .frame(width: 350, height: 350, alignment: .center)
+                .frame(width: 350, height: modalHeight, alignment: .center)
                 .background(Color(red: 0.1, green: 0.1, blue: 0.1)).cornerRadius(15)
                 .onAppear {
                     UITableView.appearance().backgroundColor = .clear
@@ -104,5 +111,13 @@ struct SplitItemModal: View {
     func closeSplitItemModal() {
         itemExpanded = nil
         isSplitItemModalOpen = false
+    }
+    
+    func updateModalHeight() {
+        if (splitAssignmentType == 1) {
+            modalHeight = automaticModalHeight
+        } else {
+            modalHeight = manualModalHeight
+        }
     }
 }
