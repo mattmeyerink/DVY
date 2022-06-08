@@ -9,17 +9,16 @@ import SwiftUI
 
 struct AutomaticSplitForm: View {
     @Binding var friends: [Person]
+    @Binding var items: [ReciptItem]
+    @Binding var itemSplitIndex: Int?
     
-    @State var closeSplitItemModal: () -> Void
     @State var applyToAll: Bool = false
+    @State var closeSplitItemModal: () -> Void
+    @State var calculateCostPerPerson: (Double) -> CurrencyObject
     
     var body: some View {
         VStack {
             Toggle("Apply to All Friends", isOn: $applyToAll)
-                .font(.system(size: 20, weight: .semibold))
-                .foregroundColor(.white)
-            
-            Text("Cost Per Person: $5.00")
                 .font(.system(size: 20, weight: .semibold))
                 .foregroundColor(.white)
             
@@ -39,6 +38,10 @@ struct AutomaticSplitForm: View {
                             .cornerRadius(10)
                     }
                 }
+            } else {
+                Text("Cost Per Person: \(calculateCostPerPerson(Double(friends.count)).priceFormatted)")
+                    .font(.system(size: 20, weight: .semibold))
+                    .foregroundColor(.white)
             }
             
             SplitModalButtons(

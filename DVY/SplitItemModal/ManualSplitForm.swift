@@ -13,6 +13,7 @@ struct ManualSplitForm: View {
     
     @State var numberOfPeople: Int = 2
     @State var closeSplitItemModal: () -> Void
+    @State var calculateCostPerPerson: (Double) -> CurrencyObject
     
     var body: some View {
         HStack {
@@ -30,7 +31,7 @@ struct ManualSplitForm: View {
         }
             .padding(.horizontal)
        
-        Text("Cost Per Person: \(calculateCostPerPerson().priceFormatted)")
+        Text("Cost Per Person: \(calculateCostPerPerson(Double(numberOfPeople)).priceFormatted)")
             .font(.system(size: 20, weight: .semibold))
             .foregroundColor(.white)
             .padding(.horizontal)
@@ -43,7 +44,7 @@ struct ManualSplitForm: View {
     
     func splitItem() {
         closeSplitItemModal()
-        items[itemSplitIndex!].price = calculateCostPerPerson().price
+        items[itemSplitIndex!].price = calculateCostPerPerson(Double(numberOfPeople)).price
         
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
@@ -53,10 +54,5 @@ struct ManualSplitForm: View {
             let newItem = ReciptItem(name: items[itemSplitIndex!].name, price: items[itemSplitIndex!].price)
             items.insert(newItem, at: itemSplitIndex!)
         }
-    }
-       
-    func calculateCostPerPerson() -> CurrencyObject {
-        let costPerPerson = items[itemSplitIndex!].price / Double(numberOfPeople)
-        return CurrencyObject(price: costPerPerson)
     }
 }

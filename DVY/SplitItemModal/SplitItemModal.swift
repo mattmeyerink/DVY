@@ -87,12 +87,16 @@ struct SplitItemModal: View {
                     ManualSplitForm(
                         items: $items,
                         itemSplitIndex: $itemSplitIndex,
-                        closeSplitItemModal: closeSplitItemModal
+                        closeSplitItemModal: closeSplitItemModal,
+                        calculateCostPerPerson: calculateCostPerPerson
                     )
                 } else {
                     AutomaticSplitForm(
                         friends: $friends,
-                        closeSplitItemModal: closeSplitItemModal
+                        items: $items,
+                        itemSplitIndex: $itemSplitIndex,
+                        closeSplitItemModal: closeSplitItemModal,
+                        calculateCostPerPerson: calculateCostPerPerson
                     )
                 }
                 
@@ -119,5 +123,10 @@ struct SplitItemModal: View {
         } else {
             modalHeight = manualModalHeight
         }
+    }
+    
+    func calculateCostPerPerson(peopleCount: Double) -> CurrencyObject {
+        let costPerPerson = items[itemSplitIndex!].price / peopleCount
+        return CurrencyObject(price: costPerPerson)
     }
 }
