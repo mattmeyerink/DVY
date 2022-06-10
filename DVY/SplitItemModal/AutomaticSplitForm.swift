@@ -12,9 +12,11 @@ struct AutomaticSplitForm: View {
     @Binding var items: [ReciptItem]
     @Binding var itemSplitIndex: Int?
     
-    @State var applyToAll: Bool = false
     @State var closeSplitItemModal: () -> Void
     @State var calculateCostPerPerson: (Double) -> CurrencyObject
+    
+    @State var applyToAll: Bool = false
+    @State var selectedFriends: Set<Int> = []
     
     var body: some View {
         VStack {
@@ -26,7 +28,7 @@ struct AutomaticSplitForm: View {
                 ScrollView {
                     ForEach(friends.indices, id: \.self) { i in
                         HStack {
-                            Text(friends[i].firstName + " " + friends[i].lastName)
+                            Text("\(getFriendSelectionEmoji(friendIndex: i))  \(friends[i].firstName) \(friends[i].lastName)")
                                 .font(.system(size: 20, weight: .semibold))
                                 .padding(.leading, 5)
                             
@@ -36,6 +38,9 @@ struct AutomaticSplitForm: View {
                             .background(Color(red: friends[i].color.red, green: friends[i].color.green, blue: friends[i].color.blue))
                             .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
                             .cornerRadius(10)
+                            .onTapGesture {
+                                handleFriendSelection(friendIndex: i)
+                            }
                     }
                 }
             } else {
@@ -50,5 +55,21 @@ struct AutomaticSplitForm: View {
             )
         }
             .padding(.horizontal)
+    }
+    
+    func handleFriendSelection(friendIndex: Int) {
+        if (selectedFriends.contains(friendIndex)) {
+            selectedFriends.remove(friendIndex)
+        } else {
+            selectedFriends.insert(friendIndex)
+        }
+    }
+    
+    func getFriendSelectionEmoji(friendIndex: Int) -> String {
+        var friendEmoji: String = "⛔️"
+        if (selectedFriends.contains(friendIndex)) {
+            friendEmoji = "✅"
+        }
+        return friendEmoji
     }
 }
