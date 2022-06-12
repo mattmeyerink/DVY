@@ -24,6 +24,12 @@ struct AutomaticSplitForm: View {
                 .font(.system(size: 20, weight: .semibold))
                 .foregroundColor(.white)
             
+            if (getSplitGroupCount() > 0) {
+                Text("Cost Per Person: \(calculateCostPerPerson(getSplitGroupCount()).priceFormatted)")
+                    .font(.system(size: 20, weight: .semibold))
+                    .foregroundColor(.white)
+            }
+            
             if (!applyToAll) {
                 ScrollView {
                     ForEach(friends.indices, id: \.self) { i in
@@ -43,10 +49,6 @@ struct AutomaticSplitForm: View {
                             }
                     }
                 }
-            } else {
-                Text("Cost Per Person: \(calculateCostPerPerson(Double(friends.count)).priceFormatted)")
-                    .font(.system(size: 20, weight: .semibold))
-                    .foregroundColor(.white)
             }
             
             SplitModalButtons(
@@ -71,5 +73,17 @@ struct AutomaticSplitForm: View {
             friendEmoji = "✅"
         }
         return friendEmoji
+    }
+    
+    func getSplitGroupCount() -> Double {
+        var splitGroupCount: Int
+        
+        if (applyToAll) {
+            splitGroupCount = friends.count
+        } else {
+            splitGroupCount = selectedFriends.count
+        }
+        
+        return Double(splitGroupCount)
     }
 }
