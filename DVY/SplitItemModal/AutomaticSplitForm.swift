@@ -53,7 +53,7 @@ struct AutomaticSplitForm: View {
             
             SplitModalButtons(
                 cancelAction: closeSplitItemModal,
-                splitItemAction: closeSplitItemModal
+                splitItemAction: handleSplit
             )
         }
             .padding(.horizontal)
@@ -85,5 +85,25 @@ struct AutomaticSplitForm: View {
         }
         
         return Double(splitGroupCount)
+    }
+    
+    func handleSplit() {
+        let costPerPerson = calculateCostPerPerson(getSplitGroupCount())
+        
+        var friendsToSplit: [Int]
+        if (applyToAll) {
+            friendsToSplit = Array(0..<friends.count)
+        } else {
+            friendsToSplit = Array(selectedFriends)
+        }
+        
+        for friendIndex in friendsToSplit {
+            let newItem = ReciptItem(name: items[itemSplitIndex!].name, price: costPerPerson.price)
+            friends[friendIndex].items.append(newItem)
+        }
+        
+        
+        items.remove(at: itemSplitIndex!)
+        closeSplitItemModal()
     }
 }
