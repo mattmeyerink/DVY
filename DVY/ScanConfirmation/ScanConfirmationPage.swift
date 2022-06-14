@@ -159,7 +159,8 @@ struct ScanConfirmationPage: View {
                     items: $items,
                     friends: $friends,
                     itemSplitIndex: $itemSplitIndex,
-                    itemExpanded: $itemExpanded
+                    itemExpanded: $itemExpanded,
+                    splitAssignmentType: 0
                 )
             }
             

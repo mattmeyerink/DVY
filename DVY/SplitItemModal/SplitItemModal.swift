@@ -18,7 +18,7 @@ struct SplitItemModal: View {
     @Binding var itemSplitIndex: Int?
     @Binding var itemExpanded: Int?
     
-    @State var splitAssignmentType: Int = 0
+    @State var splitAssignmentType: Int
     @State var modalHeight: Double = manualModalHeight
     
     init(
@@ -27,7 +27,8 @@ struct SplitItemModal: View {
         items: Binding<[ReciptItem]>,
         friends: Binding<[Person]>,
         itemSplitIndex: Binding<Int?>,
-        itemExpanded: Binding<Int?>
+        itemExpanded: Binding<Int?>,
+        splitAssignmentType: Int
     ) {
         self._currentPage = currentPage
         self._isSplitItemModalOpen = isSplitItemModalOpen
@@ -35,6 +36,7 @@ struct SplitItemModal: View {
         self._friends = friends
         self._itemSplitIndex = itemSplitIndex
         self._itemExpanded = itemExpanded
+        self.splitAssignmentType = splitAssignmentType
         
         let font = UIFont.systemFont(ofSize: 20)
         UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(red: 0.2, green: 0.9, blue: 0.25, alpha: 1)

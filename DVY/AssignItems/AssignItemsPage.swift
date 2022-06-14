@@ -107,7 +107,8 @@ struct AssignItemsPage: View {
                     items: $items,
                     friends: $friends,
                     itemSplitIndex: $itemSplitIndex,
-                    itemExpanded: $itemBeingAssignedIndex
+                    itemExpanded: $itemBeingAssignedIndex,
+                    splitAssignmentType: 1
                 )
             }
         }
