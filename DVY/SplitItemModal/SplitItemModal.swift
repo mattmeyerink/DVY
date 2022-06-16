@@ -19,7 +19,6 @@ struct SplitItemModal: View {
     @Binding var itemExpanded: Int?
     
     @State var splitAssignmentType: Int
-    @State var modalHeight: Double = manualModalHeight
     
     init(
         currentPage: Binding<Pages>,
@@ -74,9 +73,6 @@ struct SplitItemModal: View {
                     }
                         .pickerStyle(.segmented)
                         .padding(.horizontal)
-                        .onChange(of: splitAssignmentType) { _ in
-                            updateModalHeight()
-                        }
                 }
                 
                 Text("Item Name: \(items[itemSplitIndex!].name)")
@@ -103,7 +99,7 @@ struct SplitItemModal: View {
                 }
                 
             }
-                .frame(width: 350, height: modalHeight, alignment: .center)
+                .frame(width: 350, height: getModalHeight(), alignment: .center)
                 .background(Color(red: 0.1, green: 0.1, blue: 0.1)).cornerRadius(15)
                 .onAppear {
                     UITableView.appearance().backgroundColor = .clear
@@ -119,16 +115,20 @@ struct SplitItemModal: View {
         isSplitItemModalOpen = false
     }
     
-    func updateModalHeight() {
-        if (splitAssignmentType == 1) {
-            modalHeight = automaticModalHeight
-        } else {
-            modalHeight = manualModalHeight
-        }
-    }
-    
     func calculateCostPerPerson(peopleCount: Double) -> CurrencyObject {
         let costPerPerson = items[itemSplitIndex!].price / peopleCount
         return CurrencyObject(price: costPerPerson)
+    }
+    
+    func getModalHeight() -> Double{
+        let modalHeight: Double
+        
+        if (splitAssignmentType == 0) {
+            modalHeight = manualModalHeight
+        } else {
+            modalHeight = automaticModalHeight
+        }
+        
+        return modalHeight
     }
 }
