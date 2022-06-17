@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-let manualModalHeight = 350.0
+let manualModalHeight = 330.0
 let automaticModalHeight = 500.0
 
 struct SplitItemModal: View {
@@ -19,6 +19,7 @@ struct SplitItemModal: View {
     @Binding var itemExpanded: Int?
     
     @State var splitAssignmentType: Int
+    @State var applyToAll: Bool = false
     
     init(
         currentPage: Binding<Pages>,
@@ -93,6 +94,7 @@ struct SplitItemModal: View {
                         friends: $friends,
                         items: $items,
                         itemSplitIndex: $itemSplitIndex,
+                        applyToAll: $applyToAll,
                         closeSplitItemModal: closeSplitItemModal,
                         calculateCostPerPerson: calculateCostPerPerson
                     )
@@ -123,7 +125,7 @@ struct SplitItemModal: View {
     func getModalHeight() -> Double{
         let modalHeight: Double
         
-        if (splitAssignmentType == 0) {
+        if (splitAssignmentType == 0 || applyToAll) {
             modalHeight = manualModalHeight
         } else {
             modalHeight = automaticModalHeight

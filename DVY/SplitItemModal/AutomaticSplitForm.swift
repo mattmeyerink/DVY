@@ -11,11 +11,11 @@ struct AutomaticSplitForm: View {
     @Binding var friends: [Person]
     @Binding var items: [ReciptItem]
     @Binding var itemSplitIndex: Int?
+    @Binding var applyToAll: Bool
     
     @State var closeSplitItemModal: () -> Void
     @State var calculateCostPerPerson: (Double) -> CurrencyObject
     
-    @State var applyToAll: Bool = false
     @State var selectedFriends: Set<Int> = []
     
     var body: some View {
