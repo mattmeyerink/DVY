@@ -28,6 +28,9 @@
 		D330AD132794D19D00BBF3EE /* NewScanConfirmationModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D330AD122794D19D00BBF3EE /* NewScanConfirmationModal.swift */; };
 		D3359FF9274FCB87001CE10A /* TaxTipPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3359FF8274FCB87001CE10A /* TaxTipPage.swift */; };
 		D33DAA86274DDAF400A28298 /* FriendItemListModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33DAA85274DDAF400A28298 /* FriendItemListModal.swift */; };
+		D35B6C84284AF1C1002A8FAF /* ManualSplitForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35B6C83284AF1C1002A8FAF /* ManualSplitForm.swift */; };
+		D35B6C86284AF242002A8FAF /* AutomaticSplitForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35B6C85284AF242002A8FAF /* AutomaticSplitForm.swift */; };
+		D35B6C88284AF4EF002A8FAF /* SplitModalButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35B6C87284AF4EF002A8FAF /* SplitModalButtons.swift */; };
 		D3720ABC27B728C70097DA1C /* ScanConfirmationHelpModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3720ABB27B728C70097DA1C /* ScanConfirmationHelpModal.swift */; };
 		D3959D66274AE71D000F6B06 /* FriendsListModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3959D65274AE71D000F6B06 /* FriendsListModal.swift */; };
 		D3A109E5282C71D700F2CF1A /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A109E4282C71D700F2CF1A /* ImagePicker.swift */; };
@@ -88,6 +91,9 @@
 		D330AD122794D19D00BBF3EE /* NewScanConfirmationModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewScanConfirmationModal.swift; sourceTree = "<group>"; };
 		D3359FF8274FCB87001CE10A /* TaxTipPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxTipPage.swift; sourceTree = "<group>"; };
 		D33DAA85274DDAF400A28298 /* FriendItemListModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendItemListModal.swift; sourceTree = "<group>"; };
+		D35B6C83284AF1C1002A8FAF /* ManualSplitForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualSplitForm.swift; sourceTree = "<group>"; };
+		D35B6C85284AF242002A8FAF /* AutomaticSplitForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomaticSplitForm.swift; sourceTree = "<group>"; };
+		D35B6C87284AF4EF002A8FAF /* SplitModalButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitModalButtons.swift; sourceTree = "<group>"; };
 		D3720ABB27B728C70097DA1C /* ScanConfirmationHelpModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanConfirmationHelpModal.swift; sourceTree = "<group>"; };
 		D3959D65274AE71D000F6B06 /* FriendsListModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListModal.swift; sourceTree = "<group>"; };
 		D3A109E4282C71D700F2CF1A /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
@@ -162,10 +168,10 @@
 				D35A74BD2829EA03004A09C8 /* Friends */,
 				D35A74BE2829EA45004A09C8 /* AssignItems */,
 				D35A74BF2829EAA0004A09C8 /* Summary */,
-				06FD3383271B3809006FC9E0 /* Types.swift */,
+				D35B6C82284AF18D002A8FAF /* SplitItemModal */,
 				060C833E271BB23B005142BB /* ScanDocumentView.swift */,
+				06FD3383271B3809006FC9E0 /* Types.swift */,
 				061BE95C2734D2B200C14E28 /* RecieptItem.swift */,
-				D3B96CF627BEF3540001C3DD /* SplitItemModal.swift */,
 				D3B119522807B87B00B47707 /* FriendsStore.swift */,
 				D3E4D7A5280E313100BA294A /* ButtonStyles.swift */,
 				D3A109E4282C71D700F2CF1A /* ImagePicker.swift */,
@@ -248,6 +254,17 @@
 				D330AD122794D19D00BBF3EE /* NewScanConfirmationModal.swift */,
 			);
 			path = Summary;
+			sourceTree = "<group>";
+		};
+		D35B6C82284AF18D002A8FAF /* SplitItemModal */ = {
+			isa = PBXGroup;
+			children = (
+				D3B96CF627BEF3540001C3DD /* SplitItemModal.swift */,
+				D35B6C83284AF1C1002A8FAF /* ManualSplitForm.swift */,
+				D35B6C85284AF242002A8FAF /* AutomaticSplitForm.swift */,
+				D35B6C87284AF4EF002A8FAF /* SplitModalButtons.swift */,
+			);
+			path = SplitItemModal;
 			sourceTree = "<group>";
 		};
 		D3C518312821D66D00C4C03B /* ConfirmationFlow */ = {
@@ -416,6 +433,7 @@
 				D3EC3DB3283720D300296361 /* CropConfirmationModal.swift in Sources */,
 				D33DAA86274DDAF400A28298 /* FriendItemListModal.swift in Sources */,
 				D3C518392821D6E400C4C03B /* ConfirmationFlowSummary.swift in Sources */,
+				D35B6C88284AF4EF002A8FAF /* SplitModalButtons.swift in Sources */,
 				D3B011DA2787D5EB00EE5C36 /* SummaryPage.swift in Sources */,
 				066B3EF22724E5A700FE4141 /* FriendActionModal.swift in Sources */,
 				D3A109E5282C71D700F2CF1A /* ImagePicker.swift in Sources */,
@@ -425,7 +443,9 @@
 				068E2111271A61610069C0A1 /* DVYApp.swift in Sources */,
 				D3359FF9274FCB87001CE10A /* TaxTipPage.swift in Sources */,
 				D3C518332821D68F00C4C03B /* ConfirmationFlowModal.swift in Sources */,
+				D35B6C86284AF242002A8FAF /* AutomaticSplitForm.swift in Sources */,
 				D3C518372821D6D600C4C03B /* ConfirmationFlowIntro.swift in Sources */,
+				D35B6C84284AF1C1002A8FAF /* ManualSplitForm.swift in Sources */,
 				065BF1A72725F0B000C17A91 /* EditFriendModal.swift in Sources */,
 				D3959D66274AE71D000F6B06 /* FriendsListModal.swift in Sources */,
 				D3B96CF727BEF3540001C3DD /* SplitItemModal.swift in Sources */,

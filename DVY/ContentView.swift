@@ -48,7 +48,8 @@ struct ContentView: View {
                 NavigationView {
                     ScanConfirmationPage(
                         currentPage: $currentPage,
-                        items: $items
+                        items: $items,
+                        friends: $friends
                     )
                 }
             case .taxTipPage:

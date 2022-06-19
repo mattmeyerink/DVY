@@ -102,10 +102,13 @@ struct AssignItemsPage: View {
             
             if (isSplitItemModalOpen) {
                 SplitItemModal(
+                    currentPage: $currentPage,
                     isSplitItemModalOpen: $isSplitItemModalOpen,
                     items: $items,
+                    friends: $friends,
                     itemSplitIndex: $itemSplitIndex,
-                    itemExpanded: $itemBeingAssignedIndex
+                    itemExpanded: $itemBeingAssignedIndex,
+                    splitAssignmentType: 1
                 )
             }
         }

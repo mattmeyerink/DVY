@@ -10,6 +10,7 @@ import SwiftUI
 struct ScanConfirmationPage: View {
     @Binding var currentPage: Pages
     @Binding var items: [ReciptItem]
+    @Binding var friends: [Person]
     
     @State var itemExpanded: Int? = nil
     @State var isEditModalOpen: Bool = false
@@ -153,10 +154,13 @@ struct ScanConfirmationPage: View {
             
             if (isSplitItemModalOpen) {
                 SplitItemModal(
+                    currentPage: $currentPage,
                     isSplitItemModalOpen: $isSplitItemModalOpen,
                     items: $items,
+                    friends: $friends,
                     itemSplitIndex: $itemSplitIndex,
-                    itemExpanded: $itemExpanded
+                    itemExpanded: $itemExpanded,
+                    splitAssignmentType: 0
                 )
             }
             
