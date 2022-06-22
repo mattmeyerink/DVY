@@ -17,7 +17,7 @@ struct LandingPage: View {
     
     @State var isCropConfirmationModalOpen = false
     
-    var IS_SIMULATION: Bool = false
+    var IS_SIMULATION: Bool = true
     
     var body: some View {
         VStack {
@@ -46,17 +46,20 @@ struct LandingPage: View {
         }
         
         if (isCropConfirmationModalOpen) {
-            CropConfirmationModal(isCropConfirmationModalOpen: $isCropConfirmationModalOpen, uploadPhoto: uploadPhoto)
+            CropConfirmationModal(
+                isCropConfirmationModalOpen: $isCropConfirmationModalOpen,
+                uploadPhoto: uploadPhoto
+            )
         }
     }
     
     func startScan() {
-        for var friend in self.friends {
+        for var friend in friends {
             friend.items = []
         }
         
-        self.tax = CurrencyObject(price: 0.0)
-        self.currentPage = .scanConfirmationPage
+        tax = CurrencyObject(price: 0.0)
+        currentPage = .scanConfirmationPage
         
         if (IS_SIMULATION) {
             simulateScan()
@@ -66,17 +69,17 @@ struct LandingPage: View {
     }
     
     func simulateScan() {
-        self.items = testItems
+        items = testItems
     }
     
     func performScan() {
-        self.items = []
-        self.isScanning = true
+        items = []
+        isScanning = true
     }
     
     func uploadPhoto() {
-        self.isUploading = true
-        self.currentPage = .scanConfirmationPage
+        isUploading = true
+        currentPage = .scanConfirmationPage
     }
 }
 
