@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct FriendItemListModal: View {
-    @Binding var friend: Person?
+    @Binding var friendIndex: Int?
+    @Binding var friends: [Person]
     @Binding var items: [ReciptItem]
     
     @Binding var isFriendItemListOpen: Bool
@@ -20,7 +21,7 @@ struct FriendItemListModal: View {
             Color.gray.opacity(0.4).edgesIgnoringSafeArea(.all)
             
             VStack {
-                if let f = friend {
+                if let f = friends[friendIndex!] {
                     HStack {
                         Text(f.firstName + "'s Items")
                             .font(.system(size: 35, weight: .semibold))
@@ -53,7 +54,7 @@ struct FriendItemListModal: View {
                                             .font(.system(size: 20, weight: .semibold))
                                             .padding(.horizontal, 5)
                                             .onTapGesture() {
-                                                self.deleteItem(itemIndex: i)
+                                                deleteItem(itemIndex: i)
                                             }
                                     } else {
                                         Text(f.items[i].priceFormatted)
@@ -103,20 +104,18 @@ struct FriendItemListModal: View {
     }
     
     func deleteItem(itemIndex: Int) {
-        if let f = friend {
-            self.items.append(f.items[itemIndex])
-            self.friend?.items.remove(at: itemIndex)
-            
-            if f.items.count == 0 {
-                self.isFriendItemListOpen = false
-            }
+        self.items.append(friends[friendIndex!].items[itemIndex])
+        self.friends[friendIndex!].items.remove(at: itemIndex)
+        
+        if friends[friendIndex!].items.count == 0 {
+            self.isFriendItemListOpen = false
         }
     }
     
     func calculateSubTotal() -> String{
-        if let f = friend {
+        if let i = friendIndex {
             var total = 0.0
-            for item in f.items {
+            for item in friends[i].items {
                 total += item.price
             }
             
