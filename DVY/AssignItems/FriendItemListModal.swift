@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct FriendItemListModal: View {
-    @Binding var friend: Person?
+    @Binding var friendIndex: Int?
+    @Binding var friends: [Person]
     @Binding var items: [ReciptItem]
-    
     @Binding var isFriendItemListOpen: Bool
     
     @State var showingDeleteIndex: Int? = nil
@@ -20,7 +20,7 @@ struct FriendItemListModal: View {
             Color.gray.opacity(0.4).edgesIgnoringSafeArea(.all)
             
             VStack {
-                if let f = friend {
+                if let f = friends[friendIndex!] {
                     HStack {
                         Text(f.firstName + "'s Items")
                             .font(.system(size: 35, weight: .semibold))
@@ -33,7 +33,7 @@ struct FriendItemListModal: View {
                             .foregroundColor(.white)
                             .font(.system(size: 35, weight: .semibold))
                             .onTapGesture() {
-                                self.isFriendItemListOpen = false
+                                isFriendItemListOpen = false
                             }
                     }
                         .padding(.vertical, 20)
@@ -48,12 +48,12 @@ struct FriendItemListModal: View {
                                     
                                     Spacer()
                                     
-                                    if (i == self.showingDeleteIndex) {
+                                    if (i == showingDeleteIndex) {
                                         Image(systemName: "trash.fill")
                                             .font(.system(size: 20, weight: .semibold))
                                             .padding(.horizontal, 5)
                                             .onTapGesture() {
-                                                self.deleteItem(itemIndex: i)
+                                                deleteItem(itemIndex: i)
                                             }
                                     } else {
                                         Text(f.items[i].priceFormatted)
@@ -75,7 +75,7 @@ struct FriendItemListModal: View {
                     HStack {
                         Spacer()
                         
-                        Text("Subtotal: " + self.calculateSubTotal())
+                        Text("Subtotal: " + calculateSubTotal())
                             .font(.system(size: 25, weight: .semibold))
                             .foregroundColor(Color.white)
                     }
@@ -95,28 +95,26 @@ struct FriendItemListModal: View {
     }
     
     func toggleShowingDelete(itemIndex: Int) {
-        if (itemIndex == self.showingDeleteIndex) {
-            self.showingDeleteIndex = nil
+        if (itemIndex == showingDeleteIndex) {
+            showingDeleteIndex = nil
         } else {
-            self.showingDeleteIndex = itemIndex
+            showingDeleteIndex = itemIndex
         }
     }
     
     func deleteItem(itemIndex: Int) {
-        if let f = friend {
-            self.items.append(f.items[itemIndex])
-            self.friend?.items.remove(at: itemIndex)
-            
-            if f.items.count == 0 {
-                self.isFriendItemListOpen = false
-            }
+        items.append(friends[friendIndex!].items[itemIndex])
+        friends[friendIndex!].items.remove(at: itemIndex)
+        
+        if friends[friendIndex!].items.count == 0 {
+            isFriendItemListOpen = false
         }
     }
     
-    func calculateSubTotal() -> String{
-        if let f = friend {
+    func calculateSubTotal() -> String {
+        if let i = friendIndex {
             var total = 0.0
-            for item in f.items {
+            for item in friends[i].items {
                 total += item.price
             }
             
