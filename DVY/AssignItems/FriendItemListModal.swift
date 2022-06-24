@@ -11,7 +11,6 @@ struct FriendItemListModal: View {
     @Binding var friendIndex: Int?
     @Binding var friends: [Person]
     @Binding var items: [ReciptItem]
-    
     @Binding var isFriendItemListOpen: Bool
     
     @State var showingDeleteIndex: Int? = nil
@@ -34,7 +33,7 @@ struct FriendItemListModal: View {
                             .foregroundColor(.white)
                             .font(.system(size: 35, weight: .semibold))
                             .onTapGesture() {
-                                self.isFriendItemListOpen = false
+                                isFriendItemListOpen = false
                             }
                     }
                         .padding(.vertical, 20)
@@ -49,7 +48,7 @@ struct FriendItemListModal: View {
                                     
                                     Spacer()
                                     
-                                    if (i == self.showingDeleteIndex) {
+                                    if (i == showingDeleteIndex) {
                                         Image(systemName: "trash.fill")
                                             .font(.system(size: 20, weight: .semibold))
                                             .padding(.horizontal, 5)
@@ -76,7 +75,7 @@ struct FriendItemListModal: View {
                     HStack {
                         Spacer()
                         
-                        Text("Subtotal: " + self.calculateSubTotal())
+                        Text("Subtotal: " + calculateSubTotal())
                             .font(.system(size: 25, weight: .semibold))
                             .foregroundColor(Color.white)
                     }
@@ -96,23 +95,23 @@ struct FriendItemListModal: View {
     }
     
     func toggleShowingDelete(itemIndex: Int) {
-        if (itemIndex == self.showingDeleteIndex) {
-            self.showingDeleteIndex = nil
+        if (itemIndex == showingDeleteIndex) {
+            showingDeleteIndex = nil
         } else {
-            self.showingDeleteIndex = itemIndex
+            showingDeleteIndex = itemIndex
         }
     }
     
     func deleteItem(itemIndex: Int) {
-        self.items.append(friends[friendIndex!].items[itemIndex])
-        self.friends[friendIndex!].items.remove(at: itemIndex)
+        items.append(friends[friendIndex!].items[itemIndex])
+        friends[friendIndex!].items.remove(at: itemIndex)
         
         if friends[friendIndex!].items.count == 0 {
-            self.isFriendItemListOpen = false
+            isFriendItemListOpen = false
         }
     }
     
-    func calculateSubTotal() -> String{
+    func calculateSubTotal() -> String {
         if let i = friendIndex {
             var total = 0.0
             for item in friends[i].items {
