@@ -97,11 +97,14 @@ struct AutomaticSplitForm: View {
             friendsToSplit = Array(selectedFriends)
         }
         
+        if (friendsToSplit.count <= 1) {
+            return;
+        }
+        
         for friendIndex in friendsToSplit {
             let newItem = ReciptItem(name: items[itemSplitIndex!].name, price: costPerPerson.price)
             friends[friendIndex].items.append(newItem)
         }
-        
         
         items.remove(at: itemSplitIndex!)
         closeSplitItemModal()
