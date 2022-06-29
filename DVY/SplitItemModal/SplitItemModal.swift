@@ -122,7 +122,7 @@ struct SplitItemModal: View {
         return CurrencyObject(price: costPerPerson)
     }
     
-    func getModalHeight() -> Double{
+    func getModalHeight() -> Double {
         let modalHeight: Double
         
         if (splitAssignmentType == 0 || applyToAll) {
