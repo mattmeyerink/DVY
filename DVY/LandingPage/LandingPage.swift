@@ -45,12 +45,10 @@ struct LandingPage: View {
             }
         }
         
-        if (isCropConfirmationModalOpen) {
-            CropConfirmationModal(
-                isCropConfirmationModalOpen: $isCropConfirmationModalOpen,
-                uploadPhoto: uploadPhoto
-            )
-        }
+        CropConfirmationModal(
+            isCropConfirmationModalOpen: $isCropConfirmationModalOpen,
+            uploadPhoto: uploadPhoto
+        )
     }
     
     func startScan() {

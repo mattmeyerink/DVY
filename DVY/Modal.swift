@@ -8,19 +8,19 @@
 import SwiftUI
 
 struct Modal<Content: View>: View {
+    @Binding var isOpen: Bool
     let content: Content
-    
-    @State var isOpen: Bool = false
+
     let closeModal: () -> Void
     let modalHeight: Int
     let modalTitle: String
     
     init(
-        @ViewBuilder content: () -> Content,
-        isOpen: Bool,
+        isOpen: Binding<Bool>,
         closeModal: @escaping () -> Void,
         modalHeight: Int,
-        modalTitle: String
+        modalTitle: String,
+        @ViewBuilder content: () -> Content
     ) {
         self.content = content()
         
@@ -28,7 +28,7 @@ struct Modal<Content: View>: View {
         self.modalHeight = modalHeight
         self.modalTitle = modalTitle
         
-        self.isOpen = isOpen
+        self._isOpen = isOpen
     }
     
     var body: some View {
@@ -54,6 +54,7 @@ struct Modal<Content: View>: View {
                             }
                     }
                         .padding(.horizontal)
+                        .padding(.bottom)
                     
                     content
                 }
