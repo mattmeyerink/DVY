@@ -148,9 +148,7 @@ struct ScanConfirmationPage: View {
                 RescanConfirmationModal(currentPage: $currentPage, isRescanModalOpen: $isRescanModalOpen)
             }
             
-            if (isScanConfirmationHelpOpen) {
-                ScanConfirmationHelpModal(isScanConfirmationHelpOpen: $isScanConfirmationHelpOpen)
-            }
+            ScanConfirmationHelpModal(isScanConfirmationHelpOpen: $isScanConfirmationHelpOpen)
             
             if (isSplitItemModalOpen) {
                 SplitItemModal(
