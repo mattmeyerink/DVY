@@ -134,16 +134,13 @@ struct ScanConfirmationPage: View {
             }
                 .padding(.horizontal)
             
-            if (isEditModalOpen) {
-                EditItemModal(
-                    items: $items,
-                    showPopup: $isEditModalOpen,
-                    editedItemIndex: editedItemIndex,
-                    itemName: editedItemName,
-                    itemPrice: editedItemPrice
-                )
-            }
-            
+            EditItemModal(
+                items: $items,
+                showPopup: $isEditModalOpen,
+                editedItemIndex: editedItemIndex,
+                itemName: editedItemName,
+                itemPrice: editedItemPrice
+            )
             
             RescanConfirmationModal(currentPage: $currentPage, isRescanModalOpen: $isRescanModalOpen)
             
