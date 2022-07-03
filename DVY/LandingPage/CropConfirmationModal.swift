@@ -11,13 +11,14 @@ struct CropConfirmationModal: View {
     @Binding var isCropConfirmationModalOpen: Bool
     
     @State var uploadPhoto: () -> Void
+    @State var modalTitle: String = "Crop First"
     
     var body: some View {
         Modal(
             isOpen: $isCropConfirmationModalOpen,
+            modalTitle: $modalTitle,
             closeModal: closeCropConfirmationModal,
-            modalHeight: 260,
-            modalTitle: "Crop First"
+            modalHeight: 260
         ) {
             Text("For the best result crop your photo so that only the receipt is in the photo.")
                 .foregroundColor(.white)

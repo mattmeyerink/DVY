@@ -11,10 +11,10 @@ import Combine
 struct EditItemModal: View {
     @Binding var items: [ReciptItem]
     @Binding var showPopup: Bool
-    @State var editedItemIndex: Int?
-    
-    @State var itemName: String
-    @State var itemPrice: String
+    @Binding var modalTitle: String
+    @Binding var editedItemIndex: Int?
+    @Binding var itemName: String
+    @Binding var itemPrice: String
     
     let formatter: NumberFormatter = {
         let formatter = NumberFormatter()
@@ -25,9 +25,9 @@ struct EditItemModal: View {
     var body: some View {
         Modal (
             isOpen: $showPopup,
+            modalTitle: $modalTitle,
             closeModal: closePopup,
-            modalHeight: 450,
-            modalTitle: "Edit/Add"
+            modalHeight: 450
         ) {
             Form {
                 Section(header: Text("Name").font(.system(size: 20, weight: .semibold))) {

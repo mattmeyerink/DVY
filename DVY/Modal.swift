@@ -9,26 +9,26 @@ import SwiftUI
 
 struct Modal<Content: View>: View {
     @Binding var isOpen: Bool
+    @Binding var modalTitle: String
     let content: Content
 
     let closeModal: () -> Void
     let modalHeight: Int
-    let modalTitle: String
     
     init(
         isOpen: Binding<Bool>,
+        modalTitle: Binding<String>,
         closeModal: @escaping () -> Void,
         modalHeight: Int,
-        modalTitle: String,
         @ViewBuilder content: () -> Content
     ) {
         self.content = content()
         
         self.closeModal = closeModal
         self.modalHeight = modalHeight
-        self.modalTitle = modalTitle
         
         self._isOpen = isOpen
+        self._modalTitle = modalTitle
     }
     
     var body: some View {

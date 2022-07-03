@@ -10,12 +10,14 @@ import SwiftUI
 struct ScanConfirmationHelpModal: View {
     @Binding var isScanConfirmationHelpOpen: Bool
     
+    @State var modalTitle: String = "Help"
+    
     var body: some View {
         Modal(
             isOpen: $isScanConfirmationHelpOpen,
+            modalTitle: $modalTitle,
             closeModal: closeScanConfirmationHelpModal,
-            modalHeight: 400,
-            modalTitle: "Help"
+            modalHeight: 400
         ) {
             VStack {
                 Text("1. Tap any extra items you would like to remove.")

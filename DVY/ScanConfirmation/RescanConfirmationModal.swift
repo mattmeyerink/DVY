@@ -11,12 +11,14 @@ struct RescanConfirmationModal: View {
     @Binding var currentPage: Pages
     @Binding var isRescanModalOpen: Bool
     
+    @State var modalTitle: String = "Scan Tips"
+    
     var body: some View {
         Modal(
             isOpen: $isRescanModalOpen,
+            modalTitle: $modalTitle,
             closeModal: closeRescanModal,
-            modalHeight: 450,
-            modalTitle: "Scan Tips"
+            modalHeight: 450
         ) {
             VStack {
                 Text("1. Make sure all 4 corners of the receipt are visible in the scan.")
