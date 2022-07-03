@@ -24,7 +24,6 @@ struct EditItemModal: View {
     
     var body: some View {
         Modal (
-            isOpen: $showPopup,
             modalTitle: $modalTitle,
             closeModal: closePopup,
             modalHeight: 450

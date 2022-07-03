@@ -15,7 +15,6 @@ struct RescanConfirmationModal: View {
     
     var body: some View {
         Modal(
-            isOpen: $isRescanModalOpen,
             modalTitle: $modalTitle,
             closeModal: closeRescanModal,
             modalHeight: 450

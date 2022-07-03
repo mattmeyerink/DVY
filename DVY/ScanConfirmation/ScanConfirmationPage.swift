@@ -135,18 +135,24 @@ struct ScanConfirmationPage: View {
             }
                 .padding(.horizontal)
             
-            EditItemModal(
-                items: $items,
-                showPopup: $isEditModalOpen,
-                modalTitle: $editModalTitle,
-                editedItemIndex: $editedItemIndex,
-                itemName: $editedItemName,
-                itemPrice: $editedItemPrice
-            )
+            if (isEditModalOpen) {
+                EditItemModal(
+                    items: $items,
+                    showPopup: $isEditModalOpen,
+                    modalTitle: $editModalTitle,
+                    editedItemIndex: $editedItemIndex,
+                    itemName: $editedItemName,
+                    itemPrice: $editedItemPrice
+                )
+            }
             
-            RescanConfirmationModal(currentPage: $currentPage, isRescanModalOpen: $isRescanModalOpen)
+            if (isRescanModalOpen) {
+                RescanConfirmationModal(currentPage: $currentPage, isRescanModalOpen: $isRescanModalOpen)
+            }
             
-            ScanConfirmationHelpModal(isScanConfirmationHelpOpen: $isScanConfirmationHelpOpen)
+            if (isScanConfirmationHelpOpen) {
+                ScanConfirmationHelpModal(isScanConfirmationHelpOpen: $isScanConfirmationHelpOpen)
+            }
             
             if (isSplitItemModalOpen) {
                 SplitItemModal(

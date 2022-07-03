@@ -15,7 +15,6 @@ struct CropConfirmationModal: View {
     
     var body: some View {
         Modal(
-            isOpen: $isCropConfirmationModalOpen,
             modalTitle: $modalTitle,
             closeModal: closeCropConfirmationModal,
             modalHeight: 260

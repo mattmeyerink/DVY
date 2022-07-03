@@ -13,14 +13,14 @@ struct SplitModalButtons: View {
     
     var body: some View {
         HStack {
-            Button(action: { cancelAction() }) {
+            Button(action: cancelAction) {
                 Text("Cancel")
             }
-                .buttonStyle(GreenButton())
+                .buttonStyle(RedButton())
             
             Spacer()
             
-            Button(action: { splitItemAction() }) {
+            Button(action: splitItemAction) {
                 Text("Split")
             }
                 .buttonStyle(GreenButton())

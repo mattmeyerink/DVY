@@ -14,7 +14,6 @@ struct ScanConfirmationHelpModal: View {
     
     var body: some View {
         Modal(
-            isOpen: $isScanConfirmationHelpOpen,
             modalTitle: $modalTitle,
             closeModal: closeScanConfirmationHelpModal,
             modalHeight: 400

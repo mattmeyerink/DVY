@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct Modal<Content: View>: View {
-    @Binding var isOpen: Bool
     @Binding var modalTitle: String
     let content: Content
 
@@ -16,7 +15,6 @@ struct Modal<Content: View>: View {
     let modalHeight: Int
     
     init(
-        isOpen: Binding<Bool>,
         modalTitle: Binding<String>,
         closeModal: @escaping () -> Void,
         modalHeight: Int,
@@ -27,47 +25,44 @@ struct Modal<Content: View>: View {
         self.closeModal = closeModal
         self.modalHeight = modalHeight
         
-        self._isOpen = isOpen
         self._modalTitle = modalTitle
     }
     
     var body: some View {
-        if (isOpen) {
-            ZStack {
-                Color.gray.opacity(0.4).edgesIgnoringSafeArea(.all)
-                
-                VStack {
-                    HStack {
-                        Text(modalTitle)
-                            .font(.system(size: 35, weight: .semibold))
-                            .foregroundColor(.white)
-                            .padding(.top, 15)
-                        
-                        Spacer()
-                        
-                        Image(systemName: "xmark")
-                            .foregroundColor(.white)
-                            .font(.system(size: 35, weight: .semibold))
-                            .padding(.top, 15)
-                            .onTapGesture() {
-                                closeModal()
-                            }
-                    }
-                        .padding(.horizontal)
-                        .padding(.bottom)
+        ZStack {
+            Color.gray.opacity(0.4).edgesIgnoringSafeArea(.all)
+            
+            VStack {
+                HStack {
+                    Text(modalTitle)
+                        .font(.system(size: 35, weight: .semibold))
+                        .foregroundColor(.white)
+                        .padding(.top, 15)
                     
-                    content
+                    Spacer()
+                    
+                    Image(systemName: "xmark")
+                        .foregroundColor(.white)
+                        .font(.system(size: 35, weight: .semibold))
+                        .padding(.top, 15)
+                        .onTapGesture() {
+                            closeModal()
+                        }
                 }
-                    .frame(width: 350, height: Double(modalHeight), alignment: .center)
-                    .background(Color(red: 0.1, green: 0.1, blue: 0.1))
-                    .cornerRadius(15)
-                    .onAppear {
-                        UITableView.appearance().backgroundColor = .clear
-                    }
-                    .onDisappear {
-                        UITableView.appearance().backgroundColor = .systemGroupedBackground
-                    }
+                    .padding(.horizontal)
+                    .padding(.bottom)
+                
+                content
             }
+                .frame(width: 350, height: Double(modalHeight), alignment: .center)
+                .background(Color(red: 0.1, green: 0.1, blue: 0.1))
+                .cornerRadius(15)
+                .onAppear {
+                    UITableView.appearance().backgroundColor = .clear
+                }
+                .onDisappear {
+                    UITableView.appearance().backgroundColor = .systemGroupedBackground
+                }
         }
     }
 }
