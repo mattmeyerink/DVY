@@ -21,14 +21,14 @@ struct ConfirmationFlowForm: View {
     var body: some View {
         Form {
             HStack {
-                Button(action: { deleteCurrentItem() }) {
+                Button(action: deleteCurrentItem) {
                     Text("Delete")
                 }
                     .buttonStyle(RedButton())
                 
                 Spacer()
                 
-                Button(action: { insertNewItem() }) {
+                Button(action: insertNewItem) {
                     Text("Insert")
                 }
                     .buttonStyle(GreenButton())
@@ -57,14 +57,14 @@ struct ConfirmationFlowForm: View {
                 .foregroundColor(.white)
             
             HStack {
-                Button(action: { goToPreviousItem() }) {
+                Button(action: goToPreviousItem) {
                     Text("Previous")
                 }
                     .buttonStyle(GreenButton())
                 
                 Spacer()
                 
-                Button(action: { goToNextItem() }) {
+                Button(action: goToNextItem) {
                     Text("Next")
                 }
                     .buttonStyle(GreenButton())
