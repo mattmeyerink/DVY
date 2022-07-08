@@ -9,6 +9,7 @@ import SwiftUI
 struct EditFriendModal: View {
     @Binding var friends: [Person]
     @Binding var isEditFriendOpen: Bool
+    @Binding var modalTitle: String
     
     @State var firstName: String
     @State var lastName: String
@@ -21,9 +22,11 @@ struct EditFriendModal: View {
     let saveAction: ([Person]) -> Void
     
     var body: some View {
-        ZStack {
-            Color.gray.opacity(0.4).edgesIgnoringSafeArea(.all)
-            
+        Modal(
+            modalTitle: $modalTitle,
+            closeModal: closePopup,
+            modalHeight: 550
+        ) {
             Form {
                 Section(header: Text("First Name").font(.system(size: 20, weight: .semibold))) {
                     TextField("First Name", text: $firstName)
@@ -42,29 +45,20 @@ struct EditFriendModal: View {
                 }
                 
                 HStack {
-                    Button(action: {closePopup()}) {
+                    Button(action: closePopup) {
                         Text("Cancel")
                     }
-                        .buttonStyle(GreenButton())
+                        .buttonStyle(RedButton())
                     
                     Spacer()
                     
-                    Button(action: {saveFriend()}) {
+                    Button(action: saveFriend) {
                         Text("Save")
                     }
                         .buttonStyle(GreenButton())
                 }
                     .listRowBackground(Color(red: 0.1, green: 0.1, blue: 0.1))
             }
-                .frame(width: 350, height: 380, alignment: .center)
-                .padding(.bottom, 30)
-                .background(Color(red: 0.1, green: 0.1, blue: 0.1)).cornerRadius(15)
-                .onAppear {
-                    UITableView.appearance().backgroundColor = .clear
-                }
-                .onDisappear {
-                    UITableView.appearance().backgroundColor = .systemGroupedBackground
-                }
         }
     }
     

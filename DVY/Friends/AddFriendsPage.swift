@@ -12,6 +12,7 @@ struct AddFriendsPage: View {
     @Binding var friends: [Person]
     
     @State var isAddFriendOpen: Bool = false
+    @State var editModalTitle: String = ""
     @State var editFriendFirstName: String = ""
     @State var editFriendLastName: String = ""
     @State var editFriendColor: Color = Color.blue
@@ -127,6 +128,7 @@ struct AddFriendsPage: View {
                 EditFriendModal(
                     friends: $friends,
                     isEditFriendOpen: $isAddFriendOpen,
+                    modalTitle: $editModalTitle,
                     firstName: editFriendFirstName,
                     lastName: editFriendLastName,
                     friendColor: editFriendColor,
@@ -167,18 +169,20 @@ struct AddFriendsPage: View {
     }
     
     func addFriend() {
-        self.editFriendFirstName = ""
-        self.editFriendLastName = ""
+        editModalTitle = "Add"
+        editFriendFirstName = ""
+        editFriendLastName = ""
         
         let color = DVYColors.randomElement()!
-        self.editFriendColor = Color(red: color.red, green: color.green, blue: color.blue)
+        editFriendColor = Color(red: color.red, green: color.green, blue: color.blue)
         
-        self.actionFriendIndex = nil
-        self.isAddFriendOpen = true
+        actionFriendIndex = nil
+        isAddFriendOpen = true
     }
     
     func editFriend() {
         let editFriend = friends[actionFriendIndex!]
+        editModalTitle = "Edit"
         editFriendFirstName = editFriend.firstName
         editFriendLastName = editFriend.lastName
         editFriendColor = Color(red: editFriend.color.red, green: editFriend.color.green, blue: editFriend.color.blue)
