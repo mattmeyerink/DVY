@@ -16,6 +16,8 @@ struct PreviouslyAddedFriendModal: View {
     @State var deletePreviouslyAddedFriend: (Person) -> Void
     @State var addPreviouslyAddedFriend: (Person) -> Void
     
+    @State var modalTitle: String = "Add Friend"
+    
     static let stackDateFormat: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "E, dd MMM yyyy"
@@ -23,25 +25,12 @@ struct PreviouslyAddedFriendModal: View {
     }()
     
     var body: some View {
-        ZStack {
-            Color.gray.opacity(0.4).edgesIgnoringSafeArea(.all)
+        Modal(
+            modalTitle: $modalTitle,
+            closeModal: closeModal,
+            modalHeight: 450
+        ) {
             VStack {
-                HStack {
-                    Text("Add Friend")
-                        .font(.system(size: 35, weight: .semibold))
-                        .foregroundColor(Color.white)
-                    
-                    Spacer()
-                    
-                    Image(systemName: "xmark")
-                        .foregroundColor(.white)
-                        .font(.system(size: 35, weight: .semibold))
-                        .onTapGesture() {
-                            self.isPreviouslyAddedFriendsOpen = false
-                        }
-                }
-                    .padding(.vertical, 20)
-                
                 HStack {
                     Text("First Name: " + currentFriend.firstName)
                         .font(.system(size: 20, weight: .semibold))
@@ -94,7 +83,7 @@ struct PreviouslyAddedFriendModal: View {
                     
                     Spacer()
                     
-                    Button(action: { addPreviousFriendHandler() }) {
+                    Button(action: addPreviousFriendHandler) {
                         Text("Add Friend")
                     }
                         .buttonStyle(GreenButton())
@@ -102,15 +91,6 @@ struct PreviouslyAddedFriendModal: View {
                     .padding(.top)
             }
                 .padding(.horizontal)
-                .frame(width: 350, height: 375, alignment: .center)
-                .padding(.bottom, 30)
-                .background(Color(red: 0.1, green: 0.1, blue: 0.1)).cornerRadius(15)
-                .onAppear {
-                    UITableView.appearance().backgroundColor = .clear
-                }
-                .onDisappear {
-                    UITableView.appearance().backgroundColor = .systemGroupedBackground
-                }
         }
     }
     
@@ -139,5 +119,9 @@ struct PreviouslyAddedFriendModal: View {
         }
         
         return result
+    }
+    
+    func closeModal() -> Void {
+        isPreviouslyAddedFriendsOpen = false
     }
 }
