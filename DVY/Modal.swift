@@ -9,6 +9,7 @@ import SwiftUI
 
 struct Modal<Content: View>: View {
     @Binding var modalTitle: String
+    @Binding var otherModalOpening: Bool
     let content: Content
 
     let closeModal: () -> Void
@@ -16,6 +17,7 @@ struct Modal<Content: View>: View {
     
     init(
         modalTitle: Binding<String>,
+        otherModalOpening: Binding<Bool>,
         closeModal: @escaping () -> Void,
         modalHeight: Int,
         @ViewBuilder content: () -> Content
@@ -26,6 +28,7 @@ struct Modal<Content: View>: View {
         self.modalHeight = modalHeight
         
         self._modalTitle = modalTitle
+        self._otherModalOpening = otherModalOpening
     }
     
     var body: some View {
@@ -38,9 +41,9 @@ struct Modal<Content: View>: View {
                         .font(.system(size: 35, weight: .semibold))
                         .foregroundColor(.white)
                         .padding(.top, 15)
-                    
+
                     Spacer()
-                    
+
                     Image(systemName: "xmark")
                         .foregroundColor(.white)
                         .font(.system(size: 35, weight: .semibold))
@@ -61,7 +64,9 @@ struct Modal<Content: View>: View {
                     UITableView.appearance().backgroundColor = .clear
                 }
                 .onDisappear {
-                    UITableView.appearance().backgroundColor = .systemGroupedBackground
+                    if (!otherModalOpening) {
+                        UITableView.appearance().backgroundColor = .systemGroupedBackground
+                    }
                 }
         }
     }
