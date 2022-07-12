@@ -11,10 +11,12 @@ struct ScanConfirmationHelpModal: View {
     @Binding var isScanConfirmationHelpOpen: Bool
     
     @State var modalTitle: String = "Help"
+    @State var otherModalOpening: Bool = false
     
     var body: some View {
         Modal(
             modalTitle: $modalTitle,
+            otherModalOpening: $otherModalOpening,
             closeModal: closeScanConfirmationHelpModal,
             modalHeight: 400
         ) {

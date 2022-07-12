@@ -19,11 +19,14 @@ struct EditFriendModal: View {
     
     @State var previouslyAddedFriends: [Person]
     
+    @State var otherModalOpening: Bool = false
+    
     let saveAction: ([Person]) -> Void
     
     var body: some View {
         Modal(
             modalTitle: $modalTitle,
+            otherModalOpening: $otherModalOpening,
             closeModal: closePopup,
             modalHeight: 550
         ) {

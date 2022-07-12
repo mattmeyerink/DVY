@@ -21,6 +21,7 @@ struct SplitItemModal: View {
     @State var splitAssignmentType: Int
     @State var applyToAll: Bool = false
     @State var modalTitle: String = "Split Title"
+    @State var otherModalOpening: Bool = false
     
     init(
         currentPage: Binding<Pages>,
@@ -48,6 +49,7 @@ struct SplitItemModal: View {
     var body: some View {
         Modal(
             modalTitle: $modalTitle,
+            otherModalOpening: $otherModalOpening,
             closeModal: closeSplitItemModal,
             modalHeight: getModalHeight()
         ) {

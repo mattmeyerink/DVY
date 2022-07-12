@@ -26,10 +26,12 @@ struct ConfirmationFlowModal: View {
     @State var currentItemPrice: String = ""
     
     @State var modalTitle: String = "Confirm Items"
+    @State var otherModalOpening: Bool = false
     
     var body: some View {
         Modal(
             modalTitle: $modalTitle,
+            otherModalOpening: $otherModalOpening,
             closeModal: closeConfirmationFlow,
             modalHeight: getModalHeight()
         ) {

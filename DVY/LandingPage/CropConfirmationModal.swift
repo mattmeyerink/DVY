@@ -12,10 +12,12 @@ struct CropConfirmationModal: View {
     
     @State var uploadPhoto: () -> Void
     @State var modalTitle: String = "Crop First"
+    @State var otherModalOpening: Bool = false
     
     var body: some View {
         Modal(
             modalTitle: $modalTitle,
+            otherModalOpening: $otherModalOpening,
             closeModal: closeCropConfirmationModal,
             modalHeight: 260
         ) {

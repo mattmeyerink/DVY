@@ -17,6 +17,7 @@ struct PreviouslyAddedFriendModal: View {
     @State var addPreviouslyAddedFriend: (Person) -> Void
     
     @State var modalTitle: String = "Add Friend"
+    @State var otherModalOpening: Bool = false
     
     static let stackDateFormat: DateFormatter = {
         let formatter = DateFormatter()
@@ -27,6 +28,7 @@ struct PreviouslyAddedFriendModal: View {
     var body: some View {
         Modal(
             modalTitle: $modalTitle,
+            otherModalOpening: $otherModalOpening,
             closeModal: closeModal,
             modalHeight: 450
         ) {

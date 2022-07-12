@@ -16,6 +16,8 @@ struct EditItemModal: View {
     @Binding var itemName: String
     @Binding var itemPrice: String
     
+    @State var otherModalOpening: Bool = false
+    
     let formatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
@@ -25,6 +27,7 @@ struct EditItemModal: View {
     var body: some View {
         Modal (
             modalTitle: $modalTitle,
+            otherModalOpening: $otherModalOpening,
             closeModal: closePopup,
             modalHeight: 450
         ) {

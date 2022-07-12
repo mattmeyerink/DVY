@@ -14,11 +14,14 @@ struct FriendActionModal: View {
     
     @State var deleteFriend: () -> Void
     @State var editFriend: () -> Void
+    
     @State var modalTitle: String = "Actions"
+    @State var otherModalOpening: Bool = false
     
     var body: some View {
         Modal(
             modalTitle: $modalTitle,
+            otherModalOpening: $otherModalOpening,
             closeModal: closePopup,
             modalHeight: 225
         ) {
@@ -46,6 +49,7 @@ struct FriendActionModal: View {
                         .padding(.horizontal, 20)
                         .padding(.bottom, 15)
                         .onTapGesture() {
+                            otherModalOpening = true
                             editFriend()
                         }
                     

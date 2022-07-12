@@ -12,10 +12,12 @@ struct RescanConfirmationModal: View {
     @Binding var isRescanModalOpen: Bool
     
     @State var modalTitle: String = "Scan Tips"
+    @State var otherModalOpening: Bool = false
     
     var body: some View {
         Modal(
             modalTitle: $modalTitle,
+            otherModalOpening: $otherModalOpening,
             closeModal: closeRescanModal,
             modalHeight: 450
         ) {
