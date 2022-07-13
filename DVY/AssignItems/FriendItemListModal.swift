@@ -12,32 +12,20 @@ struct FriendItemListModal: View {
     @Binding var friends: [Person]
     @Binding var items: [ReciptItem]
     @Binding var isFriendItemListOpen: Bool
+    @Binding var modalTitle: String
     
     @State var showingDeleteIndex: Int? = nil
+    @State var otherModalOpening: Bool = false
     
     var body: some View {
-        ZStack {
-            Color.gray.opacity(0.4).edgesIgnoringSafeArea(.all)
-            
+        Modal(
+            modalTitle: $modalTitle,
+            otherModalOpening: $otherModalOpening,
+            closeModal: closeItemListModal,
+            modalHeight: 450
+        ) {
             VStack {
                 if let f = friends[friendIndex!] {
-                    HStack {
-                        Text(f.firstName + "'s Items")
-                            .font(.system(size: 35, weight: .semibold))
-                            .foregroundColor(Color.white)
-                        
-                        
-                        Spacer()
-                        
-                        Image(systemName: "xmark")
-                            .foregroundColor(.white)
-                            .font(.system(size: 35, weight: .semibold))
-                            .onTapGesture() {
-                                isFriendItemListOpen = false
-                            }
-                    }
-                        .padding(.vertical, 20)
-                    
                     ScrollView {
                         ForEach(f.items.indices, id: \.self) { i in
                             VStack {
@@ -81,16 +69,7 @@ struct FriendItemListModal: View {
                     }
                 }
             }
-                .padding(.horizontal)
-                .frame(width: 350, height: 350, alignment: .center)
-                .padding(.bottom, 30)
-                .background(Color(red: 0.1, green: 0.1, blue: 0.1)).cornerRadius(15)
-                .onAppear {
-                    UITableView.appearance().backgroundColor = .clear
-                }
-                .onDisappear {
-                    UITableView.appearance().backgroundColor = .systemGroupedBackground
-                }
+                .padding()
         }
     }
     
@@ -124,5 +103,9 @@ struct FriendItemListModal: View {
         }
         
         return "$0.00"
+    }
+    
+    func closeItemListModal() {
+        isFriendItemListOpen = false
     }
 }
