@@ -15,27 +15,17 @@ struct FriendsListModal: View {
     @Binding var itemSplitIndex: Int?
     @Binding var isSplitItemModalOpen: Bool
     
+    @State var modalTitle: String = "Who Got It?"
+    @State var otherModalOpening: Bool = false
+    
     var body: some View {
-        ZStack {
-            Color.gray.opacity(0.4).edgesIgnoringSafeArea(.all)
-            
+        Modal(
+            modalTitle: $modalTitle,
+            otherModalOpening: $otherModalOpening,
+            closeModal: closeFriendsListModal,
+            modalHeight: 450
+        ) {
             VStack {
-                HStack {
-                    Text("Who Got It?")
-                        .font(.system(size: 35, weight: .semibold))
-                        .foregroundColor(Color.white)
-                    
-                    Spacer()
-                    
-                    Image(systemName: "xmark")
-                        .foregroundColor(.white)
-                        .font(.system(size: 35, weight: .semibold))
-                        .onTapGesture() {
-                            self.isFriendsListOpen = false
-                        }
-                }
-                    .padding(.vertical, 20)
-                
                 ScrollView {
                     ForEach($friends.indices, id: \.self) { i in
                         VStack {
@@ -79,28 +69,19 @@ struct FriendsListModal: View {
                         }
                 }
             }
-                .padding(.horizontal)
-                .frame(width: 350, height: 375, alignment: .center)
-                .padding(.bottom, 30)
-                .background(Color(red: 0.1, green: 0.1, blue: 0.1)).cornerRadius(15)
-                .onAppear {
-                    UITableView.appearance().backgroundColor = .clear
-                }
-                .onDisappear {
-                    UITableView.appearance().backgroundColor = .systemGroupedBackground
-                }
+                .padding()
         }
     }
     
     func assignItem(friendIndex: Int) {
-        self.friends[friendIndex].items.append(items[self.itemBeingAssignedIndex!])
-        self.items.remove(at: self.itemBeingAssignedIndex!)
-        self.itemBeingAssignedIndex = nil
-        self.isFriendsListOpen = false
+        friends[friendIndex].items.append(items[itemBeingAssignedIndex!])
+        items.remove(at: itemBeingAssignedIndex!)
+        itemBeingAssignedIndex = nil
+        isFriendsListOpen = false
     }
     
     func deleteItem() {
-        self.isFriendsListOpen = false
+        isFriendsListOpen = false
         items.remove(at: itemBeingAssignedIndex!)
     }
     
@@ -109,5 +90,9 @@ struct FriendsListModal: View {
         isSplitItemModalOpen = true
         itemSplitIndex = itemBeingAssignedIndex
         itemBeingAssignedIndex = nil
+    }
+    
+    func closeFriendsListModal() {
+        isFriendsListOpen = false
     }
 }
