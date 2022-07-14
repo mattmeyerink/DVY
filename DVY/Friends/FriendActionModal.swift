@@ -15,28 +15,17 @@ struct FriendActionModal: View {
     @State var deleteFriend: () -> Void
     @State var editFriend: () -> Void
     
+    @State var modalTitle: String = "Actions"
+    @State var otherModalOpening: Bool = false
+    
     var body: some View {
-        ZStack {
-            Color.gray.opacity(0.4).edgesIgnoringSafeArea(.all)
-            
+        Modal(
+            modalTitle: $modalTitle,
+            otherModalOpening: $otherModalOpening,
+            closeModal: closePopup,
+            modalHeight: 225
+        ) {
             HStack {
-                VStack {
-                    Image(systemName: "arrowshape.turn.up.backward.fill")
-                        .foregroundColor(.white)
-                        .font(.system(size: 40, weight: .semibold))
-                        .padding(.horizontal, 20)
-                        .padding(.bottom, 15)
-                        .onTapGesture() {
-                            closePopup()
-                        }
-                    
-                    Text("Back")
-                        .foregroundColor(.white)
-                        .font(.system(size: 20, weight: .regular))
-                        .padding(.bottom, 15)
-                        .padding(.top, 5)
-                }
-                
                 VStack {
                     Image(systemName: "trash.fill")
                         .foregroundColor(.white)
@@ -60,6 +49,7 @@ struct FriendActionModal: View {
                         .padding(.horizontal, 20)
                         .padding(.bottom, 15)
                         .onTapGesture() {
+                            otherModalOpening = true
                             editFriend()
                         }
                     
@@ -70,17 +60,6 @@ struct FriendActionModal: View {
                         .padding(.top, 5)
                 }
             }
-                .frame(width: 300, height: 125, alignment: .center)
-                .padding(.top, 15)
-                .background(Color(red: 0.1, green: 0.1, blue: 0.1)).cornerRadius(15)
-                .onAppear {
-                    UITableView.appearance().backgroundColor = .clear
-                }
-                .onDisappear {
-                    if (!isEditFriendOpen) {
-                        UITableView.appearance().backgroundColor = .systemGroupedBackground
-                    }
-                }
         }
     }
     

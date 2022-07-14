@@ -17,6 +17,7 @@ struct AssignItemsPage: View {
     
     @State var isFriendItemListOpen: Bool = false
     @State var friendListOpenFriendIndex: Int? = nil
+    @State var friendsItemListModalTitle: String = ""
     
     @State var isSplitItemModalOpen: Bool = false
     @State var itemSplitIndex: Int? = nil
@@ -97,7 +98,8 @@ struct AssignItemsPage: View {
                     friendIndex: $friendListOpenFriendIndex,
                     friends: $friends,
                     items: $items,
-                    isFriendItemListOpen: $isFriendItemListOpen
+                    isFriendItemListOpen: $isFriendItemListOpen,
+                    modalTitle: $friendsItemListModalTitle
                 )
             }
             
@@ -134,19 +136,20 @@ struct AssignItemsPage: View {
     }
     
     func openFriendsList(itemIndex: Int) {
-        self.isFriendItemListOpen = false
-        self.friendListOpenFriendIndex = nil
+        isFriendItemListOpen = false
+        friendListOpenFriendIndex = nil
         
-        self.itemBeingAssignedIndex = itemIndex
-        self.isFriendsListOpen = true
+        itemBeingAssignedIndex = itemIndex
+        isFriendsListOpen = true
     }
     
     func openFriendItemList(friendIndex: Int) {
-        self.isFriendsListOpen = false
-        self.itemBeingAssignedIndex = nil
+        isFriendsListOpen = false
+        itemBeingAssignedIndex = nil
         
-        self.isFriendItemListOpen = true
-        self.friendListOpenFriendIndex = friendIndex
+        isFriendItemListOpen = true
+        friendListOpenFriendIndex = friendIndex
+        friendsItemListModalTitle = friends[friendIndex].firstName + "'s Items"
     }
     
     func navigateToSummaryPage() {

@@ -43,6 +43,7 @@
 		D3C5183B2821D6FD00C4C03B /* ConfirmationFlowForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C5183A2821D6FD00C4C03B /* ConfirmationFlowForm.swift */; };
 		D3E4D7A4280E2ED100BA294A /* PreviouslyAddedFriendModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E4D7A3280E2ED100BA294A /* PreviouslyAddedFriendModal.swift */; };
 		D3E4D7A6280E313100BA294A /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E4D7A5280E313100BA294A /* ButtonStyles.swift */; };
+		D3EBB92F286C04C300395498 /* Modal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EBB92E286C04C300395498 /* Modal.swift */; };
 		D3EC3DB3283720D300296361 /* CropConfirmationModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EC3DB2283720D300296361 /* CropConfirmationModal.swift */; };
 /* End PBXBuildFile section */
 
@@ -106,6 +107,7 @@
 		D3C5183A2821D6FD00C4C03B /* ConfirmationFlowForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationFlowForm.swift; sourceTree = "<group>"; };
 		D3E4D7A3280E2ED100BA294A /* PreviouslyAddedFriendModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviouslyAddedFriendModal.swift; sourceTree = "<group>"; };
 		D3E4D7A5280E313100BA294A /* ButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
+		D3EBB92E286C04C300395498 /* Modal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modal.swift; sourceTree = "<group>"; };
 		D3EC3DB2283720D300296361 /* CropConfirmationModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropConfirmationModal.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -176,6 +178,7 @@
 				D3E4D7A5280E313100BA294A /* ButtonStyles.swift */,
 				D3A109E4282C71D700F2CF1A /* ImagePicker.swift */,
 				D32EF41F28347D000045D6D1 /* TextRecognition.swift */,
+				D3EBB92E286C04C300395498 /* Modal.swift */,
 			);
 			path = DVY;
 			sourceTree = "<group>";
@@ -425,6 +428,7 @@
 				060C833F271BB23B005142BB /* ScanDocumentView.swift in Sources */,
 				D3B119532807B87B00B47707 /* FriendsStore.swift in Sources */,
 				D3E4D7A6280E313100BA294A /* ButtonStyles.swift in Sources */,
+				D3EBB92F286C04C300395498 /* Modal.swift in Sources */,
 				06FD3388271B48AA006FC9E0 /* AddFriendsPage.swift in Sources */,
 				0615E544271B816B005CC1E9 /* LandingPage.swift in Sources */,
 				061BE95D2734D2B200C14E28 /* RecieptItem.swift in Sources */,

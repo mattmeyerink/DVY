@@ -25,65 +25,41 @@ struct ConfirmationFlowModal: View {
     @State var currentItemName: String = ""
     @State var currentItemPrice: String = ""
     
+    @State var modalTitle: String = "Confirm Items"
+    @State var otherModalOpening: Bool = false
+    
     var body: some View {
-        ZStack {
-            Color.gray.opacity(0.4).edgesIgnoringSafeArea(.all)
-            
-            VStack {
-                HStack {
-                    Text("Confirm Items")
-                        .font(.system(size: 35, weight: .semibold))
-                        .foregroundColor(.white)
-                        .padding(.top, 15)
-                    
-                    Spacer()
-                    
-                    Image(systemName: "xmark")
-                        .foregroundColor(.white)
-                        .font(.system(size: 35, weight: .semibold))
-                        .padding(.top, 15)
-                        .onTapGesture() {
-                            closeConfirmationFlow()
-                        }
-                }
-                    .padding(.horizontal)
-                
-                Spacer()
-                
-                if (currentFlowState == .intro) {
-                    ConfirmationFlowIntro(
-                        closeConfirmationFlow: closeConfirmationFlow,
-                        continueToForm: continueToForm
-                    )
-                }
-                
-                if (currentFlowState == .form) {
-                    ConfirmationFlowForm(
-                        items: $items,
-                        currentItemIndex: currentItemIndex,
-                        currentItemName: currentItemName,
-                        currentItemPrice: currentItemPrice,
-                        returnToIntro: returnToIntro,
-                        continueToSummary: continueToSummary
-                    )
-                }
-                
-                if (currentFlowState == .summary) {
-                    ConfirmationFlowSummary(
-                        items: $items,
-                        returnToForm: returnToForm,
-                        confirmItemUpdates: confirmItemUpdates
-                    )
-                }
+        Modal(
+            modalTitle: $modalTitle,
+            otherModalOpening: $otherModalOpening,
+            closeModal: closeConfirmationFlow,
+            modalHeight: getModalHeight()
+        ) {
+            if (currentFlowState == .intro) {
+                ConfirmationFlowIntro(
+                    closeConfirmationFlow: closeConfirmationFlow,
+                    continueToForm: continueToForm
+                )
             }
-                .frame(width: 350, height: getModalHeight(), alignment: .center)
-                .background(Color(red: 0.1, green: 0.1, blue: 0.1)).cornerRadius(15)
-                .onAppear {
-                    UITableView.appearance().backgroundColor = .clear
-                }
-                .onDisappear {
-                    UITableView.appearance().backgroundColor = .systemGroupedBackground
-                }
+            
+            if (currentFlowState == .form) {
+                ConfirmationFlowForm(
+                    items: $items,
+                    currentItemIndex: currentItemIndex,
+                    currentItemName: currentItemName,
+                    currentItemPrice: currentItemPrice,
+                    returnToIntro: returnToIntro,
+                    continueToSummary: continueToSummary
+                )
+            }
+            
+            if (currentFlowState == .summary) {
+                ConfirmationFlowSummary(
+                    items: $items,
+                    returnToForm: returnToForm,
+                    confirmItemUpdates: confirmItemUpdates
+                )
+            }
         }
     }
     
@@ -123,15 +99,15 @@ struct ConfirmationFlowModal: View {
         closeConfirmationFlow()
     }
     
-    func getModalHeight() -> CGFloat {
-        var modalHeight: CGFloat = 0
+    func getModalHeight() -> Int {
+        var modalHeight = 0
         
         if (currentFlowState == .intro) {
-            modalHeight = 405
+            modalHeight = 450
         } else if (currentFlowState == .form) {
-            modalHeight = 515
+            modalHeight = 550
         } else if (currentFlowState == .summary) {
-            modalHeight = 250
+            modalHeight = 275
         }
         
         return modalHeight

@@ -17,6 +17,7 @@ struct ScanConfirmationPage: View {
     @State var editedItemIndex: Int? = nil
     @State var editedItemName: String = ""
     @State var editedItemPrice: String = ""
+    @State var editModalTitle: String = ""
     
     @State var isRescanModalOpen: Bool = false
     @State var isScanConfirmationHelpOpen: Bool = false
@@ -138,9 +139,10 @@ struct ScanConfirmationPage: View {
                 EditItemModal(
                     items: $items,
                     showPopup: $isEditModalOpen,
-                    editedItemIndex: editedItemIndex,
-                    itemName: editedItemName,
-                    itemPrice: editedItemPrice
+                    modalTitle: $editModalTitle,
+                    editedItemIndex: $editedItemIndex,
+                    itemName: $editedItemName,
+                    itemPrice: $editedItemPrice
                 )
             }
             
@@ -201,18 +203,20 @@ struct ScanConfirmationPage: View {
     }
     
     func editItem(editItemIndex: Int) {
-        self.itemExpanded = nil
-        self.editedItemIndex = editItemIndex
-        self.editedItemName = items[editItemIndex].name
-        self.editedItemPrice = items[editItemIndex].priceFormatted
-        self.isEditModalOpen = true
+        itemExpanded = nil
+        editModalTitle = "Edit"
+        editedItemIndex = editItemIndex
+        editedItemName = items[editItemIndex].name
+        editedItemPrice = items[editItemIndex].priceFormatted
+        isEditModalOpen = true
     }
     
     func addItem() {
-        self.editedItemIndex = nil
-        self.editedItemName = ""
-        self.editedItemPrice = ""
-        self.isEditModalOpen = true
+        editModalTitle = "Add"
+        editedItemIndex = nil
+        editedItemName = ""
+        editedItemPrice = ""
+        isEditModalOpen = true
     }
     
     func calculateSubtotal() -> CurrencyObject {

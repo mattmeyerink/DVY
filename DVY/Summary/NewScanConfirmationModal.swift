@@ -13,54 +13,46 @@ struct NewScanConfirmationModal: View {
     @Binding var friends: [Person]
     @Binding var tax: CurrencyObject
     
+    @State var modalTitle: String = "New Scan"
+    @State var otherModalOpening: Bool = false
+    
     var body: some View {
-        ZStack {
-            Color.gray.opacity(0.4).edgesIgnoringSafeArea(.all)
-            
+        Modal(
+            modalTitle: $modalTitle,
+            otherModalOpening: $otherModalOpening,
+            closeModal: closeNewScanModal,
+            modalHeight: 325
+        ) {
             VStack {
-                Text("Start New Scan")
-                    .font(.system(size: 40, weight: .semibold))
+                Text("Are you sure you want to start a new scan?")
+                    .font(.system(size: 20, weight: .regular))
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .foregroundColor(.white)
-                    .padding(.top, 15)
                 
                 Spacer()
                 
-                VStack {
-                    Text("Are you sure you want to start a new scan? All data from the current scan will be lost.")
-                        .font(.system(size: 20, weight: .regular))
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .foregroundColor(.white)
-                        .padding(.bottom, 5)
-                }
-                    .padding(.horizontal, 15)
+                Text("All data from the current scan will be lost!")
+                    .font(.system(size: 20, weight: .regular))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .foregroundColor(.white)
 
-                
                 Spacer()
                 
                 HStack {
-                    Button(action: { closeNewScanModal() }) {
+                    Button(action: closeNewScanModal) {
                         Text("Cancel")
                     }
-                        .buttonStyle(GreenButton())
+                        .buttonStyle(RedButton())
                     
                     Spacer()
                     
-                    Button(action: { startNewScan() }) {
+                    Button(action: startNewScan) {
                         Text("Re-Scan")
                     }
                         .buttonStyle(GreenButton())
                 }
-                    .padding(.horizontal, 15)
-                    .padding(.bottom, 15)
             }
-                .frame(width: 350, height: 275, alignment: .center)
-                .background(Color(red: 0.1, green: 0.1, blue: 0.1)).cornerRadius(15)
-                .onAppear {
-                    UITableView.appearance().backgroundColor = .clear
-                }
-                .onDisappear {
-                    UITableView.appearance().backgroundColor = .systemGroupedBackground
-                }
+                .padding()
         }
     }
     

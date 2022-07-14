@@ -11,69 +11,58 @@ struct RescanConfirmationModal: View {
     @Binding var currentPage: Pages
     @Binding var isRescanModalOpen: Bool
     
+    @State var modalTitle: String = "Scan Tips"
+    @State var otherModalOpening: Bool = false
+    
     var body: some View {
-        ZStack {
-            Color.gray.opacity(0.4).edgesIgnoringSafeArea(.all)
-            
+        Modal(
+            modalTitle: $modalTitle,
+            otherModalOpening: $otherModalOpening,
+            closeModal: closeRescanModal,
+            modalHeight: 450
+        ) {
             VStack {
-                Text("Tips for Scanning")
-                    .font(.system(size: 40, weight: .semibold))
+                Text("1. Make sure all 4 corners of the receipt are visible in the scan.")
+                    .font(.system(size: 20, weight: .regular))
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .foregroundColor(.white)
-                    .padding(.top, 15)
-                
-                Spacer()
-                
-                VStack {
-                    Text("1. Make sure all 4 corners of the receipt are visible in the scan.")
-                        .font(.system(size: 20, weight: .regular))
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .foregroundColor(.white)
-                        .padding(.bottom, 5)
-                    Text("2. Crop the scan to only include the items and their prices.")
-                        .font(.system(size: 20, weight: .regular))
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .foregroundColor(.white)
-                        .padding(.bottom, 5)
-                    Text("2. Scan the receipt on a dark colored surface.")
-                        .font(.system(size: 20, weight: .regular))
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .foregroundColor(.white)
-                        .padding(.bottom, 5)
-                    Text("4. Make sure the receipt isn't scanned multiple times.")
-                        .font(.system(size: 20, weight: .regular))
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .foregroundColor(.white)
-                        .padding(.bottom, 5)
-                }
-                    .padding(.horizontal, 15)
-
-                
-                Spacer()
-                
-                HStack {
-                    Button(action: { closeRescanModal() }) {
-                        Text("Cancel")
-                    }
-                        .buttonStyle(GreenButton())
-                    
-                    Spacer()
-                    
-                    Button(action: { startRescan() }) {
-                        Text("Re-Scan")
-                    }
-                        .buttonStyle(GreenButton())
-                }
-                    .padding(.horizontal, 15)
-                    .padding(.bottom, 15)
+                    .padding(.bottom, 5)
+                Text("2. Crop the scan to only include the items and their prices.")
+                    .font(.system(size: 20, weight: .regular))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .foregroundColor(.white)
+                    .padding(.bottom, 5)
+                Text("2. Scan the receipt on a dark colored surface.")
+                    .font(.system(size: 20, weight: .regular))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .foregroundColor(.white)
+                    .padding(.bottom, 5)
+                Text("4. Make sure the receipt isn't scanned multiple times.")
+                    .font(.system(size: 20, weight: .regular))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .foregroundColor(.white)
+                    .padding(.bottom, 5)
             }
-                .frame(width: 350, height: 400, alignment: .center)
-                .background(Color(red: 0.1, green: 0.1, blue: 0.1)).cornerRadius(15)
-                .onAppear {
-                    UITableView.appearance().backgroundColor = .clear
+                .padding(.horizontal, 15)
+
+            
+            Spacer()
+            
+            HStack {
+                Button(action: closeRescanModal) {
+                    Text("Cancel")
                 }
-                .onDisappear {
-                    UITableView.appearance().backgroundColor = .systemGroupedBackground
+                    .buttonStyle(RedButton())
+                
+                Spacer()
+                
+                Button(action: startRescan) {
+                    Text("Re-Scan")
                 }
+                    .buttonStyle(GreenButton())
+            }
+                .padding(.horizontal, 15)
+                .padding(.bottom, 15)
         }
     }
     

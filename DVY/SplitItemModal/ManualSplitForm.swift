@@ -36,6 +36,8 @@ struct ManualSplitForm: View {
             .foregroundColor(.white)
             .padding(.horizontal)
         
+        Spacer()
+        
         SplitModalButtons(
             cancelAction: closeSplitItemModal,
             splitItemAction: splitItem

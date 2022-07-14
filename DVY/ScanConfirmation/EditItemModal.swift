@@ -11,10 +11,12 @@ import Combine
 struct EditItemModal: View {
     @Binding var items: [ReciptItem]
     @Binding var showPopup: Bool
-    @State var editedItemIndex: Int?
+    @Binding var modalTitle: String
+    @Binding var editedItemIndex: Int?
+    @Binding var itemName: String
+    @Binding var itemPrice: String
     
-    @State var itemName: String
-    @State var itemPrice: String
+    @State var otherModalOpening: Bool = false
     
     let formatter: NumberFormatter = {
         let formatter = NumberFormatter()
@@ -23,12 +25,16 @@ struct EditItemModal: View {
     }()
     
     var body: some View {
-        ZStack {
-            Color.gray.opacity(0.4).edgesIgnoringSafeArea(.all)
-            
+        Modal (
+            modalTitle: $modalTitle,
+            otherModalOpening: $otherModalOpening,
+            closeModal: closePopup,
+            modalHeight: 450
+        ) {
             Form {
                 Section(header: Text("Name").font(.system(size: 20, weight: .semibold))) {
-                    TextField("Name", text: $itemName)                        .foregroundColor(.black)
+                    TextField("Name", text: $itemName)
+                        .foregroundColor(.black)
                 }
                     .foregroundColor(.white)
                 
@@ -46,29 +52,20 @@ struct EditItemModal: View {
                     .foregroundColor(.white)
                 
                 HStack {
-                    Button(action: {closePopup()}) {
+                    Button(action: closePopup) {
                         Text("Cancel")
                     }
-                        .buttonStyle(GreenButton())
+                        .buttonStyle(RedButton())
                     
                     Spacer()
                     
-                    Button(action: {saveItem()}) {
+                    Button(action: saveItem) {
                         Text("Save")
                     }
                         .buttonStyle(GreenButton())
                 }
                     .listRowBackground(Color(red: 0.1, green: 0.1, blue: 0.1))
             }
-                .frame(width: 350, height: 300, alignment: .center)
-                .padding(.bottom, 30)
-                .background(Color(red: 0.1, green: 0.1, blue: 0.1)).cornerRadius(15)
-                .onAppear {
-                    UITableView.appearance().backgroundColor = .clear
-                }
-                .onDisappear {
-                    UITableView.appearance().backgroundColor = .systemGroupedBackground
-                }
         }
     }
     

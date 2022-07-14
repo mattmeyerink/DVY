@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-let manualModalHeight = 330.0
-let automaticModalHeight = 500.0
+let manualModalHeight = 350
+let automaticModalHeight = 550
 
 struct SplitItemModal: View {
     @Binding var currentPage: Pages
@@ -20,6 +20,8 @@ struct SplitItemModal: View {
     
     @State var splitAssignmentType: Int
     @State var applyToAll: Bool = false
+    @State var modalTitle: String = "Split Title"
+    @State var otherModalOpening: Bool = false
     
     init(
         currentPage: Binding<Pages>,
@@ -45,70 +47,44 @@ struct SplitItemModal: View {
     }
     
     var body: some View {
-        ZStack {
-            Color.gray.opacity(0.4).edgesIgnoringSafeArea(.all)
-            
-            VStack {
-                HStack {
-                    Text("Split Item")
-                        .font(.system(size: 35, weight: .semibold))
-                        .foregroundColor(.white)
-                        .padding(.top, 15)
-                    
-                    Spacer()
-                    
-                    Image(systemName: "xmark")
-                        .foregroundColor(.white)
-                        .font(.system(size: 35, weight: .semibold))
-                        .padding(.top, 15)
-                        .onTapGesture() {
-                            closeSplitItemModal()
-                        }
+        Modal(
+            modalTitle: $modalTitle,
+            otherModalOpening: $otherModalOpening,
+            closeModal: closeSplitItemModal,
+            modalHeight: getModalHeight()
+        ) {
+            if (currentPage == .assignItemsPage) {
+                Picker("Manual or Automatic Split Assignment", selection: $splitAssignmentType) {
+                    Text("Manual").tag(0)
+                    Text("Automatic").tag(1)
                 }
+                    .pickerStyle(.segmented)
                     .padding(.horizontal)
-                
-                if (currentPage == .assignItemsPage) {
-                    Picker("Manual or Automatic Split Assignment", selection: $splitAssignmentType) {
-                        Text("Manual").tag(0)
-                        Text("Automatic").tag(1)
-                    }
-                        .pickerStyle(.segmented)
-                        .padding(.horizontal)
-                }
-                
-                Text("Item Name: \(items[itemSplitIndex!].name)")
-                    .font(.system(size: 20, weight: .semibold))
-                    .foregroundColor(.white)
-                    .padding(.top, 15)
-                
-                
-                if (splitAssignmentType == 0) {
-                    ManualSplitForm(
-                        items: $items,
-                        itemSplitIndex: $itemSplitIndex,
-                        closeSplitItemModal: closeSplitItemModal,
-                        calculateCostPerPerson: calculateCostPerPerson
-                    )
-                } else {
-                    AutomaticSplitForm(
-                        friends: $friends,
-                        items: $items,
-                        itemSplitIndex: $itemSplitIndex,
-                        applyToAll: $applyToAll,
-                        closeSplitItemModal: closeSplitItemModal,
-                        calculateCostPerPerson: calculateCostPerPerson
-                    )
-                }
-                
             }
-                .frame(width: 350, height: getModalHeight(), alignment: .center)
-                .background(Color(red: 0.1, green: 0.1, blue: 0.1)).cornerRadius(15)
-                .onAppear {
-                    UITableView.appearance().backgroundColor = .clear
-                }
-                .onDisappear {
-                    UITableView.appearance().backgroundColor = .systemGroupedBackground
-                }
+            
+            Text("Item Name: \(items[itemSplitIndex!].name)")
+                .font(.system(size: 20, weight: .semibold))
+                .foregroundColor(.white)
+                .padding(.top, 15)
+            
+            
+            if (splitAssignmentType == 0) {
+                ManualSplitForm(
+                    items: $items,
+                    itemSplitIndex: $itemSplitIndex,
+                    closeSplitItemModal: closeSplitItemModal,
+                    calculateCostPerPerson: calculateCostPerPerson
+                )
+            } else {
+                AutomaticSplitForm(
+                    friends: $friends,
+                    items: $items,
+                    itemSplitIndex: $itemSplitIndex,
+                    applyToAll: $applyToAll,
+                    closeSplitItemModal: closeSplitItemModal,
+                    calculateCostPerPerson: calculateCostPerPerson
+                )
+            }
         }
     }
     
@@ -122,8 +98,8 @@ struct SplitItemModal: View {
         return CurrencyObject(price: costPerPerson)
     }
     
-    func getModalHeight() -> Double{
-        let modalHeight: Double
+    func getModalHeight() -> Int {
+        let modalHeight: Int
         
         if (splitAssignmentType == 0 || applyToAll) {
             modalHeight = manualModalHeight
