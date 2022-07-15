@@ -36,7 +36,7 @@ struct FriendsListModal: View {
                                 
                                 Spacer()
                                 
-                                Text(String(friends[i].items.count) + " Item(s)")
+                                Text(getFriendItemText(friendIndex: i))
                             }
                         }
                             .padding()
@@ -94,5 +94,16 @@ struct FriendsListModal: View {
     
     func closeFriendsListModal() {
         isFriendsListOpen = false
+    }
+    
+    func getFriendItemText(friendIndex: Int) -> String {
+        let friendItems = friends[friendIndex].items.count
+        var output = String(friendItems) + " Item"
+        
+        if (friendItems != 1) {
+            output += "s"
+        }
+        
+        return output
     }
 }
