@@ -55,7 +55,7 @@ struct ScanConfirmationPage: View {
                         .padding(.trailing, 5)
                         .padding(.bottom)
                     
-                    Button(action: { isConfirmationFlowOpen = true }) {
+                    Button(action: openScanConfirmationModal) {
                         Text("Check Scan")
                     }
                         .buttonStyle(GreenButton())
@@ -242,5 +242,11 @@ struct ScanConfirmationPage: View {
     
     func saveUpdatedItems(updatedItems: [ReciptItem]) {
         items = updatedItems
+    }
+    
+    func openScanConfirmationModal() {
+        if (items.count > 0) {
+            isConfirmationFlowOpen = true
+        }
     }
 }
