@@ -48,7 +48,7 @@ struct ScanConfirmationPage: View {
                 }
                
                 HStack {
-                    Button(action: { addItem() }) {
+                    Button(action: addItem) {
                         Text("Add Item")
                     }
                         .buttonStyle(GreenButton())
@@ -66,7 +66,7 @@ struct ScanConfirmationPage: View {
                     ForEach(items.indices, id: \.self) { i in
                         VStack {
                             HStack {
-                                if (i == self.itemExpanded) {
+                                if (i == itemExpanded) {
                                     Image(systemName: "chevron.down")
                                         .font(.system(size: 18, weight: .heavy))
                                 } else {
@@ -85,14 +85,14 @@ struct ScanConfirmationPage: View {
                                     .padding(.trailing, 5)
                             }
                             
-                            if (i == self.itemExpanded) {
+                            if (i == itemExpanded) {
                                 HStack {
                                     Image(systemName: "trash.fill")
                                         .font(.system(size: 25, weight: .semibold))
                                         .padding(.top,  10)
                                         .padding(.horizontal, 10)
                                         .onTapGesture() {
-                                            self.deleteItem(deleteItemIndex: i)
+                                            deleteItem(deleteItemIndex: i)
                                         }
                 
                                     Image(systemName: "divide.circle.fill")
@@ -100,7 +100,7 @@ struct ScanConfirmationPage: View {
                                         .padding(.top,  10)
                                         .padding(.horizontal, 10)
                                         .onTapGesture() {
-                                            self.openSplitItemModal(index: i)
+                                            openSplitItemModal(index: i)
                                         }
                                     
                                     Image(systemName: "square.and.pencil")
@@ -108,7 +108,7 @@ struct ScanConfirmationPage: View {
                                         .padding(.top,  10)
                                         .padding(.horizontal, 10)
                                         .onTapGesture() {
-                                            self.editItem(editItemIndex: i)
+                                            editItem(editItemIndex: i)
                                         }
                                 }
                             }
@@ -118,7 +118,7 @@ struct ScanConfirmationPage: View {
                             .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
                             .cornerRadius(10)
                             .onTapGesture() {
-                                self.toggleExpandedItem(expandedItemIndex: i)
+                                toggleExpandedItem(expandedItemIndex: i)
                             }
                     }
                 }
@@ -181,7 +181,7 @@ struct ScanConfirmationPage: View {
                     .fontWeight(.bold)
                     .foregroundColor(Color.white)
             },
-            trailing: Button(action: { self.currentPage = .taxTipPage }) {
+            trailing: Button(action: { currentPage = .taxTipPage }) {
                 Text("Next >")
                     .fontWeight(.bold)
                     .foregroundColor(Color.white)
@@ -190,15 +190,15 @@ struct ScanConfirmationPage: View {
     }
     
     func toggleExpandedItem(expandedItemIndex: Int) {
-        if (expandedItemIndex == self.itemExpanded) {
-            self.itemExpanded = nil
+        if (expandedItemIndex == itemExpanded) {
+            itemExpanded = nil
         } else {
-            self.itemExpanded = expandedItemIndex
+            itemExpanded = expandedItemIndex
         }
     }
     
     func deleteItem(deleteItemIndex: Int) {
-        self.itemExpanded = nil
+        itemExpanded = nil
         items.remove(at: deleteItemIndex)
     }
     
@@ -221,7 +221,7 @@ struct ScanConfirmationPage: View {
     
     func calculateSubtotal() -> CurrencyObject {
         var total = 0.0
-        for item in self.items {
+        for item in items {
             total += item.price
         }
         return CurrencyObject(price: total)
