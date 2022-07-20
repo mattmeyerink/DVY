@@ -26,6 +26,10 @@ struct LandingPage: View {
                 .foregroundColor(Color.white)
                 .padding(.bottom, 10)
             
+            Text("🍕 💸 🍻")
+                .font(.system(size: 40))
+                .padding(.bottom, 10)
+            
             Text("Input a receipt to start")
                 .font(.system(size: 30))
                 .foregroundColor(Color.white)
@@ -33,12 +37,12 @@ struct LandingPage: View {
             
             HStack {
                 Button(action: { startScan() }) {
-                    Text("Scan")
+                    Text("Scan 📸")
                 }
                     .buttonStyle(GreenButton())
                 
                 Button(action: { isCropConfirmationModalOpen = true }) {
-                    Text("Upload")
+                    Text("Upload 📂")
                 }
                     .buttonStyle(GreenButton())
                     .padding(.leading)
