@@ -176,15 +176,25 @@ struct ScanConfirmationPage: View {
             
         }
         .navigationBarItems(
-            leading: Button(action: { openRescanModal() }) {
-                Text("< Re-Scan")
-                    .fontWeight(.bold)
-                    .foregroundColor(Color.white)
+            leading: Button(action: openRescanModal) {
+                HStack {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 15, weight: .bold))
+                    
+                    Text("Re-Scan")
+                        .fontWeight(.bold)
+                }
+                    .foregroundColor(.white)
             },
             trailing: Button(action: { currentPage = .taxTipPage }) {
-                Text("Next >")
-                    .fontWeight(.bold)
-                    .foregroundColor(Color.white)
+                HStack {
+                    Text("Next")
+                        .fontWeight(.bold)
+                    
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 15, weight: .bold))
+                }
+                    .foregroundColor(.white)
             }
         )
     }

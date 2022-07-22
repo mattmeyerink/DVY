@@ -116,16 +116,26 @@ struct AssignItemsPage: View {
             }
         }
         .navigationBarItems(
-            leading: Button(action: { self.currentPage = .addFriendsPage }) {
-                Text("< Back")
-                    .fontWeight(.bold)
-                    .foregroundColor(Color.white)
-            },
-            trailing: Button(action: { self.navigateToSummaryPage() }) {
-                if (self.items.count == 0) {
-                    Text("Next >")
+            leading: Button(action: { currentPage = .addFriendsPage }) {
+                HStack {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 15, weight: .bold))
+                    
+                    Text("Back")
                         .fontWeight(.bold)
-                        .foregroundColor(Color.white)
+                }
+                    .foregroundColor(.white)
+            },
+            trailing: Button(action: navigateToSummaryPage) {
+                if (items.count == 0) {
+                    HStack {
+                        Text("Next")
+                            .fontWeight(.bold)
+                        
+                        Image(systemName: "chevron.right")
+                            .font(.system(size: 15, weight: .bold))
+                    }
+                        .foregroundColor(.white)
                 } else {
                     Text("Assign All Items to Continue")
                         .fontWeight(.bold)

@@ -193,15 +193,25 @@ struct TaxTipPage: View {
                 .padding(.horizontal)
         }
         .navigationBarItems(
-            leading: Button(action: { self.currentPage = .scanConfirmationPage }) {
-                Text("< Back")
-                    .fontWeight(.bold)
-                    .foregroundColor(Color.white)
+            leading: Button(action: { currentPage = .scanConfirmationPage }) {
+                HStack {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 15, weight: .bold))
+                    
+                    Text("Back")
+                        .fontWeight(.bold)
+                }
+                    .foregroundColor(.white)
             },
-            trailing: Button(action: { nextToFinalPage() }) {
-                Text("Next >")
-                    .fontWeight(.bold)
-                    .foregroundColor(Color.white)
+            trailing: Button(action: nextToFinalPage) {
+                HStack {
+                    Text("Next")
+                        .fontWeight(.bold)
+                    
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 15, weight: .bold))
+                }
+                .foregroundColor(.white)
             }
         )
     }

@@ -136,15 +136,25 @@ struct SummaryPage: View {
             }
         }
         .navigationBarItems(
-            leading: Button(action: { self.currentPage = .assignItemsPage }) {
-                Text("< Back")
-                    .fontWeight(.bold)
-                    .foregroundColor(Color.white)
+            leading: Button(action: { currentPage = .assignItemsPage }) {
+                HStack {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 15, weight: .bold))
+                    
+                    Text("Back")
+                        .fontWeight(.bold)
+                }
+                    .foregroundColor(.white)
             },
-            trailing: Button(action: { openNewScanModal() }) {
-                Text(" Start New Scan >")
-                    .fontWeight(.bold)
-                    .foregroundColor(Color.white)
+            trailing: Button(action: openNewScanModal) {
+                HStack {
+                    Text("Start New Scan")
+                        .fontWeight(.bold)
+                    
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 15, weight: .bold))
+                }
+                    .foregroundColor(.white)
             }
         )
     }
