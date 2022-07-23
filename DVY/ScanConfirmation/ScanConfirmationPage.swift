@@ -126,7 +126,7 @@ struct ScanConfirmationPage: View {
                 HStack {
                     Spacer()
                     
-                    Text("Subtotal: " + calculateSubtotal().priceFormatted)
+                    Text("💰 Subtotal: " + calculateSubtotal().priceFormatted)
                         .font(.system(size: 25, weight: .semibold))
                 }
                     .foregroundColor(Color.white)
@@ -214,7 +214,7 @@ struct ScanConfirmationPage: View {
     
     func editItem(editItemIndex: Int) {
         itemExpanded = nil
-        editModalTitle = "Edit"
+        editModalTitle = "Edit ✍️"
         editedItemIndex = editItemIndex
         editedItemName = items[editItemIndex].name
         editedItemPrice = items[editItemIndex].priceFormatted
@@ -222,7 +222,7 @@ struct ScanConfirmationPage: View {
     }
     
     func addItem() {
-        editModalTitle = "Add"
+        editModalTitle = "Add 🎉"
         editedItemIndex = nil
         editedItemName = ""
         editedItemPrice = ""
