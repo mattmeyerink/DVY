@@ -67,7 +67,7 @@ struct TaxTipPage: View {
                 .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
             
             VStack {
-                Text("TAX")
+                Text("TAX 🏛")
                     .font(.system(size: 30, weight: .semibold))
                     .foregroundColor(Color.white)
                     .padding(.vertical, 15)
@@ -116,7 +116,7 @@ struct TaxTipPage: View {
                     }
                 }
                 
-                Text("TIP")
+                Text("TIP 🧑‍🍳")
                     .font(.system(size: 30, weight: .semibold))
                     .foregroundColor(Color.white)
                     .padding(.top, 100)
@@ -182,7 +182,7 @@ struct TaxTipPage: View {
                 }
                 
                 
-                Text("TOTAL: " + calculateCurrentTotal().priceFormatted)
+                Text("TOTAL 💰 : " + calculateCurrentTotal().priceFormatted)
                     .font(.system(size: 30, weight: .semibold))
                     .foregroundColor(Color.white)
                     .padding(.top, 100)
