@@ -44,7 +44,7 @@ struct SummaryPage: View {
                 .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
             
             VStack {
-                Text("Summary")
+                Text("Summary 📈")
                     .font(.system(size: 30, weight: .semibold))
                     .foregroundColor(Color.white)
                     .padding(.vertical, 15)
@@ -53,7 +53,7 @@ struct SummaryPage: View {
                     ForEach(friends.indices, id: \.self) { i in
                         VStack {
                             HStack {
-                                if (i == self.friendExpanded) {
+                                if (i == friendExpanded) {
                                     Image(systemName: "chevron.down")
                                         .font(.system(size: 18, weight: .heavy))
                                 } else {
@@ -119,7 +119,7 @@ struct SummaryPage: View {
                             .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
                             .cornerRadius(10)
                             .onTapGesture {
-                                self.toggleExpandedFriend(index: i)
+                                toggleExpandedFriend(index: i)
                             }
                     }
                 }
