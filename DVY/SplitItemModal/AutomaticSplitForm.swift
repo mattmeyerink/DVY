@@ -20,12 +20,12 @@ struct AutomaticSplitForm: View {
     
     var body: some View {
         VStack {
-            Toggle("Apply to All Friends", isOn: $applyToAll)
+            Toggle("Apply to All Friends ", isOn: $applyToAll)
                 .font(.system(size: 20, weight: .semibold))
                 .foregroundColor(.white)
             
             if (getSplitGroupCount() > 0) {
-                Text("Cost Per Person: \(calculateCostPerPerson(getSplitGroupCount()).priceFormatted)")
+                Text("Cost Per Person 💰: \(calculateCostPerPerson(getSplitGroupCount()).priceFormatted)")
                     .font(.system(size: 20, weight: .semibold))
                     .foregroundColor(.white)
             }

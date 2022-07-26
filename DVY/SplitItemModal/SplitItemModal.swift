@@ -20,7 +20,7 @@ struct SplitItemModal: View {
     
     @State var splitAssignmentType: Int
     @State var applyToAll: Bool = false
-    @State var modalTitle: String = "Split Title"
+    @State var modalTitle: String = "Split ✂️"
     @State var otherModalOpening: Bool = false
     
     init(
