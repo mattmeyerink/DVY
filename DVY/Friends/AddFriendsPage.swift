@@ -35,7 +35,7 @@ struct AddFriendsPage: View {
                 .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
             
             VStack {
-                Text("Add Friends")
+                Text("Add Friends 🍾")
                     .font(.system(size: 30, weight: .semibold))
             
                     .padding(.vertical, 15)
@@ -179,7 +179,7 @@ struct AddFriendsPage: View {
     }
     
     func addFriend() {
-        editModalTitle = "Add"
+        editModalTitle = "Add 🎉"
         editFriendFirstName = ""
         editFriendLastName = ""
         
@@ -192,7 +192,7 @@ struct AddFriendsPage: View {
     
     func editFriend() {
         let editFriend = friends[actionFriendIndex!]
-        editModalTitle = "Edit"
+        editModalTitle = "Edit ✍️"
         editFriendFirstName = editFriend.firstName
         editFriendLastName = editFriend.lastName
         editFriendColor = Color(red: editFriend.color.red, green: editFriend.color.green, blue: editFriend.color.blue)
