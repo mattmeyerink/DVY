@@ -37,12 +37,12 @@ struct LandingPage: View {
             
             HStack {
                 Button(action: { startScan() }) {
-                    Text("Scan 📸")
+                    Text("Scan")
                 }
                     .buttonStyle(GreenButton())
                 
                 Button(action: { isCropConfirmationModalOpen = true }) {
-                    Text("Upload 📂")
+                    Text("Upload")
                 }
                     .buttonStyle(GreenButton())
                     .padding(.leading)
