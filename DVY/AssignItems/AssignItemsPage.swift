@@ -28,7 +28,7 @@ struct AssignItemsPage: View {
                 .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
             
             VStack {
-                Text("Tap to Assign Items")
+                Text("Tap to Assign 🌯")
                     .font(.system(size: 30, weight: .semibold))
                     .foregroundColor(Color.white)
                 
@@ -159,7 +159,7 @@ struct AssignItemsPage: View {
         
         isFriendItemListOpen = true
         friendListOpenFriendIndex = friendIndex
-        friendsItemListModalTitle = friends[friendIndex].firstName + "'s Items"
+        friendsItemListModalTitle = friends[friendIndex].firstName + "'s Items 🥞"
     }
     
     func navigateToSummaryPage() {

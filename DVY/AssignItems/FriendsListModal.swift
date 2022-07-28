@@ -15,7 +15,7 @@ struct FriendsListModal: View {
     @Binding var itemSplitIndex: Int?
     @Binding var isSplitItemModalOpen: Bool
     
-    @State var modalTitle: String = "Who Got It?"
+    @State var modalTitle: String = "Who Got It 🤨"
     @State var otherModalOpening: Bool = false
     
     var body: some View {

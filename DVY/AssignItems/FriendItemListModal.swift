@@ -63,7 +63,7 @@ struct FriendItemListModal: View {
                     HStack {
                         Spacer()
                         
-                        Text("Subtotal: " + calculateSubTotal())
+                        Text("Subtotal 💰: " + calculateSubTotal())
                             .font(.system(size: 25, weight: .semibold))
                             .foregroundColor(Color.white)
                     }
