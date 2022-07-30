@@ -31,7 +31,7 @@ struct ManualSplitForm: View {
         }
             .padding(.horizontal)
        
-        Text("Cost Per Person: \(calculateCostPerPerson(Double(numberOfPeople)).priceFormatted)")
+        Text("Cost Per Person 💰: \(calculateCostPerPerson(Double(numberOfPeople)).priceFormatted)")
             .font(.system(size: 20, weight: .semibold))
             .foregroundColor(.white)
             .padding(.horizontal)

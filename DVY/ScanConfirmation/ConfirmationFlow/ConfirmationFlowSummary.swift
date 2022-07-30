@@ -15,14 +15,16 @@ struct ConfirmationFlowSummary: View {
     
     var body: some View {
         VStack {
-            Text("New Item Count: " + String(items.count))
+            Text("New Item Count 🎉 : " + String(items.count))
                 .font(.system(size: 25, weight: .semibold))
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .foregroundColor(.white)
                 .padding(.horizontal)
                 .padding(.top)
             
-            Text("New Subtotal: " + calculateSubtotal().priceFormatted)
+            Spacer()
+            
+            Text("New Subtotal 💰 : " + calculateSubtotal().priceFormatted)
                 .font(.system(size: 25, weight: .semibold))
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .foregroundColor(.white)

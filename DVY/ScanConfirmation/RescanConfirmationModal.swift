@@ -11,7 +11,7 @@ struct RescanConfirmationModal: View {
     @Binding var currentPage: Pages
     @Binding var isRescanModalOpen: Bool
     
-    @State var modalTitle: String = "Scan Tips"
+    @State var modalTitle: String = "Scan Tips 📸"
     @State var otherModalOpening: Bool = false
     
     var body: some View {

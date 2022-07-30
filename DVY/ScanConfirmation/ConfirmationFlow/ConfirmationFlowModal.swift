@@ -25,7 +25,7 @@ struct ConfirmationFlowModal: View {
     @State var currentItemName: String = ""
     @State var currentItemPrice: String = ""
     
-    @State var modalTitle: String = "Confirm Items"
+    @State var modalTitle: String = "Confirm 🍔"
     @State var otherModalOpening: Bool = false
     
     var body: some View {
@@ -103,7 +103,7 @@ struct ConfirmationFlowModal: View {
         var modalHeight = 0
         
         if (currentFlowState == .intro) {
-            modalHeight = 450
+            modalHeight = 500
         } else if (currentFlowState == .form) {
             modalHeight = 550
         } else if (currentFlowState == .summary) {

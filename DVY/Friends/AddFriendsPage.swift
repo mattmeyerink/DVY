@@ -35,7 +35,7 @@ struct AddFriendsPage: View {
                 .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
             
             VStack {
-                Text("Add Friends")
+                Text("Add Friends 🍾")
                     .font(.system(size: 30, weight: .semibold))
             
                     .padding(.vertical, 15)
@@ -149,27 +149,37 @@ struct AddFriendsPage: View {
             }
         }
         .navigationBarItems(
-            leading: Button(action: { self.currentPage = .taxTipPage }) {
-                Text("< Back")
-                    .fontWeight(.bold)
-                    .foregroundColor(Color.white)
-            },
-            trailing: Button(action: { routeToAssignItemsPage() }) {
-                if (self.friends.count > 0) {
-                    Text("Next >")
+            leading: Button(action: { currentPage = .taxTipPage }) {
+                HStack {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 15, weight: .bold))
+                    
+                    Text("Back")
                         .fontWeight(.bold)
-                        .foregroundColor(Color.white)
+                }
+                    .foregroundColor(.white)
+            },
+            trailing: Button(action: routeToAssignItemsPage) {
+                if (friends.count > 0) {
+                    HStack {
+                        Text("Next")
+                            .fontWeight(.bold)
+                        
+                        Image(systemName: "chevron.right")
+                            .font(.system(size: 15, weight: .bold))
+                    }
+                        .foregroundColor(.white)
                 } else {
                     Text("Add Friends to Continue")
                         .fontWeight(.bold)
-                        .foregroundColor(Color.white)
+                        .foregroundColor(.white)
                 }
             }
         )
     }
     
     func addFriend() {
-        editModalTitle = "Add"
+        editModalTitle = "Add 🎉"
         editFriendFirstName = ""
         editFriendLastName = ""
         
@@ -182,7 +192,7 @@ struct AddFriendsPage: View {
     
     func editFriend() {
         let editFriend = friends[actionFriendIndex!]
-        editModalTitle = "Edit"
+        editModalTitle = "Edit ✍️"
         editFriendFirstName = editFriend.firstName
         editFriendLastName = editFriend.lastName
         editFriendColor = Color(red: editFriend.color.red, green: editFriend.color.green, blue: editFriend.color.blue)

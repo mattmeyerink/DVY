@@ -13,7 +13,7 @@ struct NewScanConfirmationModal: View {
     @Binding var friends: [Person]
     @Binding var tax: CurrencyObject
     
-    @State var modalTitle: String = "New Scan"
+    @State var modalTitle: String = "New Scan 📸"
     @State var otherModalOpening: Bool = false
     
     var body: some View {

@@ -15,7 +15,7 @@ struct FriendActionModal: View {
     @State var deleteFriend: () -> Void
     @State var editFriend: () -> Void
     
-    @State var modalTitle: String = "Actions"
+    @State var modalTitle: String = "Actions 🎯"
     @State var otherModalOpening: Bool = false
     
     var body: some View {

@@ -44,7 +44,7 @@ struct SummaryPage: View {
                 .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
             
             VStack {
-                Text("Summary")
+                Text("Summary 📈")
                     .font(.system(size: 30, weight: .semibold))
                     .foregroundColor(Color.white)
                     .padding(.vertical, 15)
@@ -53,7 +53,7 @@ struct SummaryPage: View {
                     ForEach(friends.indices, id: \.self) { i in
                         VStack {
                             HStack {
-                                if (i == self.friendExpanded) {
+                                if (i == friendExpanded) {
                                     Image(systemName: "chevron.down")
                                         .font(.system(size: 18, weight: .heavy))
                                 } else {
@@ -119,7 +119,7 @@ struct SummaryPage: View {
                             .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
                             .cornerRadius(10)
                             .onTapGesture {
-                                self.toggleExpandedFriend(index: i)
+                                toggleExpandedFriend(index: i)
                             }
                     }
                 }
@@ -136,15 +136,25 @@ struct SummaryPage: View {
             }
         }
         .navigationBarItems(
-            leading: Button(action: { self.currentPage = .assignItemsPage }) {
-                Text("< Back")
-                    .fontWeight(.bold)
-                    .foregroundColor(Color.white)
+            leading: Button(action: { currentPage = .assignItemsPage }) {
+                HStack {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 15, weight: .bold))
+                    
+                    Text("Back")
+                        .fontWeight(.bold)
+                }
+                    .foregroundColor(.white)
             },
-            trailing: Button(action: { openNewScanModal() }) {
-                Text(" Start New Scan >")
-                    .fontWeight(.bold)
-                    .foregroundColor(Color.white)
+            trailing: Button(action: openNewScanModal) {
+                HStack {
+                    Text("Start New Scan")
+                        .fontWeight(.bold)
+                    
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 15, weight: .bold))
+                }
+                    .foregroundColor(.white)
             }
         )
     }
