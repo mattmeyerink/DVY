@@ -74,11 +74,11 @@ struct AddFriendsPage: View {
                     friends: $friends,
                     isEditFriendOpen: $isAddFriendOpen,
                     modalTitle: $editModalTitle,
+                    previouslyAddedFriends: $previouslyAddedFriends,
                     firstName: editFriendFirstName,
                     lastName: editFriendLastName,
                     friendColor: editFriendColor,
                     editFriendIndex: actionFriendIndex,
-                    previouslyAddedFriends: previouslyAddedFriends,
                     saveAction: saveFriendAction
                 )
             }
@@ -141,7 +141,6 @@ struct AddFriendsPage: View {
         editFriendFirstName = editFriend.firstName
         editFriendLastName = editFriend.lastName
         editFriendColor = Color(red: editFriend.color.red, green: editFriend.color.green, blue: editFriend.color.blue)
-        actionFriendIndex = nil
         isActionPopupOpen = false
         isAddFriendOpen = true
     }

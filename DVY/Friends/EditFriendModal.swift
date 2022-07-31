@@ -10,15 +10,12 @@ struct EditFriendModal: View {
     @Binding var friends: [Person]
     @Binding var isEditFriendOpen: Bool
     @Binding var modalTitle: String
+    @Binding var previouslyAddedFriends: [Person]
     
     @State var firstName: String
     @State var lastName: String
     @State var friendColor: Color
-    
     @State var editFriendIndex: Int?
-    
-    @State var previouslyAddedFriends: [Person]
-    
     @State var otherModalOpening: Bool = false
     
     let saveAction: ([Person]) -> Void
