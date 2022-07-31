@@ -7,9 +7,16 @@
 
 import SwiftUI
 
+enum AddFriendsView {
+    case addedFriendsList
+    case previouslyAddedFriendsList
+}
+
 struct AddFriendsPage: View {
     @Binding var currentPage: Pages
     @Binding var friends: [Person]
+    
+    @State var currentAddedFriendsView: AddFriendsView = .addedFriendsList
     
     @State var isAddFriendOpen: Bool = false
     @State var editModalTitle: String = ""
@@ -33,13 +40,16 @@ struct AddFriendsPage: View {
                 .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
             
             VStack {
-                AddedFriendsList(
-                    friends: $friends,
-                    openActionPopup: openActionPopup,
-                    addFriend: addFriend
-                )
+                if (currentAddedFriendsView == .addedFriendsList) {
+                    AddedFriendsList(
+                        friends: $friends,
+                        openActionPopup: openActionPopup,
+                        addFriend: addFriend,
+                        setCurrentAddedFriendView: setCurrentAddedFriendsView
+                    )
+                }
                 
-                if (getArePreviouslyAddedFriendsVisible()) {
+                if (currentAddedFriendsView == .previouslyAddedFriendsList) {
                     PreviouslyAddedFriendsPage(
                         friends: $friends,
                         previouslyAddedFriends: $previouslyAddedFriends,
@@ -84,7 +94,7 @@ struct AddFriendsPage: View {
             }
         }
         .navigationBarItems(
-            leading: Button(action: { currentPage = .taxTipPage }) {
+            leading: Button(action: backNavigationAction) {
                 HStack {
                     Image(systemName: "chevron.left")
                         .font(.system(size: 15, weight: .bold))
@@ -95,7 +105,7 @@ struct AddFriendsPage: View {
                     .foregroundColor(.white)
             },
             trailing: Button(action: routeToAssignItemsPage) {
-                if (friends.count > 0) {
+                if (currentAddedFriendsView == .addedFriendsList && friends.count > 0) {
                     HStack {
                         Text("Next")
                             .fontWeight(.bold)
@@ -104,7 +114,7 @@ struct AddFriendsPage: View {
                             .font(.system(size: 15, weight: .bold))
                     }
                         .foregroundColor(.white)
-                } else {
+                } else if (currentAddedFriendsView == .addedFriendsList) {
                     Text("Add Friends to Continue")
                         .fontWeight(.bold)
                         .foregroundColor(.white)
@@ -196,6 +206,18 @@ struct AddFriendsPage: View {
     func getArePreviouslyAddedFriendsVisible() -> Bool {
         let friendsIds = Set(friends.map { $0.id })
         return previouslyAddedFriends.filter { !friendsIds.contains($0.id) }.count > 0
+    }
+    
+    func setCurrentAddedFriendsView(newAddedFriendsView: AddFriendsView) -> Void {
+        currentAddedFriendsView = newAddedFriendsView
+    }
+    
+    func backNavigationAction() -> Void {
+        if (currentAddedFriendsView == .previouslyAddedFriendsList) {
+            currentAddedFriendsView = .addedFriendsList
+        } else {
+            currentPage = .taxTipPage
+        }
     }
 }
 

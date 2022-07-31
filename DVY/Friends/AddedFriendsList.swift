@@ -12,6 +12,7 @@ struct AddedFriendsList: View {
     
     @State var openActionPopup: (Int) -> Void
     @State var addFriend: () -> Void
+    @State var setCurrentAddedFriendView: (AddFriendsView) -> Void
     
     var gridItemLayout = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
     
@@ -56,5 +57,10 @@ struct AddedFriendsList: View {
                 }
             }
         }
+        
+        Button(action: { setCurrentAddedFriendView(.previouslyAddedFriendsList) }) {
+            Text("Previously Added")
+        }
+            .buttonStyle(GreenButton())
     }
 }
