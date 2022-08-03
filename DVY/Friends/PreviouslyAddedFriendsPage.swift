@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Combine
 
 struct PreviouslyAddedFriendsPage: View {
     @Binding var friends: [Person]
@@ -25,11 +24,11 @@ struct PreviouslyAddedFriendsPage: View {
         TextField("Search...", text: $searchText)
             .textFieldStyle(.roundedBorder)
             .padding()
-            .onReceive(Just(searchText), perform: updateFilteredFriendList)
+            .onChange(of: searchText, perform: updateFilteredFriendList)
         
         ScrollView {
             ForEach(previouslyAddedFriends.indices, id: \.self) { i in
-                if (!Set(friends.map { $0.id }).contains(previouslyAddedFriends[i].id)) {
+                if (isFriendVisible(friend: previouslyAddedFriends[i])) {
                     VStack {
                         HStack {
                             Text(previouslyAddedFriends[i].firstName + " " + previouslyAddedFriends[i].lastName)
@@ -58,18 +57,18 @@ struct PreviouslyAddedFriendsPage: View {
     }
     
     func updateFilteredFriendList(newSearchTerm: String) -> Void {
-        if (searchText != "") {
-            filteredPreviouslyAddedFriends = previouslyAddedFriends.filter { personMatchesSearchTerm(searchTerm: newSearchTerm, friend: $0) }
-        } else {
-            filteredPreviouslyAddedFriends = previouslyAddedFriends
-        }
-        
-        print(filteredPreviouslyAddedFriends)
+        filteredPreviouslyAddedFriends = previouslyAddedFriends.filter { personMatchesSearchTerm(searchTerm: newSearchTerm, friend: $0) }
     }
     
     func personMatchesSearchTerm(searchTerm: String, friend: Person) -> Bool {
         let friendNameFormatted = (friend.firstName + friend.lastName).lowercased().replacingOccurrences(of: " ", with: "")
         let searchTermFormatted = searchTerm.lowercased().replacingOccurrences(of: " ", with: "")
         return friendNameFormatted.contains(searchTermFormatted)
+    }
+    
+    func isFriendVisible(friend: Person) -> Bool {
+        let friendAlreadyAdded = Set(friends.map { $0.id }).contains(friend.id)
+        let friendFitsSearchText = Set(filteredPreviouslyAddedFriends.map { $0.id }).contains(friend.id)
+        return !friendAlreadyAdded && (searchText == "" || friendFitsSearchText)
     }
 }
