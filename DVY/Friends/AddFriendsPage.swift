@@ -10,6 +10,7 @@ import SwiftUI
 enum AddFriendsView {
     case addedFriendsList
     case previouslyAddedFriendsList
+    case contactsList
 }
 
 struct AddFriendsPage: View {
@@ -55,6 +56,10 @@ struct AddFriendsPage: View {
                         previouslyAddedFriends: $previouslyAddedFriends,
                         openPreviouslySelectedFriendModal: openPreviouslySelectedFriendModal
                     )
+                }
+                
+                if (currentAddedFriendsView == .contactsList) {
+                    ContactsList()
                 }
             }
                 .padding(.horizontal)
@@ -212,10 +217,10 @@ struct AddFriendsPage: View {
     }
     
     func backNavigationAction() -> Void {
-        if (currentAddedFriendsView == .previouslyAddedFriendsList) {
-            currentAddedFriendsView = .addedFriendsList
-        } else {
+        if (currentAddedFriendsView == .addedFriendsList) {
             currentPage = .taxTipPage
+        } else {
+            currentAddedFriendsView = .addedFriendsList
         }
     }
 }

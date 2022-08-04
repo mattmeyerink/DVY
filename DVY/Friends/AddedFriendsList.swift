@@ -58,9 +58,16 @@ struct AddedFriendsList: View {
             }
         }
         
-        Button(action: { setCurrentAddedFriendView(.previouslyAddedFriendsList) }) {
-            Text("Previously Added")
+        HStack {
+            Button(action: { setCurrentAddedFriendView(.previouslyAddedFriendsList) }) {
+                Text("Old Friends")
+            }
+                .buttonStyle(GreenButton())
+            
+            Button(action: { setCurrentAddedFriendView(.contactsList) }) {
+                Text("Contacts")
+            }
+                .buttonStyle(GreenButton())
         }
-            .buttonStyle(GreenButton())
     }
 }
