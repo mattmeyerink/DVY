@@ -72,6 +72,7 @@ struct ContentView: View {
                     AddFriendsPage(
                         currentPage: $currentPage,
                         friends: $friends,
+                        contacts: $contacts,
                         previouslyAddedFriends: store.previouslyAddedFriends,
                         saveFriendAction: saveFriendAction
                     )

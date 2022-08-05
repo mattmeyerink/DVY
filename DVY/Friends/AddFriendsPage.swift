@@ -16,6 +16,7 @@ enum AddFriendsView {
 struct AddFriendsPage: View {
     @Binding var currentPage: Pages
     @Binding var friends: [Person]
+    @Binding var contacts: [Contact]
     
     @State var currentAddedFriendsView: AddFriendsView = .addedFriendsList
     
@@ -59,7 +60,7 @@ struct AddFriendsPage: View {
                 }
                 
                 if (currentAddedFriendsView == .contactsList) {
-                    ContactsList()
+                    ContactsList(contacts: $contacts)
                 }
             }
                 .padding(.horizontal)
