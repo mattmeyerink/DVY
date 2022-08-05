@@ -104,7 +104,7 @@ struct PreviouslyAddedFriendsPage: View {
     func isFriendVisible(friend: Person) -> Bool {
         let friendAlreadyAdded = Set(friends.map { $0.id }).contains(friend.id)
         let friendFitsSearchText = Set(filteredPreviouslyAddedFriends.map { $0.id }).contains(friend.id)
-        return !friendAlreadyAdded && (searchText == "" || friendFitsSearchText)
+        return !friendAlreadyAdded && (searchText.replacingOccurrences(of: " ", with: "") == "" || friendFitsSearchText)
     }
     
     func oneOrMoreFriendsVisible() -> Bool {
