@@ -60,7 +60,10 @@ struct AddFriendsPage: View {
                 }
                 
                 if (currentAddedFriendsView == .contactsList) {
-                    ContactsList(contacts: $contacts)
+                    ContactsList(
+                        contacts: $contacts,
+                        addFriendFromContact: addFriendFromContact
+                    )
                 }
             }
                 .padding(.horizontal)
@@ -148,6 +151,17 @@ struct AddFriendsPage: View {
         editFriendLastName = editFriend.lastName
         editFriendColor = Color(red: editFriend.color.red, green: editFriend.color.green, blue: editFriend.color.blue)
         isActionPopupOpen = false
+        isAddFriendOpen = true
+    }
+    
+    func addFriendFromContact(contact: Contact) {
+        editModalTitle = "Add 🎉"
+        editFriendFirstName = contact.firstName
+        editFriendLastName = contact.lastName
+        
+        let color = DVYColors.randomElement()!
+        editFriendColor = Color(red: color.red, green: color.green, blue: color.blue)
+        
         isAddFriendOpen = true
     }
     

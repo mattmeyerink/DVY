@@ -10,6 +10,8 @@ import SwiftUI
 struct ContactsList: View {
     @Binding var contacts: [Contact]
     
+    @State var addFriendFromContact: (Contact) -> Void
+    
     @State var searchText: String = ""
     @State var filteredContacts: [Contact] = []
     
@@ -39,6 +41,9 @@ struct ContactsList: View {
                     .background(Color(red: 0.95, green: 0.8, blue: 0.5))
                     .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
                     .cornerRadius(10)
+                    .onTapGesture {
+                        addFriendFromContact(filteredContacts[i])
+                    }
             }
         }
             .onAppear {
