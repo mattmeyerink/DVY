@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Contacts
 
 enum Pages {
     case landingPage
@@ -28,6 +29,7 @@ struct ContentView: View {
     @State var customTip: CurrencyObject = CurrencyObject(price: 0.0)
     
     @State var store = FriendsStore()
+    @State var contacts: [Contact] = []
     
     var body: some View {
         ZStack {
@@ -101,6 +103,10 @@ struct ContentView: View {
             }
             .onAppear {
                 loadFriendsFromLocalStore()
+                
+                Task.init {
+                    await fetchAllContacts()
+                }
             }
     }
     
@@ -121,6 +127,35 @@ struct ContentView: View {
             case .success(let friends):
                 store.previouslyAddedFriends = friends.sorted(by: { $0.useCount > $1.useCount })
             }
+        }
+    }
+    
+    func fetchAllContacts() async {
+        let store = CNContactStore()
+        
+        let keys = [CNContactGivenNameKey, CNContactFamilyNameKey, CNContactPhoneNumbersKey] as [CNKeyDescriptor]
+        let fetchRequest = CNContactFetchRequest(keysToFetch: keys)
+        
+        do {
+            try store.enumerateContacts(with: fetchRequest, usingBlock: { contact, result in
+                let firstName = contact.givenName
+                let lastName = contact.familyName
+                var phoneNumber = ""
+                
+                for number in contact.phoneNumbers {
+                    if (number.label == CNLabelPhoneNumberMobile) {
+                        phoneNumber = number.value.stringValue
+                        break
+                    }
+                }
+                
+                let newContact = Contact(firstName: firstName, lastName: lastName, phoneNumber: phoneNumber)
+                contacts.append(newContact)
+            })
+            
+            print(contacts)
+        } catch {
+            print("Well the crap hit the fan I guess")
         }
     }
 }

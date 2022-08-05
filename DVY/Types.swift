@@ -69,6 +69,21 @@ struct Person: Identifiable, Codable {
     }
 }
 
+struct Contact: Identifiable, Codable {
+    var id = UUID()
+    
+    var firstName: String
+    var lastName: String
+    
+    var phoneNumber: String
+    
+    init(firstName: String, lastName: String, phoneNumber: String) {
+        self.firstName = firstName
+        self.lastName = lastName
+        self.phoneNumber = phoneNumber
+    }
+}
+
 class DVYColor: Codable {
     let red: Double
     let green: Double
