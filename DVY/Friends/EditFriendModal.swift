@@ -17,6 +17,7 @@ struct EditFriendModal: View {
     @State var friendColor: Color
     @State var editFriendIndex: Int?
     @State var otherModalOpening: Bool = false
+    @State var editFriendContactId: UUID?
     
     let saveAction: ([Person]) -> Void
     
@@ -86,7 +87,8 @@ struct EditFriendModal: View {
                 previouslyAddedFriends[previouslyAddedFriendIndex!].color = formattedColor
             }
         } else {
-            let newFriend = Person(firstName: firstName, lastName: lastName, color: formattedColor)
+            var newFriend = Person(firstName: firstName, lastName: lastName, color: formattedColor)
+            newFriend.contactId = editFriendContactId
             friends.append(newFriend)
         }
         

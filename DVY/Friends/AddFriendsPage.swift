@@ -25,6 +25,7 @@ struct AddFriendsPage: View {
     @State var editFriendFirstName: String = ""
     @State var editFriendLastName: String = ""
     @State var editFriendColor: Color = Color.blue
+    @State var editFriendContactId: UUID? = nil
     
     @State var isActionPopupOpen: Bool = false
     @State var actionFriendIndex: Int?
@@ -88,6 +89,7 @@ struct AddFriendsPage: View {
                     lastName: editFriendLastName,
                     friendColor: editFriendColor,
                     editFriendIndex: actionFriendIndex,
+                    editFriendContactId: editFriendContactId,
                     saveAction: saveFriendAction
                 )
             }
@@ -134,11 +136,14 @@ struct AddFriendsPage: View {
     
     func addFriend() {
         editModalTitle = "Add 🎉"
+        
         editFriendFirstName = ""
         editFriendLastName = ""
         
         let color = DVYColors.randomElement()!
         editFriendColor = Color(red: color.red, green: color.green, blue: color.blue)
+        
+        editFriendContactId = nil
         
         actionFriendIndex = nil
         isAddFriendOpen = true
@@ -146,21 +151,30 @@ struct AddFriendsPage: View {
     
     func editFriend() {
         let editFriend = friends[actionFriendIndex!]
+        
         editModalTitle = "Edit ✍️"
+        
         editFriendFirstName = editFriend.firstName
         editFriendLastName = editFriend.lastName
+        
         editFriendColor = Color(red: editFriend.color.red, green: editFriend.color.green, blue: editFriend.color.blue)
+        
+        editFriendContactId = nil
+        
         isActionPopupOpen = false
         isAddFriendOpen = true
     }
     
     func addFriendFromContact(contact: Contact) {
         editModalTitle = "Add 🎉"
+        
         editFriendFirstName = contact.firstName
         editFriendLastName = contact.lastName
         
         let color = DVYColors.randomElement()!
         editFriendColor = Color(red: color.red, green: color.green, blue: color.blue)
+        
+        editFriendContactId = contact.id
         
         isAddFriendOpen = true
     }
