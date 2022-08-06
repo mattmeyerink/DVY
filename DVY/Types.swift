@@ -75,13 +75,14 @@ struct Contact: Identifiable, Codable {
     
     var firstName: String
     var lastName: String
-    
     var phoneNumber: String
+    var currentlyAdded: Bool
     
     init(firstName: String, lastName: String, phoneNumber: String) {
         self.firstName = firstName
         self.lastName = lastName
         self.phoneNumber = phoneNumber
+        self.currentlyAdded = false
     }
 }
 

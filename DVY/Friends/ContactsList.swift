@@ -28,22 +28,24 @@ struct ContactsList: View {
         
         ScrollView {
             ForEach(filteredContacts.indices, id: \.self) { i in
-                VStack {
-                    HStack {
-                        Text(filteredContacts[i].firstName + " " + filteredContacts[i].lastName)
-                            .font(.system(size: 20, weight: .semibold))
-                            .padding(.leading, 5)
-                        
-                        Spacer()
+                if (!filteredContacts[i].currentlyAdded) {
+                    VStack {
+                        HStack {
+                            Text(filteredContacts[i].firstName + " " + filteredContacts[i].lastName)
+                                .font(.system(size: 20, weight: .semibold))
+                                .padding(.leading, 5)
+                            
+                            Spacer()
+                        }
                     }
+                        .padding()
+                        .background(Color(red: 0.95, green: 0.8, blue: 0.5))
+                        .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
+                        .cornerRadius(10)
+                        .onTapGesture {
+                            handleContactTap(filteredContactIndex: i)
+                        }
                 }
-                    .padding()
-                    .background(Color(red: 0.95, green: 0.8, blue: 0.5))
-                    .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
-                    .cornerRadius(10)
-                    .onTapGesture {
-                        addFriendFromContact(filteredContacts[i])
-                    }
             }
         }
             .onAppear {
@@ -51,7 +53,7 @@ struct ContactsList: View {
             }
     }
     
-    func updateFilteredContactsList(newSearchTerm: String) {
+    func updateFilteredContactsList(newSearchTerm: String) -> Void {
         if (searchText.replacingOccurrences(of: " ", with: "") == "") {
             filteredContacts = contacts
         } else {
@@ -63,5 +65,19 @@ struct ContactsList: View {
         let contactNameFormatted = (contact.firstName + contact.lastName).lowercased().replacingOccurrences(of: " ", with: "")
         let searchTermFormatted = searchTerm.lowercased().replacingOccurrences(of: " ", with: "")
         return contactNameFormatted.contains(searchTermFormatted)
+    }
+    
+    func handleContactTap(filteredContactIndex: Int) -> Void {
+        setCurrentlyAddedForContact(filteredContactIndex: filteredContactIndex)
+        addFriendFromContact(filteredContacts[filteredContactIndex])
+    }
+    
+    func setCurrentlyAddedForContact(filteredContactIndex: Int) -> Void {
+        for i in 0...contacts.count - 1 {
+            if (contacts[i].id == filteredContacts[filteredContactIndex].id) {
+                contacts[i].currentlyAdded = true
+            }
+        }
+        filteredContacts[filteredContactIndex].currentlyAdded = true
     }
 }
