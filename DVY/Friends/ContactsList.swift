@@ -76,6 +76,7 @@ struct ContactsList: View {
         for i in 0...contacts.count - 1 {
             if (contacts[i].id == filteredContacts[filteredContactIndex].id) {
                 contacts[i].currentlyAdded = true
+                break
             }
         }
         filteredContacts[filteredContactIndex].currentlyAdded = true

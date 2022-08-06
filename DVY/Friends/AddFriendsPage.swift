@@ -82,15 +82,15 @@ struct AddFriendsPage: View {
             if (isAddFriendOpen) {
                 EditFriendModal(
                     friends: $friends,
-                    isEditFriendOpen: $isAddFriendOpen,
                     modalTitle: $editModalTitle,
                     previouslyAddedFriends: $previouslyAddedFriends,
+                    editFriendContactId: $editFriendContactId,
                     firstName: editFriendFirstName,
                     lastName: editFriendLastName,
                     friendColor: editFriendColor,
                     editFriendIndex: actionFriendIndex,
-                    editFriendContactId: editFriendContactId,
-                    saveAction: saveFriendAction
+                    saveAction: saveFriendAction,
+                    closeEditFriendModal: closeEditFriendModal
                 )
             }
             
@@ -176,6 +176,7 @@ struct AddFriendsPage: View {
         
         editFriendContactId = contact.id
         
+        actionFriendIndex = nil
         isAddFriendOpen = true
     }
     
@@ -215,6 +216,15 @@ struct AddFriendsPage: View {
             previouslyAddedFriends[prevFriendIndex!].lastUseDate = previouslyAddedFriends[prevFriendIndex!].previousLastUsedDate!
         }
         
+        if (friends[actionFriendIndex!].contactId != nil) {
+            for i in 0...contacts.count - 1 {
+                if (contacts[i].id == friends[actionFriendIndex!].contactId) {
+                    contacts[i].currentlyAdded = false
+                    break
+                }
+            }
+        }
+        
         friends.remove(at: actionFriendIndex!)
         saveFriendAction(previouslyAddedFriends + friends.filter { !previouslyAddedFriendsIds.contains($0.id) })
         isActionPopupOpen = false
@@ -251,6 +261,19 @@ struct AddFriendsPage: View {
         } else {
             currentAddedFriendsView = .addedFriendsList
         }
+    }
+    
+    func closeEditFriendModal() -> Void {
+        if (editFriendContactId != nil) {
+            for i in 0...contacts.count - 1 {
+                if (contacts[i].id == editFriendContactId) {
+                    contacts[i].currentlyAdded = false
+                    break
+                }
+            }
+            editFriendContactId = nil
+        }
+        isAddFriendOpen = false
     }
 }
 

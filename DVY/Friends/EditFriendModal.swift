@@ -8,24 +8,24 @@ import SwiftUI
 
 struct EditFriendModal: View {
     @Binding var friends: [Person]
-    @Binding var isEditFriendOpen: Bool
     @Binding var modalTitle: String
     @Binding var previouslyAddedFriends: [Person]
+    @Binding var editFriendContactId: UUID?
     
     @State var firstName: String
     @State var lastName: String
     @State var friendColor: Color
     @State var editFriendIndex: Int?
     @State var otherModalOpening: Bool = false
-    @State var editFriendContactId: UUID?
     
     let saveAction: ([Person]) -> Void
+    let closeEditFriendModal: () -> Void
     
     var body: some View {
         Modal(
             modalTitle: $modalTitle,
             otherModalOpening: $otherModalOpening,
-            closeModal: closePopup,
+            closeModal: closeEditFriendModal,
             modalHeight: 550
         ) {
             Form {
@@ -46,7 +46,7 @@ struct EditFriendModal: View {
                 }
                 
                 HStack {
-                    Button(action: closePopup) {
+                    Button(action: closeEditFriendModal) {
                         Text("Cancel")
                     }
                         .buttonStyle(RedButton())
@@ -94,10 +94,7 @@ struct EditFriendModal: View {
         
         
         saveAction(previouslyAddedFriends + friends.filter { !previouslyAddedFriendsIds.contains($0.id) })
-        closePopup()
-    }
-    
-    func closePopup() {
-        self.isEditFriendOpen = false
+        editFriendContactId = nil
+        closeEditFriendModal()
     }
 }
