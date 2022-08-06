@@ -153,8 +153,6 @@ struct ContentView: View {
                 let newContact = Contact(firstName: firstName, lastName: lastName, phoneNumber: phoneNumber)
                 contacts.append(newContact)
             })
-            
-            print(contacts)
         } catch {
             print("Well the crap hit the fan I guess")
         }
