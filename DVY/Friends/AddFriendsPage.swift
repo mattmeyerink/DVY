@@ -63,6 +63,7 @@ struct AddFriendsPage: View {
                 if (currentAddedFriendsView == .contactsList) {
                     ContactsList(
                         contacts: $contacts,
+                        editFriendContactId: $editFriendContactId,
                         addFriendFromContact: addFriendFromContact
                     )
                 }

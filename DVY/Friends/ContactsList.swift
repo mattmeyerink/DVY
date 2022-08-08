@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContactsList: View {
     @Binding var contacts: [Contact]
+    @Binding var editFriendContactId: UUID?
     
     @State var addFriendFromContact: (Contact) -> Void
     
@@ -50,6 +51,11 @@ struct ContactsList: View {
         }
             .onAppear {
                 filteredContacts = contacts
+            }
+            .onChange(of: editFriendContactId) { newEditFriendContactId in
+                if (newEditFriendContactId == nil) {
+                    updateFilteredContactsList(newSearchTerm: searchText)
+                }
             }
     }
     
