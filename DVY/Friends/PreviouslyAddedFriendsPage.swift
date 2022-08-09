@@ -70,7 +70,6 @@ struct PreviouslyAddedFriendsPage: View {
                         .font(.system(size: 35))
                         .padding(.vertical, 5)
                 }
-                    
             } else {
                 VStack {
                     Text("No Previously Added Friends.")

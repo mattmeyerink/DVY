@@ -28,24 +28,58 @@ struct ContactsList: View {
             .onChange(of: searchText, perform: updateFilteredContactsList)
         
         ScrollView {
-            ForEach(filteredContacts.indices, id: \.self) { i in
-                if (!filteredContacts[i].currentlyAdded) {
-                    VStack {
-                        HStack {
-                            Text(filteredContacts[i].firstName + " " + filteredContacts[i].lastName)
-                                .font(.system(size: 20, weight: .semibold))
-                                .padding(.leading, 5)
-                            
-                            Spacer()
+            if (isFilteredContactVisible()) {
+                ForEach(filteredContacts.indices, id: \.self) { i in
+                    if (!filteredContacts[i].currentlyAdded) {
+                        VStack {
+                            HStack {
+                                Text(filteredContacts[i].firstName + " " + filteredContacts[i].lastName)
+                                    .font(.system(size: 20, weight: .semibold))
+                                    .padding(.leading, 5)
+                                
+                                Spacer()
+                            }
                         }
+                            .padding()
+                            .background(Color(red: 0.95, green: 0.8, blue: 0.5))
+                            .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
+                            .cornerRadius(10)
+                            .onTapGesture {
+                                handleContactTap(filteredContactIndex: i)
+                            }
                     }
-                        .padding()
-                        .background(Color(red: 0.95, green: 0.8, blue: 0.5))
-                        .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
-                        .cornerRadius(10)
-                        .onTapGesture {
-                            handleContactTap(filteredContactIndex: i)
-                        }
+                }
+            } else if (searchText != "") {
+                VStack {
+                    Text("No Contacts Match the Search.")
+                        .font(.system(size: 25, weight: .semibold))
+                        .padding(.vertical, 15)
+                        .foregroundColor(Color.white)
+                    
+                    Text("Try a Different Search Term!")
+                        .font(.system(size: 25, weight: .semibold))
+                        .padding(.vertical, 5)
+                        .foregroundColor(Color.white)
+                    
+                    Text("🔎")
+                        .font(.system(size: 35))
+                        .padding(.vertical, 5)
+                }
+            } else {
+                VStack {
+                    Text("No Contacts Found.")
+                        .font(.system(size: 25, weight: .semibold))
+                        .padding(.vertical, 15)
+                        .foregroundColor(Color.white)
+                    
+                    Text("Go Out and Meet Some People!")
+                        .font(.system(size: 25, weight: .semibold))
+                        .padding(.vertical, 5)
+                        .foregroundColor(Color.white)
+                    
+                    Text("👋")
+                        .font(.system(size: 35))
+                        .padding(.vertical, 5)
                 }
             }
         }
@@ -86,5 +120,15 @@ struct ContactsList: View {
             }
         }
         filteredContacts[filteredContactIndex].currentlyAdded = true
+    }
+    
+    func isFilteredContactVisible() -> Bool {
+        var filteredContactVisible = false
+        for friend in filteredContacts {
+            if !friend.currentlyAdded {
+                filteredContactVisible = true
+            }
+        }
+        return filteredContactVisible
     }
 }
