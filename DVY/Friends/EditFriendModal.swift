@@ -92,8 +92,9 @@ struct EditFriendModal: View {
             friends.append(newFriend)
         }
         
-        
-        saveAction(previouslyAddedFriends + friends.filter { !previouslyAddedFriendsIds.contains($0.id) })
+        if (editFriendContactId == nil) {
+            saveAction(previouslyAddedFriends + friends.filter { !previouslyAddedFriendsIds.contains($0.id) })
+        }
         editFriendContactId = nil
         closeEditFriendModal()
     }
