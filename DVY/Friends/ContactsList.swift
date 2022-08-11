@@ -108,6 +108,7 @@ struct ContactsList: View {
     }
     
     func handleContactTap(filteredContactIndex: Int) -> Void {
+        hideKeyboard()
         setCurrentlyAddedForContact(filteredContactIndex: filteredContactIndex)
         addFriendFromContact(filteredContacts[filteredContactIndex])
     }

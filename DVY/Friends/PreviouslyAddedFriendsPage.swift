@@ -50,7 +50,7 @@ struct PreviouslyAddedFriendsPage: View {
                             .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
                             .cornerRadius(10)
                             .onTapGesture {
-                                openPreviouslySelectedFriendModal(previouslyAddedFriends[i])
+                                handlePreviouslyAddedFriendTap(previouslyAddedFriendIndex: i)
                             }
                     }
                 }
@@ -88,6 +88,11 @@ struct PreviouslyAddedFriendsPage: View {
                 }
             }
         }
+    }
+    
+    func handlePreviouslyAddedFriendTap(previouslyAddedFriendIndex: Int) -> Void {
+        hideKeyboard()
+        openPreviouslySelectedFriendModal(previouslyAddedFriends[previouslyAddedFriendIndex])
     }
     
     func updateFilteredFriendList(newSearchTerm: String) -> Void {
