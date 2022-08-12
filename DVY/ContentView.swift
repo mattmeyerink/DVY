@@ -154,7 +154,7 @@ struct ContentView: View {
                 contacts.append(newContact)
             })
         } catch {
-            print("Well the crap hit the fan I guess")
+            contacts = []
         }
     }
 }
