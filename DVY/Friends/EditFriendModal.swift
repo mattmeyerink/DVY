@@ -8,26 +8,24 @@ import SwiftUI
 
 struct EditFriendModal: View {
     @Binding var friends: [Person]
-    @Binding var isEditFriendOpen: Bool
     @Binding var modalTitle: String
+    @Binding var previouslyAddedFriends: [Person]
+    @Binding var editFriendContactId: UUID?
     
     @State var firstName: String
     @State var lastName: String
     @State var friendColor: Color
-    
     @State var editFriendIndex: Int?
-    
-    @State var previouslyAddedFriends: [Person]
-    
     @State var otherModalOpening: Bool = false
     
     let saveAction: ([Person]) -> Void
+    let closeEditFriendModal: () -> Void
     
     var body: some View {
         Modal(
             modalTitle: $modalTitle,
             otherModalOpening: $otherModalOpening,
-            closeModal: closePopup,
+            closeModal: closeEditFriendModal,
             modalHeight: 550
         ) {
             Form {
@@ -48,7 +46,7 @@ struct EditFriendModal: View {
                 }
                 
                 HStack {
-                    Button(action: closePopup) {
+                    Button(action: closeEditFriendModal) {
                         Text("Cancel")
                     }
                         .buttonStyle(RedButton())
@@ -89,16 +87,15 @@ struct EditFriendModal: View {
                 previouslyAddedFriends[previouslyAddedFriendIndex!].color = formattedColor
             }
         } else {
-            let newFriend = Person(firstName: firstName, lastName: lastName, color: formattedColor)
+            var newFriend = Person(firstName: firstName, lastName: lastName, color: formattedColor)
+            newFriend.contactId = editFriendContactId
             friends.append(newFriend)
         }
         
-        
-        saveAction(previouslyAddedFriends + friends.filter { !previouslyAddedFriendsIds.contains($0.id) })
-        closePopup()
-    }
-    
-    func closePopup() {
-        self.isEditFriendOpen = false
+        if (editFriendContactId == nil) {
+            saveAction(previouslyAddedFriends + friends.filter { !previouslyAddedFriendsIds.contains($0.id) })
+        }
+        editFriendContactId = nil
+        closeEditFriendModal()
     }
 }

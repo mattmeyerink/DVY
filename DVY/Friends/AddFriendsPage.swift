@@ -7,15 +7,25 @@
 
 import SwiftUI
 
+enum AddFriendsView {
+    case addedFriendsList
+    case previouslyAddedFriendsList
+    case contactsList
+}
+
 struct AddFriendsPage: View {
     @Binding var currentPage: Pages
     @Binding var friends: [Person]
+    @Binding var contacts: [Contact]
+    
+    @State var currentAddedFriendsView: AddFriendsView = .addedFriendsList
     
     @State var isAddFriendOpen: Bool = false
     @State var editModalTitle: String = ""
     @State var editFriendFirstName: String = ""
     @State var editFriendLastName: String = ""
     @State var editFriendColor: Color = Color.blue
+    @State var editFriendContactId: UUID? = nil
     
     @State var isActionPopupOpen: Bool = false
     @State var actionFriendIndex: Int?
@@ -27,89 +37,35 @@ struct AddFriendsPage: View {
     @State var previouslyAddedFriends: [Person]
     @State var saveFriendAction: ([Person]) -> Void
     
-    var gridItemLayout = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
-    
     var body: some View {
         ZStack {
             Color(red: 0.1, green: 0.1, blue: 0.1)
                 .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
             
             VStack {
-                Text("Add Friends 🍾")
-                    .font(.system(size: 30, weight: .semibold))
-            
-                    .padding(.vertical, 15)
-                    .foregroundColor(Color.white)
-                
-                ScrollView {
-                    LazyVGrid(columns: gridItemLayout, spacing: 20) {
-                        ForEach(friends.indices, id: \.self) { i in
-                            VStack{
-                                ZStack {
-                                    Circle()
-                                        .fill(Color(red: friends[i].color.red, green: friends[i].color.green, blue: friends[i].color.blue))
-                                        .frame(width: 85, height: 85)
-                                    
-                                    Text(friends[i].initials)
-                                        .font(.system(size: 40, weight: .semibold))
-                                        .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
-                                }
-                                    .onTapGesture() {
-                                        openActionPopup(actionFriendIndex: i)
-                                    }
-                                
-                                Text(friends[i].firstName)
-                                    .foregroundColor(Color.white)
-                            }
-                            
-                        }
-                        
-                        VStack {
-                            Button(action: {addFriend()}) {
-                                Image(systemName: "plus")
-                            }
-                                .buttonStyle(AddFriendButton())
-                            
-                            Text("New Friend")
-                                .foregroundColor(Color.white)
-                        }
-                    }
+                if (currentAddedFriendsView == .addedFriendsList) {
+                    AddedFriendsList(
+                        friends: $friends,
+                        openActionPopup: openActionPopup,
+                        addFriend: addFriend,
+                        setCurrentAddedFriendView: setCurrentAddedFriendsView
+                    )
                 }
                 
-                if (getArePreviouslyAddedFriendsVisible()) {
-                    Text("Previous Friends")
-                        .font(.system(size: 30, weight: .semibold))
-                        .padding(.vertical, 15)
-                        .foregroundColor(Color.white)
-                    
-                    ScrollView {
-                        ForEach(previouslyAddedFriends.indices, id: \.self) { i in
-                            if (!Set(friends.map { $0.id }).contains(previouslyAddedFriends[i].id)) {
-                                VStack {
-                                    HStack {
-                                        Text(previouslyAddedFriends[i].firstName + " " + previouslyAddedFriends[i].lastName)
-                                            .font(.system(size: 20, weight: .semibold))
-                                            .padding(.leading, 5)
-                                        
-                                        Spacer()
-                                    }
-                                }
-                                    .padding()
-                                    .background(
-                                        Color(
-                                            red: previouslyAddedFriends[i].color.red,
-                                            green: previouslyAddedFriends[i].color.green,
-                                            blue: previouslyAddedFriends[i].color.blue
-                                        )
-                                    )
-                                    .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
-                                    .cornerRadius(10)
-                                    .onTapGesture {
-                                        openPreviouslySelectedFriendModal(currentFriend: previouslyAddedFriends[i])
-                                    }
-                            }
-                        }
-                    }
+                if (currentAddedFriendsView == .previouslyAddedFriendsList) {
+                    PreviouslyAddedFriendsPage(
+                        friends: $friends,
+                        previouslyAddedFriends: $previouslyAddedFriends,
+                        openPreviouslySelectedFriendModal: openPreviouslySelectedFriendModal
+                    )
+                }
+                
+                if (currentAddedFriendsView == .contactsList) {
+                    ContactsList(
+                        contacts: $contacts,
+                        editFriendContactId: $editFriendContactId,
+                        addFriendFromContact: addFriendFromContact
+                    )
                 }
             }
                 .padding(.horizontal)
@@ -127,14 +83,15 @@ struct AddFriendsPage: View {
             if (isAddFriendOpen) {
                 EditFriendModal(
                     friends: $friends,
-                    isEditFriendOpen: $isAddFriendOpen,
                     modalTitle: $editModalTitle,
+                    previouslyAddedFriends: $previouslyAddedFriends,
+                    editFriendContactId: $editFriendContactId,
                     firstName: editFriendFirstName,
                     lastName: editFriendLastName,
                     friendColor: editFriendColor,
                     editFriendIndex: actionFriendIndex,
-                    previouslyAddedFriends: previouslyAddedFriends,
-                    saveAction: saveFriendAction
+                    saveAction: saveFriendAction,
+                    closeEditFriendModal: closeEditFriendModal
                 )
             }
             
@@ -149,7 +106,7 @@ struct AddFriendsPage: View {
             }
         }
         .navigationBarItems(
-            leading: Button(action: { currentPage = .taxTipPage }) {
+            leading: Button(action: backNavigationAction) {
                 HStack {
                     Image(systemName: "chevron.left")
                         .font(.system(size: 15, weight: .bold))
@@ -160,7 +117,7 @@ struct AddFriendsPage: View {
                     .foregroundColor(.white)
             },
             trailing: Button(action: routeToAssignItemsPage) {
-                if (friends.count > 0) {
+                if (currentAddedFriendsView == .addedFriendsList && friends.count > 0) {
                     HStack {
                         Text("Next")
                             .fontWeight(.bold)
@@ -169,7 +126,7 @@ struct AddFriendsPage: View {
                             .font(.system(size: 15, weight: .bold))
                     }
                         .foregroundColor(.white)
-                } else {
+                } else if (currentAddedFriendsView == .addedFriendsList) {
                     Text("Add Friends to Continue")
                         .fontWeight(.bold)
                         .foregroundColor(.white)
@@ -180,11 +137,14 @@ struct AddFriendsPage: View {
     
     func addFriend() {
         editModalTitle = "Add 🎉"
+        
         editFriendFirstName = ""
         editFriendLastName = ""
         
         let color = DVYColors.randomElement()!
         editFriendColor = Color(red: color.red, green: color.green, blue: color.blue)
+        
+        editFriendContactId = nil
         
         actionFriendIndex = nil
         isAddFriendOpen = true
@@ -192,12 +152,32 @@ struct AddFriendsPage: View {
     
     func editFriend() {
         let editFriend = friends[actionFriendIndex!]
+        
         editModalTitle = "Edit ✍️"
+        
         editFriendFirstName = editFriend.firstName
         editFriendLastName = editFriend.lastName
+        
         editFriendColor = Color(red: editFriend.color.red, green: editFriend.color.green, blue: editFriend.color.blue)
-        actionFriendIndex = nil
+        
+        editFriendContactId = nil
+        
         isActionPopupOpen = false
+        isAddFriendOpen = true
+    }
+    
+    func addFriendFromContact(contact: Contact) {
+        editModalTitle = "Add 🎉"
+        
+        editFriendFirstName = contact.firstName
+        editFriendLastName = contact.lastName
+        
+        let color = DVYColors.randomElement()!
+        editFriendColor = Color(red: color.red, green: color.green, blue: color.blue)
+        
+        editFriendContactId = contact.id
+        
+        actionFriendIndex = nil
         isAddFriendOpen = true
     }
     
@@ -237,6 +217,15 @@ struct AddFriendsPage: View {
             previouslyAddedFriends[prevFriendIndex!].lastUseDate = previouslyAddedFriends[prevFriendIndex!].previousLastUsedDate!
         }
         
+        if (friends[actionFriendIndex!].contactId != nil) {
+            for i in 0...contacts.count - 1 {
+                if (contacts[i].id == friends[actionFriendIndex!].contactId) {
+                    contacts[i].currentlyAdded = false
+                    break
+                }
+            }
+        }
+        
         friends.remove(at: actionFriendIndex!)
         saveFriendAction(previouslyAddedFriends + friends.filter { !previouslyAddedFriendsIds.contains($0.id) })
         isActionPopupOpen = false
@@ -261,6 +250,31 @@ struct AddFriendsPage: View {
     func getArePreviouslyAddedFriendsVisible() -> Bool {
         let friendsIds = Set(friends.map { $0.id })
         return previouslyAddedFriends.filter { !friendsIds.contains($0.id) }.count > 0
+    }
+    
+    func setCurrentAddedFriendsView(newAddedFriendsView: AddFriendsView) -> Void {
+        currentAddedFriendsView = newAddedFriendsView
+    }
+    
+    func backNavigationAction() -> Void {
+        if (currentAddedFriendsView == .addedFriendsList) {
+            currentPage = .taxTipPage
+        } else {
+            currentAddedFriendsView = .addedFriendsList
+        }
+    }
+    
+    func closeEditFriendModal() -> Void {
+        if (editFriendContactId != nil) {
+            for i in 0...contacts.count - 1 {
+                if (contacts[i].id == editFriendContactId) {
+                    contacts[i].currentlyAdded = false
+                    break
+                }
+            }
+            editFriendContactId = nil
+        }
+        isAddFriendOpen = false
     }
 }
 

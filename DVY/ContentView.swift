@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Contacts
 
 enum Pages {
     case landingPage
@@ -28,6 +29,7 @@ struct ContentView: View {
     @State var customTip: CurrencyObject = CurrencyObject(price: 0.0)
     
     @State var store = FriendsStore()
+    @State var contacts: [Contact] = []
     
     var body: some View {
         ZStack {
@@ -70,6 +72,7 @@ struct ContentView: View {
                     AddFriendsPage(
                         currentPage: $currentPage,
                         friends: $friends,
+                        contacts: $contacts,
                         previouslyAddedFriends: store.previouslyAddedFriends,
                         saveFriendAction: saveFriendAction
                     )
@@ -101,6 +104,10 @@ struct ContentView: View {
             }
             .onAppear {
                 loadFriendsFromLocalStore()
+                
+                Task.init {
+                    await fetchAllContacts()
+                }
             }
     }
     
@@ -123,4 +130,39 @@ struct ContentView: View {
             }
         }
     }
+    
+    func fetchAllContacts() async {
+        let store = CNContactStore()
+        
+        let keys = [CNContactGivenNameKey, CNContactFamilyNameKey, CNContactPhoneNumbersKey] as [CNKeyDescriptor]
+        let fetchRequest = CNContactFetchRequest(keysToFetch: keys)
+        
+        do {
+            try store.enumerateContacts(with: fetchRequest, usingBlock: { contact, result in
+                let firstName = contact.givenName
+                let lastName = contact.familyName
+                var phoneNumber = ""
+                
+                for number in contact.phoneNumbers {
+                    if (number.label == CNLabelPhoneNumberMobile) {
+                        phoneNumber = number.value.stringValue
+                        break
+                    }
+                }
+                
+                let newContact = Contact(firstName: firstName, lastName: lastName, phoneNumber: phoneNumber)
+                contacts.append(newContact)
+            })
+        } catch {
+            contacts = []
+        }
+    }
 }
+
+#if canImport(UIKit)
+extension View {
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}
+#endif

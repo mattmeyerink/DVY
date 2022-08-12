@@ -39,6 +39,7 @@ struct Person: Identifiable, Codable {
     var useCount: Int
     var lastUseDate: Date
     var previousLastUsedDate: Date?
+    var contactId: UUID?
     
     init(firstName: String, lastName: String, color: DVYColor) {
         self.firstName = firstName
@@ -66,6 +67,22 @@ struct Person: Identifiable, Codable {
         }
         
         self.initials = firstInitial + lastInitial
+    }
+}
+
+struct Contact: Identifiable, Codable {
+    var id = UUID()
+    
+    var firstName: String
+    var lastName: String
+    var phoneNumber: String
+    var currentlyAdded: Bool
+    
+    init(firstName: String, lastName: String, phoneNumber: String) {
+        self.firstName = firstName
+        self.lastName = lastName
+        self.phoneNumber = phoneNumber
+        self.currentlyAdded = false
     }
 }
 
