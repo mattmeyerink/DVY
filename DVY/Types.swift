@@ -40,6 +40,7 @@ struct Person: Identifiable, Codable {
     var lastUseDate: Date
     var previousLastUsedDate: Date?
     var contactId: UUID?
+    var isVisible: Bool?
     
     init(firstName: String, lastName: String, color: DVYColor) {
         self.firstName = firstName

@@ -127,6 +127,10 @@ struct ContentView: View {
                 fatalError(error.localizedDescription)
             case .success(let friends):
                 store.previouslyAddedFriends = friends.sorted(by: { $0.useCount > $1.useCount })
+                
+                for i in 0...store.previouslyAddedFriends.count - 1 {
+                    store.previouslyAddedFriends[i].isVisible = true
+                }
             }
         }
     }
