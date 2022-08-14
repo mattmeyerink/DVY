@@ -10,6 +10,7 @@ import SwiftUI
 struct PreviouslyAddedFriendsPage: View {
     @Binding var friends: [Person]
     @Binding var previouslyAddedFriends: [Person]
+    @Binding var isPreviouslyAddedFriendsOpen: Bool
     
     @State var openPreviouslySelectedFriendModal: (Person) -> Void
     @State var searchText: String = ""
@@ -28,11 +29,11 @@ struct PreviouslyAddedFriendsPage: View {
         
         ScrollView {
             if (oneOrMoreFriendsVisible()) {
-                ForEach(previouslyAddedFriends.indices, id: \.self) { i in
-                    if (isFriendVisible(friend: previouslyAddedFriends[i])) {
+                ForEach(filteredPreviouslyAddedFriends.indices, id: \.self) { i in
+                    if (filteredPreviouslyAddedFriends[i].isVisible!) {
                         VStack {
                             HStack {
-                                Text(previouslyAddedFriends[i].firstName + " " + previouslyAddedFriends[i].lastName)
+                                Text(filteredPreviouslyAddedFriends[i].firstName + " " + filteredPreviouslyAddedFriends[i].lastName)
                                     .font(.system(size: 20, weight: .semibold))
                                     .padding(.leading, 5)
                                 
@@ -42,15 +43,15 @@ struct PreviouslyAddedFriendsPage: View {
                             .padding()
                             .background(
                                 Color(
-                                    red: previouslyAddedFriends[i].color.red,
-                                    green: previouslyAddedFriends[i].color.green,
-                                    blue: previouslyAddedFriends[i].color.blue
+                                    red: filteredPreviouslyAddedFriends[i].color.red,
+                                    green: filteredPreviouslyAddedFriends[i].color.green,
+                                    blue: filteredPreviouslyAddedFriends[i].color.blue
                                 )
                             )
                             .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
                             .cornerRadius(10)
                             .onTapGesture {
-                                handlePreviouslyAddedFriendTap(previouslyAddedFriendIndex: i)
+                                handlePreviouslyAddedFriendTap(friendIndex: i)
                             }
                     }
                 }
@@ -88,15 +89,27 @@ struct PreviouslyAddedFriendsPage: View {
                 }
             }
         }
+        .onAppear {
+            filteredPreviouslyAddedFriends = previouslyAddedFriends
+        }
+        .onChange(of: isPreviouslyAddedFriendsOpen) { newModalOpenValue in
+            if (!newModalOpenValue) {
+                updateFilteredFriendList(newSearchTerm: searchText)
+            }
+        }
     }
     
-    func handlePreviouslyAddedFriendTap(previouslyAddedFriendIndex: Int) -> Void {
+    func handlePreviouslyAddedFriendTap(friendIndex: Int) -> Void {
         hideKeyboard()
-        openPreviouslySelectedFriendModal(previouslyAddedFriends[previouslyAddedFriendIndex])
+        openPreviouslySelectedFriendModal(filteredPreviouslyAddedFriends[friendIndex])
     }
     
     func updateFilteredFriendList(newSearchTerm: String) -> Void {
-        filteredPreviouslyAddedFriends = previouslyAddedFriends.filter { personMatchesSearchTerm(searchTerm: newSearchTerm, friend: $0) }
+        if (searchText.replacingOccurrences(of: " ", with: "") == "") {
+            filteredPreviouslyAddedFriends = previouslyAddedFriends
+        } else {
+            filteredPreviouslyAddedFriends = previouslyAddedFriends.filter { personMatchesSearchTerm(searchTerm: newSearchTerm, friend: $0) }
+        }
     }
     
     func personMatchesSearchTerm(searchTerm: String, friend: Person) -> Bool {
@@ -105,16 +118,10 @@ struct PreviouslyAddedFriendsPage: View {
         return friendNameFormatted.contains(searchTermFormatted)
     }
     
-    func isFriendVisible(friend: Person) -> Bool {
-        let friendAlreadyAdded = Set(friends.map { $0.id }).contains(friend.id)
-        let friendFitsSearchText = Set(filteredPreviouslyAddedFriends.map { $0.id }).contains(friend.id)
-        return !friendAlreadyAdded && (searchText.replacingOccurrences(of: " ", with: "") == "" || friendFitsSearchText)
-    }
-    
     func oneOrMoreFriendsVisible() -> Bool {
         var output = false
-        for friend in previouslyAddedFriends {
-            if (isFriendVisible(friend: friend)) {
+        for friend in filteredPreviouslyAddedFriends {
+            if (friend.isVisible!) {
                 output = true
                 break
             }
