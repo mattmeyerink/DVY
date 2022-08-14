@@ -56,6 +56,7 @@ struct AddFriendsPage: View {
                     PreviouslyAddedFriendsPage(
                         friends: $friends,
                         previouslyAddedFriends: $previouslyAddedFriends,
+                        isPreviouslyAddedFriendsOpen: $isPreviouslyAddedFriendsOpen,
                         openPreviouslySelectedFriendModal: openPreviouslySelectedFriendModal
                     )
                 }
@@ -215,6 +216,7 @@ struct AddFriendsPage: View {
             
             previouslyAddedFriends[prevFriendIndex!].useCount -= 1
             previouslyAddedFriends[prevFriendIndex!].lastUseDate = previouslyAddedFriends[prevFriendIndex!].previousLastUsedDate!
+            previouslyAddedFriends[prevFriendIndex!].isVisible = true
         }
         
         if (friends[actionFriendIndex!].contactId != nil) {
@@ -241,6 +243,8 @@ struct AddFriendsPage: View {
         
         let previouslyAddedFriendsIds = Set(previouslyAddedFriends.map { $0.id })
         saveFriendAction(previouslyAddedFriends + friends.filter { !previouslyAddedFriendsIds.contains($0.id) })
+        
+        previouslyAddedFriends[prevFriendIndex!].isVisible = false
         
         friends.append(previouslyAddedFriends[prevFriendIndex!])
         
