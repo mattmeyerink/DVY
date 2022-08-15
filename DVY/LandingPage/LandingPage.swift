@@ -36,7 +36,7 @@ struct LandingPage: View {
                 .padding(.bottom, 10)
             
             HStack {
-                Button(action: { startScan() }) {
+                Button(action: startScan) {
                     Text("Scan")
                 }
                     .buttonStyle(GreenButton())

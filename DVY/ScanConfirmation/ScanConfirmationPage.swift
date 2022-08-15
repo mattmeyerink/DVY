@@ -63,63 +63,81 @@ struct ScanConfirmationPage: View {
                 }
         
                 ScrollView {
-                    ForEach(items.indices, id: \.self) { i in
-                        VStack {
-                            HStack {
-                                if (i == itemExpanded) {
-                                    Image(systemName: "chevron.down")
-                                        .font(.system(size: 18, weight: .heavy))
-                                } else {
-                                    Image(systemName: "chevron.right")
-                                        .font(.system(size: 18, weight: .heavy))
-                                }
-                                
-                                Text(items[i].name)
-                                    .font(.system(size: 20, weight: .semibold))
-                                    .padding(.leading, 5)
-                                
-                                Spacer()
-                                
-                                Text(items[i].priceFormatted)
-                                    .font(.system(size: 20, weight: .semibold))
-                                    .padding(.trailing, 5)
-                            }
-                            
-                            if (i == itemExpanded) {
+                    if (items.count > 0) {
+                        ForEach(items.indices, id: \.self) { i in
+                            VStack {
                                 HStack {
-                                    Image(systemName: "trash.fill")
-                                        .font(.system(size: 25, weight: .semibold))
-                                        .padding(.top,  10)
-                                        .padding(.horizontal, 10)
-                                        .onTapGesture() {
-                                            deleteItem(deleteItemIndex: i)
-                                        }
-                
-                                    Image(systemName: "divide.circle.fill")
-                                        .font(.system(size: 25, weight: .semibold))
-                                        .padding(.top,  10)
-                                        .padding(.horizontal, 10)
-                                        .onTapGesture() {
-                                            openSplitItemModal(index: i)
-                                        }
+                                    if (i == itemExpanded) {
+                                        Image(systemName: "chevron.down")
+                                            .font(.system(size: 18, weight: .heavy))
+                                    } else {
+                                        Image(systemName: "chevron.right")
+                                            .font(.system(size: 18, weight: .heavy))
+                                    }
                                     
-                                    Image(systemName: "square.and.pencil")
-                                        .font(.system(size: 25, weight: .semibold))
-                                        .padding(.top,  10)
-                                        .padding(.horizontal, 10)
-                                        .onTapGesture() {
-                                            editItem(editItemIndex: i)
-                                        }
+                                    Text(items[i].name)
+                                        .font(.system(size: 20, weight: .semibold))
+                                        .padding(.leading, 5)
+                                    
+                                    Spacer()
+                                    
+                                    Text(items[i].priceFormatted)
+                                        .font(.system(size: 20, weight: .semibold))
+                                        .padding(.trailing, 5)
+                                }
+                                
+                                if (i == itemExpanded) {
+                                    HStack {
+                                        Image(systemName: "trash.fill")
+                                            .font(.system(size: 25, weight: .semibold))
+                                            .padding(.top,  10)
+                                            .padding(.horizontal, 10)
+                                            .onTapGesture() {
+                                                deleteItem(deleteItemIndex: i)
+                                            }
+                    
+                                        Image(systemName: "divide.circle.fill")
+                                            .font(.system(size: 25, weight: .semibold))
+                                            .padding(.top,  10)
+                                            .padding(.horizontal, 10)
+                                            .onTapGesture() {
+                                                openSplitItemModal(index: i)
+                                            }
+                                        
+                                        Image(systemName: "square.and.pencil")
+                                            .font(.system(size: 25, weight: .semibold))
+                                            .padding(.top,  10)
+                                            .padding(.horizontal, 10)
+                                            .onTapGesture() {
+                                                editItem(editItemIndex: i)
+                                            }
+                                    }
                                 }
                             }
+                                .padding()
+                                .background(Color(red: 0.95, green: 0.8, blue: 0.5))
+                                .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
+                                .cornerRadius(10)
+                                .onTapGesture() {
+                                    toggleExpandedItem(expandedItemIndex: i)
+                                }
                         }
-                            .padding()
-                            .background(Color(red: 0.95, green: 0.8, blue: 0.5))
-                            .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
-                            .cornerRadius(10)
-                            .onTapGesture() {
-                                toggleExpandedItem(expandedItemIndex: i)
-                            }
+                    } else {
+                        VStack {
+                            Text("No Items to DVY Yet.")
+                                .font(.system(size: 25, weight: .semibold))
+                                .padding(.vertical, 15)
+                                .foregroundColor(Color.white)
+                            
+                            Text("Add Items to Start!")
+                                .font(.system(size: 25, weight: .semibold))
+                                .padding(.vertical, 5)
+                                .foregroundColor(Color.white)
+                            
+                            Text("🥗 🍝 🍨")
+                                .font(.system(size: 35))
+                                .padding(.vertical, 5)
+                        }
                     }
                 }
                 
