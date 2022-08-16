@@ -170,12 +170,28 @@ struct SummaryPage: View {
     
     func calculateFriendTaxContribution(friend: Person) -> CurrencyObject {
         let friendSubtotal = calculateFriendSubtotal(friend: friend).price
-        return CurrencyObject(price: (friendSubtotal / subtotal) * tax.price)
+        
+        var taxTotal: CurrencyObject
+        if (friendSubtotal == 0) {
+            taxTotal = CurrencyObject(price: 0.0)
+        } else {
+            taxTotal = CurrencyObject(price: (friendSubtotal / subtotal) * tax.price)
+        }
+        
+        return taxTotal
     }
     
     func calculateFriendTipContribution(friend: Person) -> CurrencyObject {
         let friendSubtotal = calculateFriendSubtotal(friend: friend).price
-        return CurrencyObject(price: (friendSubtotal / subtotal) * tip.price)
+        
+        var tipTotal: CurrencyObject
+        if (friendSubtotal == 0) {
+            tipTotal = CurrencyObject(price: 0.0)
+        } else {
+            tipTotal = CurrencyObject(price: (friendSubtotal / subtotal) * tip.price)
+        }
+        
+        return tipTotal
     }
     
     func calculateFriendTotal(friend: Person) -> CurrencyObject {
