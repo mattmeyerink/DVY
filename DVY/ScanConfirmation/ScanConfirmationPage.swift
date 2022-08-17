@@ -122,6 +122,22 @@ struct ScanConfirmationPage: View {
                                     toggleExpandedItem(expandedItemIndex: i)
                                 }
                         }
+                    } else if (allItemsAddedToFriends()) {
+                        VStack {
+                            Text("All Items Assigned.")
+                                .font(.system(size: 25, weight: .semibold))
+                                .padding(.vertical, 15)
+                                .foregroundColor(Color.white)
+                            
+                            Text("Feel Free To Add More!")
+                                .font(.system(size: 25, weight: .semibold))
+                                .padding(.vertical, 5)
+                                .foregroundColor(Color.white)
+                            
+                            Text("🍔 🍟 🍺")
+                                .font(.system(size: 35))
+                                .padding(.vertical, 5)
+                        }
                     } else {
                         VStack {
                             Text("No Items to DVY Yet.")
@@ -276,5 +292,18 @@ struct ScanConfirmationPage: View {
         if (items.count > 0) {
             isConfirmationFlowOpen = true
         }
+    }
+    
+    func allItemsAddedToFriends() -> Bool {
+        var output = false
+        if (items.count == 0) {
+            for friend in friends {
+                if (friend.items.count > 0) {
+                    output = true
+                    break
+                }
+            }
+        }
+        return output
     }
 }
