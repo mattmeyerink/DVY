@@ -221,14 +221,16 @@ struct ScanConfirmationPage: View {
                     .foregroundColor(.white)
             },
             trailing: Button(action: { currentPage = .taxTipPage }) {
-                HStack {
-                    Text("Next")
-                        .fontWeight(.bold)
-                    
-                    Image(systemName: "chevron.right")
-                        .font(.system(size: 15, weight: .bold))
+                if (items.count != 0 || allItemsAddedToFriends()) {
+                    HStack {
+                        Text("Next")
+                            .fontWeight(.bold)
+                        
+                        Image(systemName: "chevron.right")
+                            .font(.system(size: 15, weight: .bold))
+                    }
+                        .foregroundColor(.white)
                 }
-                    .foregroundColor(.white)
             }
         )
     }
