@@ -155,7 +155,7 @@ struct AssignItemsPage: View {
                     }
                         .foregroundColor(.white)
                 } else {
-                    Text("Assign All Items to Continue")
+                    Text("Assign All Items")
                         .fontWeight(.bold)
                         .foregroundColor(Color.white)
                 }

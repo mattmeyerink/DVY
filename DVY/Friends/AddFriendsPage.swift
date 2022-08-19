@@ -128,7 +128,7 @@ struct AddFriendsPage: View {
                     }
                         .foregroundColor(.white)
                 } else if (currentAddedFriendsView == .addedFriendsList) {
-                    Text("Add Friends to Continue")
+                    Text("Add Friends")
                         .fontWeight(.bold)
                         .foregroundColor(.white)
                 }

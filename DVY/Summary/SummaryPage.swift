@@ -148,7 +148,7 @@ struct SummaryPage: View {
             },
             trailing: Button(action: openNewScanModal) {
                 HStack {
-                    Text("Start New Scan")
+                    Text("New Scan")
                         .fontWeight(.bold)
                     
                     Image(systemName: "chevron.right")
