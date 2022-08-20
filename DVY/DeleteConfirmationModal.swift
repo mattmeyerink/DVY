@@ -8,23 +8,28 @@
 import SwiftUI
 
 struct DeleteConfirmationModal: View {
-    @State var modalTitle: String = "You Sure? 😱"
-    @State var othermModalOpening: Bool
+    @State var otherModalOpening: Bool
     @State var modalHeight: Int
     @State var message: String
     
     @State var closeModal: () -> Void
     @State var delete: () -> Void
     
+    @State var modalTitle: String = "You Sure? 😱"
+    
     var body: some View {
         Modal(
             modalTitle: $modalTitle,
-            otherModalOpening: $othermModalOpening,
+            otherModalOpening: $otherModalOpening,
             closeModal: closeModal,
             modalHeight: modalHeight
         ) {
             VStack {
                 Text(message)
+                    .font(.system(size: 20, weight: .regular))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .foregroundColor(.white)
+                    .padding(.bottom, 20)
                 
                 HStack {
                     Button(action: closeModal) {
@@ -32,12 +37,15 @@ struct DeleteConfirmationModal: View {
                     }
                         .buttonStyle(RedButton())
                     
+                    Spacer()
+                    
                     Button(action: delete) {
                         Text("Delete")
                     }
                         .buttonStyle(GreenButton())
                 }
             }
+            .padding(.horizontal)
         }
     }
 }
