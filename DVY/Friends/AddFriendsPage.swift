@@ -281,17 +281,3 @@ struct AddFriendsPage: View {
         isAddFriendOpen = false
     }
 }
-
-struct AddFriendButton: ButtonStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .font(.system(size: 40, weight: .semibold))
-            .padding(21.75)
-            .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
-            .background(Color(red: 0.2, green: 0.9, blue: 0.25))
-            .clipShape(Circle())
-            .frame(width: 85, height: 85)
-            .scaleEffect(configuration.isPressed ? 0.85 : 1)
-            .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
-    }
-}
