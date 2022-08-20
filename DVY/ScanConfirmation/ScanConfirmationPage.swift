@@ -23,6 +23,8 @@ struct ScanConfirmationPage: View {
     @State var isScanConfirmationHelpOpen: Bool = false
     @State var isSplitItemModalOpen: Bool = false
     @State var isConfirmationFlowOpen: Bool = false
+    @State var isDeleteConfirmationOpen: Bool = false
+    @State var deleteConfirmationText: String = ""
     
     @State var itemSplitIndex: Int? = nil
 
@@ -93,7 +95,7 @@ struct ScanConfirmationPage: View {
                                             .padding(.top,  10)
                                             .padding(.horizontal, 10)
                                             .onTapGesture() {
-                                                deleteItem(deleteItemIndex: i)
+                                                openDeleteConfirmationModal()
                                             }
                     
                                         Image(systemName: "divide.circle.fill")
@@ -207,7 +209,16 @@ struct ScanConfirmationPage: View {
                     saveUpdatedItems: saveUpdatedItems
                 )
             }
-            
+             
+            if (isDeleteConfirmationOpen) {
+                DeleteConfirmationModal(
+                    otherModalOpening: false,
+                    modalHeight: 300,
+                    message: deleteConfirmationText,
+                    closeModal: closeDeleteConfirmationModal,
+                    delete: deleteItem
+                )
+            }
         }
         .navigationBarItems(
             leading: Button(action: openRescanModal) {
@@ -243,9 +254,9 @@ struct ScanConfirmationPage: View {
         }
     }
     
-    func deleteItem(deleteItemIndex: Int) {
-        itemExpanded = nil
-        items.remove(at: deleteItemIndex)
+    func deleteItem() {
+        items.remove(at: itemExpanded!)
+        closeDeleteConfirmationModal()
     }
     
     func editItem(editItemIndex: Int) {
@@ -307,5 +318,20 @@ struct ScanConfirmationPage: View {
             }
         }
         return output
+    }
+    
+    func closeDeleteConfirmationModal() -> Void {
+        itemExpanded = nil
+        isDeleteConfirmationOpen = false
+        deleteConfirmationText = ""
+    }
+    
+    func openDeleteConfirmationModal() -> Void {
+        deleteConfirmationText = generateDeleteConfirmationText(itemIndex: itemExpanded!)
+        isDeleteConfirmationOpen = true
+    }
+    
+    func generateDeleteConfirmationText(itemIndex: Int) -> String {
+        return "Are you sure you want to delete '" + items[itemIndex].name + "'? This action can't be undone!"
     }
 }
