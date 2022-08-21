@@ -215,6 +215,7 @@ struct ScanConfirmationPage: View {
                     otherModalOpening: false,
                     modalHeight: 300,
                     message: deleteConfirmationText,
+                    deleteButtonText: "Delete",
                     closeModal: closeDeleteConfirmationModal,
                     delete: deleteItem
                 )

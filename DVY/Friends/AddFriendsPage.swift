@@ -114,6 +114,7 @@ struct AddFriendsPage: View {
                     otherModalOpening: false,
                     modalHeight: 300,
                     message: deleteConfirmationText,
+                    deleteButtonText: "Remove",
                     closeModal: closeDeleteConfirmationModal,
                     delete: deleteFriend
                 )

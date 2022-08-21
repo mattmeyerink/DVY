@@ -11,6 +11,7 @@ struct DeleteConfirmationModal: View {
     @State var otherModalOpening: Bool
     @State var modalHeight: Int
     @State var message: String
+    @State var deleteButtonText: String
     
     @State var closeModal: () -> Void
     @State var delete: () -> Void
@@ -40,7 +41,7 @@ struct DeleteConfirmationModal: View {
                     Spacer()
                     
                     Button(action: delete) {
-                        Text("Delete")
+                        Text(deleteButtonText)
                     }
                         .buttonStyle(GreenButton())
                 }
