@@ -15,6 +15,8 @@ struct FriendsListModal: View {
     @Binding var itemSplitIndex: Int?
     @Binding var isSplitItemModalOpen: Bool
     
+    @State var openDeleteConfirmationModal: () -> Void
+    
     @State var modalTitle: String = "Who Got It 🤨"
     @State var otherModalOpening: Bool = false
     
@@ -56,7 +58,7 @@ struct FriendsListModal: View {
                         .padding(.top,  10)
                         .padding(.horizontal, 10)
                         .onTapGesture() {
-                            deleteItem()
+                            openDeleteConfirmationModal()
                         }
 
                     Image(systemName: "divide.circle.fill")
@@ -78,11 +80,6 @@ struct FriendsListModal: View {
         items.remove(at: itemBeingAssignedIndex!)
         itemBeingAssignedIndex = nil
         isFriendsListOpen = false
-    }
-    
-    func deleteItem() {
-        isFriendsListOpen = false
-        items.remove(at: itemBeingAssignedIndex!)
     }
     
     func openSplitItemModal() {
