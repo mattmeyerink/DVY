@@ -37,6 +37,9 @@ struct AddFriendsPage: View {
     @State var previouslyAddedFriends: [Person]
     @State var saveFriendAction: ([Person]) -> Void
     
+    @State var isDeleteConfirmationOpen: Bool = false
+    @State var deleteConfirmationText: String = ""
+    
     var body: some View {
         ZStack {
             Color(red: 0.1, green: 0.1, blue: 0.1)
@@ -76,7 +79,7 @@ struct AddFriendsPage: View {
                     isFriendActionOpen: $isActionPopupOpen,
                     isEditFriendOpen: $isAddFriendOpen,
                     actionFriendIndex: $actionFriendIndex,
-                    deleteFriend: deleteFriend,
+                    deleteFriend: openDeleteConfirmationModal,
                     editFriend: editFriend
                 )
             }
@@ -103,6 +106,17 @@ struct AddFriendsPage: View {
                     friendColor: previouslyAddedFriendColor,
                     deletePreviouslyAddedFriend: deletePreviouslyAddedFriend,
                     addPreviouslyAddedFriend: addPreviouslyAddedFriend
+                )
+            }
+            
+            if (isDeleteConfirmationOpen) {
+                DeleteConfirmationModal(
+                    otherModalOpening: false,
+                    modalHeight: 300,
+                    message: deleteConfirmationText,
+                    deleteButtonText: "Remove",
+                    closeModal: closeDeleteConfirmationModal,
+                    delete: deleteFriend
                 )
             }
         }
@@ -230,7 +244,7 @@ struct AddFriendsPage: View {
         
         friends.remove(at: actionFriendIndex!)
         saveFriendAction(previouslyAddedFriends + friends.filter { !previouslyAddedFriendsIds.contains($0.id) })
-        isActionPopupOpen = false
+        closeDeleteConfirmationModal()
     }
     
     func addPreviouslyAddedFriend(friend: Person) -> Void {
@@ -280,18 +294,23 @@ struct AddFriendsPage: View {
         }
         isAddFriendOpen = false
     }
-}
-
-struct AddFriendButton: ButtonStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .font(.system(size: 40, weight: .semibold))
-            .padding(21.75)
-            .foregroundColor(Color(red: 0.1, green: 0.1, blue: 0.1))
-            .background(Color(red: 0.2, green: 0.9, blue: 0.25))
-            .clipShape(Circle())
-            .frame(width: 85, height: 85)
-            .scaleEffect(configuration.isPressed ? 0.85 : 1)
-            .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
+    
+    func openDeleteConfirmationModal() -> Void {
+        isActionPopupOpen = false
+        deleteConfirmationText = generateDeleteConfirmationText(actionFriendIndex: actionFriendIndex!)
+        isDeleteConfirmationOpen = true
+    }
+    
+    func closeDeleteConfirmationModal() -> Void {
+        isDeleteConfirmationOpen = false
+    }
+    
+    func generateDeleteConfirmationText(actionFriendIndex: Int) -> String {
+        var output = "Are you sure you want to remove " + friends[actionFriendIndex].firstName
+        if (friends[actionFriendIndex].lastName != "") {
+            output += " " + friends[actionFriendIndex].lastName
+        }
+        output += "?"
+        return output
     }
 }

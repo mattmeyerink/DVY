@@ -22,6 +22,9 @@ struct AssignItemsPage: View {
     @State var isSplitItemModalOpen: Bool = false
     @State var itemSplitIndex: Int? = nil
     
+    @State var isDeleteConfirmationOpen: Bool = false
+    @State var deleteConfirmationText: String = ""
+    
     var body: some View {
         ZStack {
             Color(red: 0.1, green: 0.1, blue: 0.1)
@@ -107,7 +110,8 @@ struct AssignItemsPage: View {
                     isFriendsListOpen: $isFriendsListOpen,
                     itemBeingAssignedIndex: $itemBeingAssignedIndex,
                     itemSplitIndex: $itemSplitIndex,
-                    isSplitItemModalOpen: $isSplitItemModalOpen
+                    isSplitItemModalOpen: $isSplitItemModalOpen,
+                    openDeleteConfirmationModal: openDeleteConfirmationModal
                 )
             }
             
@@ -130,6 +134,17 @@ struct AssignItemsPage: View {
                     itemSplitIndex: $itemSplitIndex,
                     itemExpanded: $itemBeingAssignedIndex,
                     splitAssignmentType: 1
+                )
+            }
+            
+            if (isDeleteConfirmationOpen) {
+                DeleteConfirmationModal(
+                    otherModalOpening: isDeleteConfirmationOpen,
+                    modalHeight: 300,
+                    message: deleteConfirmationText,
+                    deleteButtonText: "Delete",
+                    closeModal: closeDeleteConfirmationModal,
+                    delete: deleteItem
                 )
             }
         }
@@ -184,5 +199,26 @@ struct AssignItemsPage: View {
         if (self.items.count == 0) {
             self.currentPage = .summaryPage
         }
+    }
+    
+    func openDeleteConfirmationModal() -> Void {
+        deleteConfirmationText = generateDeleteConfirmationText()
+        isFriendsListOpen = false
+        isDeleteConfirmationOpen = true
+    }
+    
+    func closeDeleteConfirmationModal() -> Void {
+        isDeleteConfirmationOpen = false
+        deleteConfirmationText = ""
+    }
+    
+    func generateDeleteConfirmationText() -> String {
+        let itemName = items[itemBeingAssignedIndex!].name
+        return "Are you sure you want to delete '" + itemName + "'? This action can't be undone!"
+    }
+    
+    func deleteItem() {
+        items.remove(at: itemBeingAssignedIndex!)
+        closeDeleteConfirmationModal()
     }
 }
