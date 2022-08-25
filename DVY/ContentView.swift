@@ -128,7 +128,7 @@ struct ContentView: View {
             case .success(let friends):
                 store.previouslyAddedFriends = friends.sorted(by: { $0.useCount > $1.useCount })
                 
-                for i in 0...store.previouslyAddedFriends.count - 1 {
+                for i in 0..<store.previouslyAddedFriends.count {
                     store.previouslyAddedFriends[i].isVisible = true
                 }
             }
