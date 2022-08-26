@@ -82,7 +82,7 @@ struct FriendItemListModal: View {
     }
     
     func deleteItem(itemIndex: Int) {
-        items.append(friends[friendIndex!].items[itemIndex])
+        items.insert(friends[friendIndex!].items[itemIndex], at: 0)
         friends[friendIndex!].items.remove(at: itemIndex)
         
         if friends[friendIndex!].items.count == 0 {
