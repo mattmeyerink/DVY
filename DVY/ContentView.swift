@@ -30,6 +30,7 @@ struct ContentView: View {
     
     @State var store = FriendsStore()
     @State var contacts: [Contact] = []
+    @State var contactsAccessDenied: Bool = false
     
     var body: some View {
         ZStack {
@@ -73,6 +74,7 @@ struct ContentView: View {
                         currentPage: $currentPage,
                         friends: $friends,
                         contacts: $contacts,
+                        contactsAccessDenied: $contactsAccessDenied,
                         previouslyAddedFriends: store.previouslyAddedFriends,
                         saveFriendAction: saveFriendAction
                     )
@@ -158,6 +160,7 @@ struct ContentView: View {
                 contacts.append(newContact)
             })
         } catch {
+            contactsAccessDenied = true
             contacts = []
         }
     }
