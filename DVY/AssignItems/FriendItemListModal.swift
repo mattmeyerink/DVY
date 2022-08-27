@@ -14,7 +14,7 @@ struct FriendItemListModal: View {
     @Binding var isFriendItemListOpen: Bool
     @Binding var modalTitle: String
     
-    @State var showingDeleteIndex: Int? = nil
+    @State var showingRemoveIndex: Int? = nil
     @State var otherModalOpening: Bool = false
     
     var body: some View {
@@ -36,12 +36,12 @@ struct FriendItemListModal: View {
                                     
                                     Spacer()
                                     
-                                    if (i == showingDeleteIndex) {
-                                        Image(systemName: "trash.fill")
+                                    if (i == showingRemoveIndex) {
+                                        Image(systemName: "arrowshape.turn.up.backward.2.fill")
                                             .font(.system(size: 20, weight: .semibold))
                                             .padding(.horizontal, 5)
                                             .onTapGesture() {
-                                                deleteItem(itemIndex: i)
+                                                removeItem(itemIndex: i)
                                             }
                                     } else {
                                         Text(f.items[i].priceFormatted)
@@ -74,14 +74,14 @@ struct FriendItemListModal: View {
     }
     
     func toggleShowingDelete(itemIndex: Int) {
-        if (itemIndex == showingDeleteIndex) {
-            showingDeleteIndex = nil
+        if (itemIndex == showingRemoveIndex) {
+            showingRemoveIndex = nil
         } else {
-            showingDeleteIndex = itemIndex
+            showingRemoveIndex = itemIndex
         }
     }
     
-    func deleteItem(itemIndex: Int) {
+    func removeItem(itemIndex: Int) {
         items.insert(friends[friendIndex!].items[itemIndex], at: 0)
         friends[friendIndex!].items.remove(at: itemIndex)
         
