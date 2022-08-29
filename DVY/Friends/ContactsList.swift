@@ -10,6 +10,7 @@ import SwiftUI
 struct ContactsList: View {
     @Binding var contacts: [Contact]
     @Binding var editFriendContactId: UUID?
+    @Binding var contactsAccessDenied: Bool
     
     @State var addFriendFromContact: (Contact) -> Void
     
@@ -48,6 +49,22 @@ struct ContactsList: View {
                                 handleContactTap(filteredContactIndex: i)
                             }
                     }
+                }
+            } else if (contactsAccessDenied) {
+                VStack {
+                    Text("Error Getting Contacts.")
+                        .font(.system(size: 25, weight: .semibold))
+                        .padding(.vertical, 15)
+                        .foregroundColor(Color.white)
+                    
+                    Text("Make Sure DVY Has Access!")
+                        .font(.system(size: 25, weight: .semibold))
+                        .padding(.vertical, 5)
+                        .foregroundColor(Color.white)
+                    
+                    Text("👀")
+                        .font(.system(size: 35))
+                        .padding(.vertical, 5)
                 }
             } else if (searchText != "") {
                 VStack {

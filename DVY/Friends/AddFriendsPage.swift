@@ -17,6 +17,7 @@ struct AddFriendsPage: View {
     @Binding var currentPage: Pages
     @Binding var friends: [Person]
     @Binding var contacts: [Contact]
+    @Binding var contactsAccessDenied: Bool
     
     @State var currentAddedFriendsView: AddFriendsView = .addedFriendsList
     
@@ -68,6 +69,7 @@ struct AddFriendsPage: View {
                     ContactsList(
                         contacts: $contacts,
                         editFriendContactId: $editFriendContactId,
+                        contactsAccessDenied: $contactsAccessDenied,
                         addFriendFromContact: addFriendFromContact
                     )
                 }
