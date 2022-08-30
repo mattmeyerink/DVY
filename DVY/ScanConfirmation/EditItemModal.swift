@@ -77,7 +77,7 @@ struct EditItemModal: View {
         if (editedItemIndex != nil) {
             items[editedItemIndex!] = ReciptItem(name: itemName, price: Double(itemPrice)!)
         } else {
-            items.append(ReciptItem(name: itemName, price: Double(itemPrice)!))
+            items.insert(ReciptItem(name: itemName, price: Double(itemPrice)!), at: 0)
         }
         
         closePopup()
