@@ -45,7 +45,7 @@ struct EditItemModal: View {
                         .onReceive(Just(itemPrice)) { newValue in
                             let filtered = newValue.filter { "0123456789.".contains($0) }
                             if filtered != newValue {
-                                self.itemPrice = filtered
+                                itemPrice = filtered
                             }
                         }
                 }
@@ -70,14 +70,14 @@ struct EditItemModal: View {
     }
     
     func saveItem() {
-        if (itemName == "") {
+        if (itemName == "" || itemPrice == "") {
             return
         }
         
         if (editedItemIndex != nil) {
-            items[editedItemIndex!] = ReciptItem(name: itemName, price: Double(self.itemPrice)!)
+            items[editedItemIndex!] = ReciptItem(name: itemName, price: Double(itemPrice)!)
         } else {
-            items.append(ReciptItem(name: itemName, price: Double(self.itemPrice)!))
+            items.append(ReciptItem(name: itemName, price: Double(itemPrice)!))
         }
         
         closePopup()
