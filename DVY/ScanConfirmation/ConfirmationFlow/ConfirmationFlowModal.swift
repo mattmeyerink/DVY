@@ -79,8 +79,12 @@ struct ConfirmationFlowModal: View {
     }
     
     func returnToForm() {
-        resetFormValues(newIndex: items.count - 1)
-        currentFlowState = .form
+        if (items.count > 0) {
+            resetFormValues(newIndex: items.count - 1)
+            currentFlowState = .form
+        } else {
+         closeConfirmationFlow()
+        }
     }
     
     func continueToSummary() {
@@ -90,8 +94,10 @@ struct ConfirmationFlowModal: View {
     
     func resetFormValues(newIndex: Int) {
         currentItemIndex = newIndex
-        currentItemName = items[currentItemIndex].name
-        currentItemPrice = items[currentItemIndex].priceFormatted
+        if (items.count > 0) {
+            currentItemName = items[currentItemIndex].name
+            currentItemPrice = items[currentItemIndex].priceFormatted
+        }
     }
     
     func confirmItemUpdates() {
