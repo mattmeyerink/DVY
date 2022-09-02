@@ -10,6 +10,8 @@ import SwiftUI
 struct RescanConfirmationModal: View {
     @Binding var currentPage: Pages
     @Binding var isRescanModalOpen: Bool
+    @Binding var items: [ReciptItem]
+    @Binding var friends: [Person]
     
     @State var modalTitle: String = "Scan Tips 📸"
     @State var otherModalOpening: Bool = false
@@ -71,6 +73,11 @@ struct RescanConfirmationModal: View {
     }
     
     func startRescan() {
+        items = []
+        for i in 0..<friends.count {
+            friends[i].items = []
+        }
+        
         currentPage = .landingPage
         closeRescanModal()
     }

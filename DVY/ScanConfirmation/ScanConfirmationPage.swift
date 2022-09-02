@@ -183,7 +183,12 @@ struct ScanConfirmationPage: View {
             }
             
             if (isRescanModalOpen) {
-                RescanConfirmationModal(currentPage: $currentPage, isRescanModalOpen: $isRescanModalOpen)
+                RescanConfirmationModal(
+                    currentPage: $currentPage,
+                    isRescanModalOpen: $isRescanModalOpen,
+                    items: $items,
+                    friends: $friends
+                )
             }
             
             if (isScanConfirmationHelpOpen) {
