@@ -49,6 +49,7 @@
 		D3E4D7A6280E313100BA294A /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E4D7A5280E313100BA294A /* ButtonStyles.swift */; };
 		D3EBB92F286C04C300395498 /* Modal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EBB92E286C04C300395498 /* Modal.swift */; };
 		D3EC3DB3283720D300296361 /* CropConfirmationModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EC3DB2283720D300296361 /* CropConfirmationModal.swift */; };
+		D3FA724928CAF89C006A9ADB /* EmptyMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FA724828CAF89C006A9ADB /* EmptyMessage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,6 +118,7 @@
 		D3E4D7A5280E313100BA294A /* ButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
 		D3EBB92E286C04C300395498 /* Modal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modal.swift; sourceTree = "<group>"; };
 		D3EC3DB2283720D300296361 /* CropConfirmationModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropConfirmationModal.swift; sourceTree = "<group>"; };
+		D3FA724828CAF89C006A9ADB /* EmptyMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyMessage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +190,7 @@
 				D32EF41F28347D000045D6D1 /* TextRecognition.swift */,
 				D3EBB92E286C04C300395498 /* Modal.swift */,
 				D3BF264128B0B44D0007E537 /* DeleteConfirmationModal.swift */,
+				D3FA724828CAF89C006A9ADB /* EmptyMessage.swift */,
 			);
 			path = DVY;
 			sourceTree = "<group>";
@@ -468,6 +471,7 @@
 				065BF1A72725F0B000C17A91 /* EditFriendModal.swift in Sources */,
 				D3066566289624E100D0FAA9 /* PreviouslyAddedFriendsPage.swift in Sources */,
 				D3959D66274AE71D000F6B06 /* FriendsListModal.swift in Sources */,
+				D3FA724928CAF89C006A9ADB /* EmptyMessage.swift in Sources */,
 				D3B96CF727BEF3540001C3DD /* SplitItemModal.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
