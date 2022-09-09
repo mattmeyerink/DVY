@@ -125,37 +125,17 @@ struct ScanConfirmationPage: View {
                                 }
                         }
                     } else if (allItemsAddedToFriends()) {
-                        VStack {
-                            Text("All Items Assigned.")
-                                .font(.system(size: 25, weight: .semibold))
-                                .padding(.vertical, 15)
-                                .foregroundColor(Color.white)
-                            
-                            Text("Feel Free To Add More!")
-                                .font(.system(size: 25, weight: .semibold))
-                                .padding(.vertical, 5)
-                                .foregroundColor(Color.white)
-                            
-                            Text("🍔 🍟 🍺")
-                                .font(.system(size: 35))
-                                .padding(.vertical, 5)
-                        }
+                        EmptyMessage(
+                            firstLine: "All Items Assigned.",
+                            secondLine: "Feel Free to Add More!",
+                            emojis: "🍔 🍟 🍺"
+                        )
                     } else {
-                        VStack {
-                            Text("No Items to DVY Yet.")
-                                .font(.system(size: 25, weight: .semibold))
-                                .padding(.vertical, 15)
-                                .foregroundColor(Color.white)
-                            
-                            Text("Add Items to Start!")
-                                .font(.system(size: 25, weight: .semibold))
-                                .padding(.vertical, 5)
-                                .foregroundColor(Color.white)
-                            
-                            Text("🥗 🍝 🍨")
-                                .font(.system(size: 35))
-                                .padding(.vertical, 5)
-                        }
+                        EmptyMessage(
+                            firstLine: "No Items to DVY Yet.",
+                            secondLine: "Add Items to Start!",
+                            emojis: "🥗 🍝 🍨"
+                        )
                     }
                 }
                 
