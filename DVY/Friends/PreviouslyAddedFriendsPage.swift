@@ -56,37 +56,17 @@ struct PreviouslyAddedFriendsPage: View {
                     }
                 }
             } else if (searchText != "") {
-                VStack {
-                    Text("No Friends Match the Search.")
-                        .font(.system(size: 25, weight: .semibold))
-                        .padding(.vertical, 15)
-                        .foregroundColor(Color.white)
-                    
-                    Text("Try a Different Search Term!")
-                        .font(.system(size: 25, weight: .semibold))
-                        .padding(.vertical, 5)
-                        .foregroundColor(Color.white)
-                    
-                    Text("🔎")
-                        .font(.system(size: 35))
-                        .padding(.vertical, 5)
-                }
+                EmptyMessage(
+                    firstLine: "No Friends Match the Search.",
+                    secondLine: "Try a Different Search Term!",
+                    emojis: "🔎"
+                )
             } else {
-                VStack {
-                    Text("No Previously Added Friends.")
-                        .font(.system(size: 25, weight: .semibold))
-                        .padding(.vertical, 15)
-                        .foregroundColor(Color.white)
-                    
-                    Text("Add Some Friends and Come Back to See Them!")
-                        .font(.system(size: 25, weight: .semibold))
-                        .padding(.vertical, 5)
-                        .foregroundColor(Color.white)
-                    
-                    Text("✌️")
-                        .font(.system(size: 35))
-                        .padding(.vertical, 5)
-                }
+                EmptyMessage(
+                    firstLine: "No Previously Added Friends.",
+                    secondLine: "Add Some Friends and Come Back to See Them!",
+                    emojis: "✌️"
+                )
             }
         }
         .onAppear {
