@@ -51,53 +51,23 @@ struct ContactsList: View {
                     }
                 }
             } else if (contactsAccessDenied) {
-                VStack {
-                    Text("Error Getting Contacts.")
-                        .font(.system(size: 25, weight: .semibold))
-                        .padding(.vertical, 15)
-                        .foregroundColor(Color.white)
-                    
-                    Text("Make Sure DVY Has Access!")
-                        .font(.system(size: 25, weight: .semibold))
-                        .padding(.vertical, 5)
-                        .foregroundColor(Color.white)
-                    
-                    Text("👀")
-                        .font(.system(size: 35))
-                        .padding(.vertical, 5)
-                }
+                EmptyMessage(
+                    firstLine: "Error Getting Contacts.",
+                    secondLine: "Make Sure DVY Has Access!",
+                    emojis: "👀"
+                )
             } else if (searchText != "") {
-                VStack {
-                    Text("No Contacts Match the Search.")
-                        .font(.system(size: 25, weight: .semibold))
-                        .padding(.vertical, 15)
-                        .foregroundColor(Color.white)
-                    
-                    Text("Try a Different Search Term!")
-                        .font(.system(size: 25, weight: .semibold))
-                        .padding(.vertical, 5)
-                        .foregroundColor(Color.white)
-                    
-                    Text("🔎")
-                        .font(.system(size: 35))
-                        .padding(.vertical, 5)
-                }
+                EmptyMessage(
+                    firstLine: "No Contacts Match the Search.",
+                    secondLine: "Try a Different Search Term!",
+                    emojis: "🔎"
+                )
             } else {
-                VStack {
-                    Text("No Contacts Found.")
-                        .font(.system(size: 25, weight: .semibold))
-                        .padding(.vertical, 15)
-                        .foregroundColor(Color.white)
-                    
-                    Text("Go Out and Meet Some People!")
-                        .font(.system(size: 25, weight: .semibold))
-                        .padding(.vertical, 5)
-                        .foregroundColor(Color.white)
-                    
-                    Text("👋")
-                        .font(.system(size: 35))
-                        .padding(.vertical, 5)
-                }
+                EmptyMessage(
+                    firstLine: "No Contacts Found.",
+                    secondLine: "Go Out and Meet Some People!",
+                    emojis: "👋"
+                )
             }
         }
             .onAppear {

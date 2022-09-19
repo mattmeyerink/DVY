@@ -83,21 +83,11 @@ struct AssignItemsPage: View {
                                 }
                         }
                     } else {
-                        VStack {
-                            Text("No Items to Assign.")
-                                .font(.system(size: 25, weight: .semibold))
-                                .padding(.vertical, 15)
-                                .foregroundColor(Color.white)
-                            
-                            Text("Onward To The Summary!")
-                                .font(.system(size: 25, weight: .semibold))
-                                .padding(.vertical, 5)
-                                .foregroundColor(Color.white)
-                            
-                            Text("👉")
-                                .font(.system(size: 35))
-                                .padding(.vertical, 5)
-                        }
+                        EmptyMessage(
+                            firstLine: "No Items to Assign.",
+                            secondLine: "Onward To The Summary!",
+                            emojis: "👉"
+                        )
                     }
                 }
                     .padding(.horizontal)
