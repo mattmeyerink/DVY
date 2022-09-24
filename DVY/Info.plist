@@ -23,7 +23,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>We need to access the camera to scan receipts</string>
 	<key>NSContactsUsageDescription</key>
-	<string>We need to access your contacts so you can create friends from contacts</string>
+	<string>We need to access your contacts so you can create friends from contacts. Your contacts stay on your phone. They are never stored by us.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>We need to access your photo library for you to select photos of receipts to upload</string>
 	<key>UIApplicationSceneManifest</key>
