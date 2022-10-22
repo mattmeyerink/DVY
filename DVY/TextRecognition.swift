@@ -18,12 +18,12 @@ func recognizeText(from images: [CGImage]) -> TextRecognitionResponse {
     // Initialize the response object that will hold the items and tax information
     let response = TextRecognitionResponse()
     
-    // Create a recognition request with the response object to be applied to the scans
-    let recognizeTextRequest = createRecognitionRequest(response: response)
-    recognizeTextRequest.recognitionLevel = .accurate
-    
     // Perform text recognition on each scan that was captured
     for image in images {
+        // Create a recognition request with the response object to be applied to the scans
+        let recognizeTextRequest = createRecognitionRequest(response: response, imageHeight: image.height)
+        recognizeTextRequest.recognitionLevel = .accurate
+        
         let requestHandler = VNImageRequestHandler(cgImage: image, options: [:])
         try? requestHandler.perform([recognizeTextRequest])
     }
@@ -31,13 +31,13 @@ func recognizeText(from images: [CGImage]) -> TextRecognitionResponse {
     return response
 }
 
-func createRecognitionRequest(response: TextRecognitionResponse) -> VNRecognizeTextRequest {
+func createRecognitionRequest(response: TextRecognitionResponse, imageHeight: Int) -> VNRecognizeTextRequest {
     return VNRecognizeTextRequest { (request, error) in
         guard error == nil else { return }
         
-        guard var observations = request.results as? [VNRecognizedTextObservation] else { return }
+        guard let observations = request.results as? [VNRecognizedTextObservation] else { return }
         
-        let lines = sortImagesByLine(observations: observations)
+        let lines = sortImagesByLine(observations: observations, imageHeight: imageHeight)
         
         let maximumRecognitionCandidates = 1
         
@@ -54,7 +54,6 @@ func createRecognitionRequest(response: TextRecognitionResponse) -> VNRecognizeT
             
             if (lastString == nil) {
                 continue
-                
             }
             
             let linePrice = formatStringToPrice(scannedString: lastString!)
@@ -112,9 +111,9 @@ func nameContainsInvalidWord(name: String?) -> Bool {
     return nameIsInvalid
 }
 
-func sortImagesByLine(observations: [VNRecognizedTextObservation]) -> [[VNRecognizedTextObservation]] {
+func sortImagesByLine(observations: [VNRecognizedTextObservation], imageHeight: Int) -> [[VNRecognizedTextObservation]] {
     // Sort the observation objects by HEIGHT on the receipt
-    let sortedObservations = observations.sorted(by: { $0.boundingBox.minY > $1.boundingBox.minY })
+    let sortedObservations = observations.sorted(by: { $0.boundingBox.standardized.minY > $1.boundingBox.standardized.minY })
     
     // Fill in an array of lines on the receipt by matching up all observations with the same height
     var lines: [[VNRecognizedTextObservation]] = []
@@ -128,12 +127,13 @@ func sortImagesByLine(observations: [VNRecognizedTextObservation]) -> [[VNRecogn
         }
         
         // Calculate the percent difference between the last observation and the current one
-        let minAverage = (currentLine.last!.boundingBox.minY + observation.boundingBox.minY) / 2
-        let heightDifference = abs(currentLine.last!.boundingBox.minY - observation.boundingBox.minY)
-        let percentDifference = heightDifference/minAverage
+        let lastElementHeight = currentLine.last!.boundingBox.minY * CGFloat(imageHeight)
+        let currentElementHeight = observation.boundingBox.minY * CGFloat(imageHeight)
+        let heightDifference = abs(lastElementHeight - currentElementHeight)
         
         // If the height of the lines is similar enough, add the observation to the current line
-        if (percentDifference < 0.02) {
+        let ESTIMATED_LINE_HEIGHT = 22.5
+        if (heightDifference < ESTIMATED_LINE_HEIGHT) {
             currentLine.append(observation)
             continue
         }
@@ -148,7 +148,7 @@ func sortImagesByLine(observations: [VNRecognizedTextObservation]) -> [[VNRecogn
     
     // Sort each line by the WIDTH on the receipt to read from left to right
     for i in 0..<lines.count {
-        lines[i].sort(by: { $0.boundingBox.minX < $1.boundingBox.minX })
+        lines[i].sort(by: { $0.boundingBox.standardized.minX < $1.boundingBox.standardized.minX })
     }
     
     return lines
