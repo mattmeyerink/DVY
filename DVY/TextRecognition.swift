@@ -65,7 +65,7 @@ func createRecognitionRequest(response: TextRecognitionResponse, imageHeight: In
             let linePrice = formatStringToPrice(scannedString: lastString!)
             
             // If the last string is not a price, keep looking for more items
-            if (linePrice == nil || linePrice == 0 || !lastString!.contains(".")) {
+            if (linePrice == nil || linePrice! <= 0 || !lastString!.contains(".")) {
                 continue
             }
             
