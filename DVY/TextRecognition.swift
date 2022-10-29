@@ -44,13 +44,19 @@ func createRecognitionRequest(response: TextRecognitionResponse, imageHeight: In
         var currentTax: Double = 0.0
         
         for line in lines {
-            // If there are less than two items on the line can't have a name and a price
-            if (line.count < 2) {
+            if (line.count < 1) {
                 continue
             }
             
-            // Get the last observation on the line. This is most likely a the price
-            let lastString = line.last?.topCandidates(maximumRecognitionCandidates).first?.string
+            // Create an array of each individual string on the line
+            var itemsInLine: [String] = []
+            for item in line {
+                guard let word = item.topCandidates(maximumRecognitionCandidates).first?.string else { continue }
+                itemsInLine += word.components(separatedBy: " ")
+            }
+            
+            // Pop the last string on the line. If there is a price on the line its the last string.
+            let lastString = itemsInLine.popLast()
             
             if (lastString == nil) {
                 continue
@@ -58,17 +64,16 @@ func createRecognitionRequest(response: TextRecognitionResponse, imageHeight: In
             
             let linePrice = formatStringToPrice(scannedString: lastString!)
             
-            // If the last item is not a price, keep looking for more items
+            // If the last string is not a price, keep looking for more items
             if (linePrice == nil || linePrice == 0 || !lastString!.contains(".")) {
                 continue
             }
             
-            // Add each observation beore the price to the items name
-            var itemName = ""
-            for i in 0..<(line.count - 1) {
-                let candidate = line[i].topCandidates(maximumRecognitionCandidates).first
-                if (candidate == nil) { continue }
-                itemName += candidate!.string + " "
+            // Join each string before the price to be the items name
+            var itemName = itemsInLine.joined(separator: " ")
+            
+            if (itemName == "") {
+                itemName = "🧐 🤷‍♂️ 🤔"
             }
             
             let containsTax = itemName.localizedCaseInsensitiveContains("tax")
@@ -80,7 +85,7 @@ func createRecognitionRequest(response: TextRecognitionResponse, imageHeight: In
                 continue
             }
             
-            // if the name doesn't contain an invalid word (like tax or total) add it to the list of itemspo
+            // if the name doesn't contain an invalid word (like tax or total) add it to the list of items
             if (!containsTax && !nameContainsInvalidWord(name: itemName)){
                 response.items.append(ReciptItem(name: itemName, price: linePrice!))
             }
@@ -99,7 +104,7 @@ func formatStringToPrice(scannedString: String) -> Double? {
 
 func nameContainsInvalidWord(name: String?) -> Bool {
     var nameIsInvalid = false
-    let invalidItems = ["total", "due", "visa"]
+    let invalidItems = ["total", "due", "visa", "xxxx"]
     
     for word in invalidItems {
         if (name!.localizedCaseInsensitiveContains(word)) {
