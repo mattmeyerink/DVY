@@ -24,6 +24,7 @@
 		06FD3386271B46E6006FC9E0 /* ScanConfirmationPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FD3385271B46E6006FC9E0 /* ScanConfirmationPage.swift */; };
 		06FD3388271B48AA006FC9E0 /* AddFriendsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FD3387271B48AA006FC9E0 /* AddFriendsPage.swift */; };
 		D3066566289624E100D0FAA9 /* PreviouslyAddedFriendsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3066565289624E000D0FAA9 /* PreviouslyAddedFriendsPage.swift */; };
+		D312589529172EBB006CBFAF /* WhatsNewModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D312589429172EBB006CBFAF /* WhatsNewModal.swift */; };
 		D32EF42028347D000045D6D1 /* TextRecognition.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32EF41F28347D000045D6D1 /* TextRecognition.swift */; };
 		D330AD0F2794C3B400BBF3EE /* RescanConfirmationModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D330AD0E2794C3B400BBF3EE /* RescanConfirmationModal.swift */; };
 		D330AD132794D19D00BBF3EE /* NewScanConfirmationModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D330AD122794D19D00BBF3EE /* NewScanConfirmationModal.swift */; };
@@ -93,6 +94,7 @@
 		06FD3385271B46E6006FC9E0 /* ScanConfirmationPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanConfirmationPage.swift; sourceTree = "<group>"; };
 		06FD3387271B48AA006FC9E0 /* AddFriendsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendsPage.swift; sourceTree = "<group>"; };
 		D3066565289624E000D0FAA9 /* PreviouslyAddedFriendsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviouslyAddedFriendsPage.swift; sourceTree = "<group>"; };
+		D312589429172EBB006CBFAF /* WhatsNewModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewModal.swift; sourceTree = "<group>"; };
 		D32EF41F28347D000045D6D1 /* TextRecognition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRecognition.swift; sourceTree = "<group>"; };
 		D330AD0E2794C3B400BBF3EE /* RescanConfirmationModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RescanConfirmationModal.swift; sourceTree = "<group>"; };
 		D330AD122794D19D00BBF3EE /* NewScanConfirmationModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewScanConfirmationModal.swift; sourceTree = "<group>"; };
@@ -299,6 +301,7 @@
 		D3EC3DB128371D9F00296361 /* LandingPage */ = {
 			isa = PBXGroup;
 			children = (
+				D312589429172EBB006CBFAF /* WhatsNewModal.swift */,
 				0615E543271B816B005CC1E9 /* LandingPage.swift */,
 				D3EC3DB2283720D300296361 /* CropConfirmationModal.swift */,
 			);
@@ -446,6 +449,7 @@
 				D3EBB92F286C04C300395498 /* Modal.swift in Sources */,
 				06FD3388271B48AA006FC9E0 /* AddFriendsPage.swift in Sources */,
 				0615E544271B816B005CC1E9 /* LandingPage.swift in Sources */,
+				D312589529172EBB006CBFAF /* WhatsNewModal.swift in Sources */,
 				061BE95D2734D2B200C14E28 /* RecieptItem.swift in Sources */,
 				D330AD0F2794C3B400BBF3EE /* RescanConfirmationModal.swift in Sources */,
 				D34C147E289B78B4002DE01B /* ContactsList.swift in Sources */,
