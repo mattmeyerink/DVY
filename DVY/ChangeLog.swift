@@ -7,20 +7,53 @@
 
 import Foundation
 
+let CURRENT_VERSION = "1.3.0"
+
+func getUnseenUpdates(lastSeenVersion: String) -> [DVYVersion] {
+    if (lastSeenVersion.isEmpty) {
+        return dvyVersions
+    }
+    
+    let lastSeenVersionIncrements = lastSeenVersion.split(separator: ".")
+    
+    var unseenVersions: [DVYVersion] = []
+    
+    for version in dvyVersions {
+        let versionIncrements = version.versionTitle.split(separator: ".")
+        
+        for i in 0..<3 {
+            let versionNumber = Int(versionIncrements[i])!
+            let lastSeenVersionNumber = Int(lastSeenVersionIncrements[i])!
+            
+            if (versionNumber == lastSeenVersionNumber) {
+                continue
+            }
+            
+            if (versionNumber < lastSeenVersionNumber) {
+                break
+            }
+            
+            unseenVersions.append(version)
+        }
+    }
+    
+    return unseenVersions
+}
+
 class DVYVersion {
-    let version: String
+    let versionTitle: String
     let bugFixes: [String]
     let features: [String]
     
-    init(version: String, bugFixes: [String], features: [String]) {
-        self.version = version
+    init(versionTitle: String, bugFixes: [String], features: [String]) {
+        self.versionTitle = versionTitle
         self.bugFixes = bugFixes
         self.features = features
     }
 }
 
 let v101: DVYVersion = DVYVersion(
-    version: "v1.0.1",
+    versionTitle: "1.0.1",
     bugFixes: [
         "The percentage being calculated for tips no longer includes the tax."
     ],
@@ -28,7 +61,7 @@ let v101: DVYVersion = DVYVersion(
 )
 
 let v110: DVYVersion = DVYVersion(
-    version: "v1.1.0",
+    versionTitle: "1.1.0",
     bugFixes: [],
     features: [
         "Friends you have added previously are now saved to quickly add later.",
@@ -38,7 +71,7 @@ let v110: DVYVersion = DVYVersion(
 )
 
 let v120: DVYVersion = DVYVersion(
-    version: "v1.2.0",
+    versionTitle: "1.2.0",
     bugFixes: [
         "Hitting delete button on an item now correctly unassigns the item."
     ],
@@ -49,7 +82,7 @@ let v120: DVYVersion = DVYVersion(
 )
 
 let v130: DVYVersion = DVYVersion(
-    version: "v1.3.0",
+    versionTitle: "1.3.0",
     bugFixes: [
         "Prevent break when deleting all items in the scan confirmation modal.",
         "Prevent break when saving an item without a price set.",

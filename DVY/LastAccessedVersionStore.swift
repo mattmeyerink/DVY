@@ -8,8 +8,6 @@
 import Foundation
 
 class LastAccessedVersionStore: ObservableObject {
-    @Published var lastAccessedVersion: String = ""
-    
     private static func fileURL() throws -> URL {
         try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("lastAccessedVersion.data")
     }
