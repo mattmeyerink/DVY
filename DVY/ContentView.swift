@@ -109,6 +109,7 @@ struct ContentView: View {
             }
             .onAppear {
                 loadFriendsFromLocalStore()
+                loadLastAccessedVersionFromLocalStore()
                 
                 Task.init {
                     await fetchAllContacts()

@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct WhatsNewModal: View {
-    @Binding var isWhatsNewModalOpen: Bool
     @Binding var updatesSinceLastAccess: [DVYVersion]
     
     @State var modalTitle: String = "New Stuff 🤩"
@@ -22,11 +21,15 @@ struct WhatsNewModal: View {
             closeModal: closeWhatsNewModal,
             modalHeight: modalHeight
         ) {
-            Text("This will be the text about the updates")
+            ScrollView {
+                ForEach(updatesSinceLastAccess.indices, id: \.self) { i in
+                    VersionUpdateText(version: updatesSinceLastAccess[i])
+                }
+            }
         }
     }
     
     func closeWhatsNewModal() -> Void {
-        isWhatsNewModalOpen = false
+        updatesSinceLastAccess = []
     }
 }

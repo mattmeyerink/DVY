@@ -17,7 +17,6 @@ struct LandingPage: View {
     @Binding var updatesSinceLastAccess: [DVYVersion]
     
     @State var isCropConfirmationModalOpen = false
-    @State var isWhatsNewModalOpen = false
     
     var IS_SIMULATION: Bool = false
     
@@ -58,9 +57,8 @@ struct LandingPage: View {
             )
         }
         
-        if (isWhatsNewModalOpen) {
+        if (updatesSinceLastAccess.count > 0) {
             WhatsNewModal(
-                isWhatsNewModalOpen: $isWhatsNewModalOpen,
                 updatesSinceLastAccess: $updatesSinceLastAccess
             )
         }
