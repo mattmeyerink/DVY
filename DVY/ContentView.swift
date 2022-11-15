@@ -32,6 +32,8 @@ struct ContentView: View {
     @State var contacts: [Contact] = []
     @State var contactsAccessDenied: Bool = false
     
+    @State var updatesSinceLastAccess: [DVYVersion] = []
+    
     var body: some View {
         ZStack {
             Color(red: 0.1, green: 0.1, blue: 0.1)
@@ -45,7 +47,8 @@ struct ContentView: View {
                     isUploading: $isUploading,
                     items: $items,
                     friends: $friends,
-                    tax: $tax
+                    tax: $tax,
+                    updatesSinceLastAccess: $updatesSinceLastAccess
                 )
             case .scanConfirmationPage:
                 NavigationView {
@@ -106,6 +109,7 @@ struct ContentView: View {
             }
             .onAppear {
                 loadFriendsFromLocalStore()
+                loadLastAccessedVersionFromLocalStore()
                 
                 Task.init {
                     await fetchAllContacts()
@@ -133,6 +137,27 @@ struct ContentView: View {
                 for i in 0..<store.previouslyAddedFriends.count {
                     store.previouslyAddedFriends[i].isVisible = true
                 }
+            }
+        }
+    }
+    
+    func updateLastAccessedVersion() -> Void {
+        LastAccessedVersionStore.save(version: CURRENT_VERSION) { result in
+            if case .failure(let error) = result {
+                fatalError(error.localizedDescription)
+            }
+        }
+    }
+    
+    func loadLastAccessedVersionFromLocalStore() -> Void {
+        LastAccessedVersionStore.load { result in
+            switch result {
+            case .failure(let error):
+                updateLastAccessedVersion()
+                fatalError(error.localizedDescription)
+            case .success(let version):
+                updatesSinceLastAccess = getUnseenUpdates(lastSeenVersion: version)
+                updateLastAccessedVersion()
             }
         }
     }

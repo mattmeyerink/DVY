@@ -14,6 +14,7 @@ struct LandingPage: View {
     @Binding var items: [ReciptItem]
     @Binding var friends: [Person]
     @Binding var tax: CurrencyObject
+    @Binding var updatesSinceLastAccess: [DVYVersion]
     
     @State var isCropConfirmationModalOpen = false
     
@@ -53,6 +54,12 @@ struct LandingPage: View {
             CropConfirmationModal(
                 isCropConfirmationModalOpen: $isCropConfirmationModalOpen,
                 uploadPhoto: uploadPhoto
+            )
+        }
+        
+        if (updatesSinceLastAccess.count > 0) {
+            WhatsNewModal(
+                updatesSinceLastAccess: $updatesSinceLastAccess
             )
         }
     }
