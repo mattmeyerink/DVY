@@ -77,7 +77,7 @@ let v120: DVYVersion = DVYVersion(
     ],
     features: [
         "DVY can be initiated from a photo.",
-        "Add a way to automatically split items amoung everyone or specific friends."
+        "Add a way to automatically split items among everyone or specific friends."
     ]
 )
 
