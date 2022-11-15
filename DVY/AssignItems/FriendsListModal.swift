@@ -29,7 +29,7 @@ struct FriendsListModal: View {
         ) {
             VStack {
                 ScrollView {
-                    ForEach($friends.indices, id: \.self) { i in
+                    ForEach(friends.indices, id: \.self) { i in
                         VStack {
                             HStack {
                                 Text(friends[i].firstName + " " + friends[i].lastName)
