@@ -21,7 +21,7 @@ struct RescanConfirmationModal: View {
             modalTitle: $modalTitle,
             otherModalOpening: $otherModalOpening,
             closeModal: closeRescanModal,
-            modalHeight: 450
+            modalHeight: 400
         ) {
             VStack {
                 Text("1. Make sure all 4 corners of the receipt are visible in the scan.")
@@ -29,17 +29,12 @@ struct RescanConfirmationModal: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .foregroundColor(.white)
                     .padding(.bottom, 5)
-                Text("2. Crop the scan to only include the items and their prices.")
+                Text("2. Turn flash on for the scan.")
                     .font(.system(size: 20, weight: .regular))
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .foregroundColor(.white)
                     .padding(.bottom, 5)
-                Text("2. Scan the receipt on a dark colored surface.")
-                    .font(.system(size: 20, weight: .regular))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .foregroundColor(.white)
-                    .padding(.bottom, 5)
-                Text("4. Make sure the receipt isn't scanned multiple times.")
+                Text("3. Scan the receipt on a dark colored surface.")
                     .font(.system(size: 20, weight: .regular))
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .foregroundColor(.white)
