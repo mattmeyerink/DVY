@@ -18,15 +18,19 @@ func recognizeText(from images: [CGImage]) -> TextRecognitionResponse {
     // Initialize the response object that will hold the items and tax information
     let response = TextRecognitionResponse()
     
-    // Perform text recognition on each scan that was captured
-    for image in images {
-        // Create a recognition request with the response object to be applied to the scans
-        let recognizeTextRequest = createRecognitionRequest(response: response, imageHeight: image.height)
-        recognizeTextRequest.recognitionLevel = .accurate
-        
-        let requestHandler = VNImageRequestHandler(cgImage: image, options: [:])
-        try? requestHandler.perform([recognizeTextRequest])
+    if (images.count <= 0) {
+        return response
     }
+    
+    // Only perform text recognition on the first scan that was captured
+    let image = images[0]
+    
+    // Create a recognition request with the response object to be applied to the scan
+    let recognizeTextRequest = createRecognitionRequest(response: response, imageHeight: image.height)
+    recognizeTextRequest.recognitionLevel = .accurate
+    
+    let requestHandler = VNImageRequestHandler(cgImage: image, options: [:])
+    try? requestHandler.perform([recognizeTextRequest])
     
     return response
 }
