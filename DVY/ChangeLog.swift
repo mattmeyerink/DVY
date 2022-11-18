@@ -7,7 +7,7 @@
 
 import Foundation
 
-let CURRENT_VERSION = "1.3.0"
+let CURRENT_VERSION = "2.0.0"
 
 func getUnseenUpdates(lastSeenVersion: String) -> [DVYVersion] {
     if (lastSeenVersion.isEmpty) {
@@ -98,7 +98,19 @@ let v130: DVYVersion = DVYVersion(
     ]
 )
 
+let v200: DVYVersion = DVYVersion(
+    versionTitle: "2.0.0",
+    bugFixes: [
+        "Fix incorrect numbering on scanning tips list."
+    ],
+    features: [
+        "Overhauled scanning algorithm! Scans should be significantly more accurate. No more cases where a name is matched to the wrong price!",
+        "Add a `What's New Modal?` to showcase what has changed since the last time you opened the app."
+    ]
+)
+
 let dvyVersions: [DVYVersion] = [
+    v200,
     v130,
     v120,
     v110,
