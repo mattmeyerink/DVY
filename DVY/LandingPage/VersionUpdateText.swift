@@ -14,7 +14,7 @@ struct VersionUpdateText: View {
         VStack {
             HStack {
                 Text("Version " + version.versionTitle)
-                    .font(.system(size: 24, weight: .semibold))
+                    .font(.system(size: 28, weight: .regular))
                     .foregroundColor(Color.white)
                 
                 Spacer()
@@ -23,42 +23,44 @@ struct VersionUpdateText: View {
             if (version.features.count > 0) {
                 HStack {
                     Text("New Features")
-                        .font(.system(size: 18, weight: .semibold))
+                        .font(.system(size: 24, weight: .regular))
                         .foregroundColor(Color.white)
                     
                     Spacer()
                 }
-                    .padding(.top, 5)
+                    .padding(.vertical, 2)
                 
                 ForEach(version.features.indices, id: \.self) { i in
                     HStack {
                         Text("- " + version.features[i])
-                            .font(.system(size: 14, weight: .semibold))
+                            .font(.system(size: 16, weight: .regular))
                             .foregroundColor(Color.white)
                         
                         Spacer()
                     }
+                        .padding(.bottom, 2)
                 }
             }
             
             if (version.bugFixes.count > 0) {
                 HStack {
                     Text("Bugs Fixed")
-                        .font(.system(size: 18, weight: .semibold))
+                        .font(.system(size: 24, weight: .regular))
                         .foregroundColor(Color.white)
                     
                     Spacer()
                 }
-                    .padding(.top, 5)
+                    .padding(.vertical, 2)
                 
                 ForEach(version.bugFixes.indices, id: \.self) { i in
                     HStack {
                         Text("- " + version.bugFixes[i])
-                            .font(.system(size: 14, weight: .semibold))
+                            .font(.system(size: 16, weight: .regular))
                             .foregroundColor(Color.white)
                         
                         Spacer()
                     }
+                        .padding(.bottom, 2)
                 }
             }
         }
