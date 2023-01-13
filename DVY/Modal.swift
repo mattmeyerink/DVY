@@ -60,6 +60,7 @@ struct Modal<Content: View>: View {
                 .frame(width: 350, height: Double(modalHeight), alignment: .center)
                 .background(Color(red: 0.1, green: 0.1, blue: 0.1))
                 .cornerRadius(15)
+                .modifier(ModalBackgroundModifier())
                 .onAppear {
                     UITableView.appearance().backgroundColor = .clear
                 }
@@ -68,6 +69,20 @@ struct Modal<Content: View>: View {
                         UITableView.appearance().backgroundColor = .systemGroupedBackground
                     }
                 }
+        }
+    }
+}
+
+// This modifier adds a property to modals to allow the background color to show
+// properly in modals where there is a form with a text input.
+struct ModalBackgroundModifier: ViewModifier {
+    @ViewBuilder
+    func body(content: Content) -> some View {
+        if #available(iOS 16.0, *) {
+            content
+                .scrollContentBackground(.hidden)
+        } else {
+            content
         }
     }
 }
