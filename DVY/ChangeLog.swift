@@ -109,7 +109,16 @@ let v200: DVYVersion = DVYVersion(
     ]
 )
 
+let v201: DVYVersion = DVYVersion(
+    versionTitle: "2.0.1",
+    bugFixes: [
+        "Fix incorrect coloring on modals containing a text input box."
+    ],
+    features: []
+)
+
 let dvyVersions: [DVYVersion] = [
+    v201,
     v200,
     v130,
     v120,
